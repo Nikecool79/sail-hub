@@ -235,6 +235,27 @@ export function parseSponsors(rows: string[][]): Sponsor[] {
   }));
 }
 
+const boatStatusMap: Record<string, Boat['status']> = {
+  'available': 'Available', 'tillgänglig': 'Available',
+  'in repair': 'In Repair', 'under reparation': 'In Repair',
+  'retired': 'Retired', 'uttagen': 'Retired',
+  'lent out': 'Lent Out', 'utlånad': 'Lent Out',
+};
+
+function normalizeBoatStatus(raw: string): Boat['status'] {
+  return boatStatusMap[raw.trim().toLowerCase()] || 'Available';
+}
+
+const ribStatusMap: Record<string, Rib['status']> = {
+  'ok': 'OK',
+  'needs service': 'Needs Service', 'behöver service': 'Needs Service',
+  'out of service': 'Out of Service', 'ur drift': 'Out of Service',
+};
+
+function normalizeRibStatus(raw: string): Rib['status'] {
+  return ribStatusMap[raw.trim().toLowerCase()] || 'OK';
+}
+
 export function parseBoats(rows: string[][]): Boat[] {
   if (rows.length < 2) return [];
   const h = buildHeaders(rows[0]);
@@ -243,7 +264,7 @@ export function parseBoats(rows: string[][]): Boat[] {
     name: col(r, h, 'Name'),
     sailNumber: col(r, h, 'Sail Number'),
     team: col(r, h, 'Team'),
-    status: (col(r, h, 'Status') || 'Available') as Boat['status'],
+    status: normalizeBoatStatus(col(r, h, 'Status')),
     conditionNotesSv: col(r, h, 'Condition Notes SV'),
     conditionNotesEn: col(r, h, 'Condition Notes EN'),
     lastInspectionDate: col(r, h, 'Last Inspection Date'),
@@ -256,7 +277,7 @@ export function parseRibs(rows: string[][]): Rib[] {
   return rows.slice(1).filter(r => r.length > 0).map((r) => ({
     ribId: col(r, h, 'RIB ID'),
     name: col(r, h, 'Name'),
-    status: (col(r, h, 'Status') || 'OK') as Rib['status'],
+    status: normalizeRibStatus(col(r, h, 'Status')),
     engineCheckDate: col(r, h, 'Engine Check Date'),
     oilChangeDate: col(r, h, 'Oil Change Date'),
     sparkPlugsDate: col(r, h, 'Spark Plugs Date'),
