@@ -122,7 +122,7 @@ const Dashboard = () => {
                   <p className="text-sm text-muted-foreground">{t(getWeatherInfo(w.weatherCode).descKey)}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-lg font-semibold">{w.windSpeed} kn</p>
+                  <p className="text-lg font-semibold">{w.windSpeed} m/s</p>
                   <div className="flex items-center gap-1 justify-end">
                     <svg width="16" height="16" viewBox="0 0 16 16" className="transition-transform" style={{ transform: `rotate(${w.windDirection}deg)` }}>
                       <path d="M8 2L12 12L8 9L4 12Z" fill="currentColor" />

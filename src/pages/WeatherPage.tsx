@@ -93,7 +93,7 @@ const WeatherPage = () => {
 
                 {/* Center text */}
                 <text x="100" y="95" textAnchor="middle" className="fill-foreground font-heading text-2xl font-bold">{windSpeed}</text>
-                <text x="100" y="112" textAnchor="middle" className="fill-muted-foreground text-xs">{t('weather.knots')}</text>
+                <text x="100" y="112" textAnchor="middle" className="fill-muted-foreground text-xs">m/s</text>
               </svg>
             </div>
           </div>
@@ -136,7 +136,7 @@ const WeatherPage = () => {
                     <Icon size={20} className="mx-auto mb-1 text-muted-foreground" />
                     <p className="text-sm font-bold">{Math.round(d.tempMax)}°</p>
                     <p className="text-xs text-muted-foreground">{Math.round(d.tempMin)}°</p>
-                    <p className="text-[10px] text-muted-foreground mt-1">{d.windSpeedMax} kn</p>
+                    <p className="text-[10px] text-muted-foreground mt-1">{d.windSpeedMax} m/s</p>
                   </div>
                 );
               })}
@@ -155,7 +155,7 @@ const WeatherPage = () => {
                     <p className="text-xs text-muted-foreground">{hourLabel}</p>
                     <Icon size={18} className="mx-auto my-1 text-muted-foreground" />
                     <p className="text-sm font-bold">{Math.round(h.temperature)}°</p>
-                    <p className="text-[10px] text-muted-foreground">{h.windSpeed} kn</p>
+                    <p className="text-[10px] text-muted-foreground">{h.windSpeed} m/s</p>
                   </div>
                 );
               })}
