@@ -53,12 +53,12 @@ const AppFooter = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          {data?.settings['Facebook URL'] && (
+          {data?.settings['Facebook Page'] || data?.settings['Facebook URL'] && (
             <a href={data.settings['Facebook URL']} target="_blank" rel="noopener noreferrer" className="p-2 rounded-md hover:bg-secondary transition-colors" aria-label="Facebook">
               <Facebook size={18} />
             </a>
           )}
-          {data?.settings['Instagram URL'] && (
+          {data?.settings['Instagram'] || data?.settings['Instagram URL'] && (
             <a href={data.settings['Instagram URL']} target="_blank" rel="noopener noreferrer" className="p-2 rounded-md hover:bg-secondary transition-colors" aria-label="Instagram">
               <Instagram size={18} />
             </a>
