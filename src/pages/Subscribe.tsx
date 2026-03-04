@@ -11,6 +11,8 @@ const Subscribe = () => {
   if (!data) return null;
 
   const settings = data.settings || {};
+  const mailchimpUrl = settings['Mailchimp URL'] || settings['Mailchimp Action URL'] || '';
+  const hasMailchimp = mailchimpUrl.trim() !== '';
 
   const whatsappGroups = [
     { labelKey: 'subscribe.whatsapp.green', settingsKey: 'WhatsApp Green Group', bg: 'bg-green-600 hover:bg-green-700' },
@@ -23,26 +25,28 @@ const Subscribe = () => {
     <div className="space-y-8 max-w-2xl mx-auto">
       <h1 className="font-heading text-2xl font-bold text-center">{t('subscribe.title')}</h1>
 
-      {/* Email signup */}
-      <div className="rounded-xl bg-card border p-6 team-border-top">
-        <h2 className="font-heading text-lg font-semibold mb-4 flex items-center gap-2">
-          <Bell size={18} className="text-primary" />
-          {t('subscribe.email.heading')}
-        </h2>
-        <div className="space-y-3">
-          <input placeholder={t('subscribe.email.namePlaceholder')} className="w-full px-3 py-2 rounded-md border bg-background text-sm" />
-          <input placeholder={t('subscribe.email.emailPlaceholder')} type="email" className="w-full px-3 py-2 rounded-md border bg-background text-sm" />
-          <select className="w-full px-3 py-2 rounded-md border bg-background text-sm">
-            <option>{t('subscribe.email.allTeams')}</option>
-            <option>{t('subscribe.email.greenTeam')}</option>
-            <option>{t('subscribe.email.blueTeam')}</option>
-            <option>{t('subscribe.email.redTeam')}</option>
-          </select>
-          <button className="w-full px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
-            {t('subscribe.email.button')}
-          </button>
+      {/* Email signup — only shown if Mailchimp URL is configured */}
+      {hasMailchimp && (
+        <div className="rounded-xl bg-card border p-6 team-border-top">
+          <h2 className="font-heading text-lg font-semibold mb-4 flex items-center gap-2">
+            <Bell size={18} className="text-primary" />
+            {t('subscribe.email.heading')}
+          </h2>
+          <div className="space-y-3">
+            <input placeholder={t('subscribe.email.namePlaceholder')} className="w-full px-3 py-2 rounded-md border bg-background text-sm" />
+            <input placeholder={t('subscribe.email.emailPlaceholder')} type="email" className="w-full px-3 py-2 rounded-md border bg-background text-sm" />
+            <select className="w-full px-3 py-2 rounded-md border bg-background text-sm">
+              <option>{t('subscribe.email.allTeams')}</option>
+              <option>{t('subscribe.email.greenTeam')}</option>
+              <option>{t('subscribe.email.blueTeam')}</option>
+              <option>{t('subscribe.email.redTeam')}</option>
+            </select>
+            <button className="w-full px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
+              {t('subscribe.email.button')}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Push notifications */}
       <div className="rounded-xl bg-card border p-6">

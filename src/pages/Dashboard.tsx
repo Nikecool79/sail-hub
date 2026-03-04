@@ -65,15 +65,11 @@ const Dashboard = () => {
 
   const w = weather.data?.current;
 
-  const whatsappUrl = data.settings['WhatsApp Group URL'] || '#';
-  const sailarenaUrl = data.settings['Sailarena URL'] || '#';
-  const clubWebsiteUrl = data.settings['Club Website URL'] || '#';
-
   const quickLinks = [
-    { label: t('dashboard.whatsappGroup'), url: whatsappUrl },
-    { label: t('dashboard.sailarena'), url: sailarenaUrl },
-    { label: t('dashboard.clubWebsite'), url: clubWebsiteUrl },
-  ];
+    { label: t('dashboard.whatsappGroup'), url: data.settings['WhatsApp Group URL'] },
+    { label: t('dashboard.sailarena'), url: data.settings['Sailarena URL'] },
+    { label: t('dashboard.clubWebsite'), url: data.settings['Club Website'] || data.settings['Club Website URL'] },
+  ].filter(link => link.url && link.url.trim() !== '');
 
   return (
     <div className="space-y-6">

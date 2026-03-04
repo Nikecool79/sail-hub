@@ -73,22 +73,32 @@ const Marketplace = () => {
       <h1 className="font-heading text-2xl font-bold">{t('marketplace.title')}</h1>
 
       {/* Featured shops */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {featuredShops.map(s => (
-          <div key={s.adId} className="rounded-xl border border-dashed p-4 card-hover bg-sand/20">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-muted flex items-center justify-center font-bold text-sm text-muted-foreground">{s.businessName.charAt(0)}</div>
-              <div>
-                <p className="font-medium text-sm">{s.businessName}</p>
-                <p className="text-xs text-muted-foreground">{localize(s, 'tagline')}</p>
+      {featuredShops.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {featuredShops.map(s => (
+            <div
+              key={s.adId}
+              className="rounded-xl border border-dashed p-4 card-hover bg-sand/20 cursor-pointer"
+              onClick={() => { if (s.clickUrl || s.websiteUrl) window.open(s.clickUrl || s.websiteUrl, '_blank', 'noopener,noreferrer'); }}
+            >
+              <div className="flex items-center gap-3">
+                {s.logoUrl ? (
+                  <img src={s.logoUrl} alt={s.businessName} className="w-10 h-10 rounded object-contain flex-shrink-0" />
+                ) : (
+                  <div className="w-10 h-10 rounded bg-muted flex items-center justify-center font-bold text-sm text-muted-foreground flex-shrink-0">{s.businessName.charAt(0)}</div>
+                )}
+                <div>
+                  <p className="font-medium text-sm">{s.businessName}</p>
+                  <p className="text-xs text-muted-foreground">{localize(s, 'tagline')}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-3 items-center">
+      {/* Filters — only show if there are items */}
+      {activeItems.length > 0 && <div className="flex flex-wrap gap-3 items-center">
         <div className="relative flex-1 max-w-xs">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input
@@ -118,7 +128,7 @@ const Marketplace = () => {
           <option value="price-asc">{t('marketplace.sortPriceLow')}</option>
           <option value="price-desc">{t('marketplace.sortPriceHigh')}</option>
         </select>
-      </div>
+      </div>}
 
       {/* Items */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -171,8 +181,12 @@ const Marketplace = () => {
         </div>
       )}
 
+      {activeItems.length === 0 && (
+        <p className="text-center text-sm text-muted-foreground py-8">{t('empty.noItems')}</p>
+      )}
+
       <p className="text-center text-sm text-muted-foreground">
-        Want to sell something? Contact us at <a href="mailto:forsaljning@klubben.se" className="text-primary hover:underline">forsaljning@klubben.se</a>
+        {t('marketplace.wantToSell')}
       </p>
     </div>
   );

@@ -77,7 +77,18 @@ const SponsorsPage = () => {
                 </div>
               )}
               <h3 className="font-heading font-semibold">{s.businessName}</h3>
-              <p className="text-sm text-muted-foreground">{localize(s, 'tagline')}</p>
+              <p className="text-sm text-muted-foreground mb-1">{localize(s, 'tagline')}</p>
+              {localize(s, 'description') && (
+                <p className="text-sm text-muted-foreground mb-3">{localize(s, 'description')}</p>
+              )}
+              {(s.clickUrl || s.websiteUrl) && (
+                <button
+                  onClick={() => trackSponsorClick(s.adId, s.clickUrl || s.websiteUrl)}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-sm hover:opacity-90"
+                >
+                  <ExternalLink size={12} /> {t('sponsors.visitWebsite')}
+                </button>
+              )}
             </div>
           ))}
         </div>
@@ -88,17 +99,28 @@ const SponsorsPage = () => {
         <h2 className="font-heading text-lg font-semibold mb-3 flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-amber-600" /> {t('sponsors.bronze')}
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {bronzeSponsors.map(s => (
-            <div key={s.adId} className="rounded-lg border border-dashed p-3 text-center card-hover">
-              {s.logoUrl ? (
-                <img src={s.logoUrl} alt={s.businessName} className="w-10 h-10 rounded-full mx-auto mb-1 object-contain" />
-              ) : (
-                <div className="w-10 h-10 rounded-full bg-muted mx-auto mb-1 flex items-center justify-center text-xs font-bold text-muted-foreground">
-                  {s.businessName.charAt(0)}
+            <div
+              key={s.adId}
+              className="rounded-lg border border-dashed p-4 card-hover cursor-pointer"
+              onClick={() => { if (s.clickUrl || s.websiteUrl) window.open(s.clickUrl || s.websiteUrl, '_blank', 'noopener,noreferrer'); }}
+            >
+              <div className="flex items-center gap-3">
+                {s.logoUrl ? (
+                  <img src={s.logoUrl} alt={s.businessName} className="w-10 h-10 rounded object-contain flex-shrink-0" />
+                ) : (
+                  <div className="w-10 h-10 rounded bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground flex-shrink-0">
+                    {s.businessName.charAt(0)}
+                  </div>
+                )}
+                <div className="min-w-0">
+                  <p className="text-sm font-medium truncate">{s.businessName}</p>
+                  {localize(s, 'tagline') && (
+                    <p className="text-xs text-muted-foreground truncate">{localize(s, 'tagline')}</p>
+                  )}
                 </div>
-              )}
-              <p className="text-sm font-medium">{s.businessName}</p>
+              </div>
             </div>
           ))}
         </div>
