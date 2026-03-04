@@ -106,6 +106,8 @@ export function convertSampleData(): AppData {
     cat.items.forEach((item) => {
       safetyChecklist.push({
         item: item.name,
+        itemSv: '',
+        itemEn: item.name,
         requiredFor: item.teams.map((t) => t.charAt(0).toUpperCase() + t.slice(1)),
         descriptionSv: '',
         descriptionEn: item.description,

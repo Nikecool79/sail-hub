@@ -110,6 +110,8 @@ export interface Location {
 
 export interface SafetyItem {
   item: string;
+  itemSv: string;
+  itemEn: string;
   requiredFor: string[];
   descriptionSv: string;
   descriptionEn: string;

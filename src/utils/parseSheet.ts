@@ -173,13 +173,20 @@ export function parseLocations(rows: string[][]): Location[] {
 export function parseSafetyChecklist(rows: string[][]): SafetyItem[] {
   if (rows.length < 2) return [];
   const h = buildHeaders(rows[0]);
-  return rows.slice(1).filter(r => r.length > 0).map((r) => ({
-    item: col(r, h, 'Item'),
-    requiredFor: parseArray(col(r, h, 'Required For')),
-    descriptionSv: col(r, h, 'Description SV'),
-    descriptionEn: col(r, h, 'Description EN'),
-    category: col(r, h, 'Category'),
-  }));
+  return rows.slice(1).filter(r => r.length > 0).map((r) => {
+    const itemSv = col(r, h, 'Item SV');
+    const itemEn = col(r, h, 'Item EN');
+    const item = col(r, h, 'Item');
+    return {
+      item: item || itemSv || itemEn,
+      itemSv: itemSv || item,
+      itemEn: itemEn || item,
+      requiredFor: parseArray(col(r, h, 'Required For')),
+      descriptionSv: col(r, h, 'Description SV'),
+      descriptionEn: col(r, h, 'Description EN'),
+      category: col(r, h, 'Category'),
+    };
+  });
 }
 
 export function parseSkillProgression(rows: string[][]): SkillItem[] {

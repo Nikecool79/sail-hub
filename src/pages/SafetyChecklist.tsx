@@ -81,7 +81,7 @@ const SafetyChecklist = () => {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <p className={`text-sm font-medium ${checked.has(item.item) ? 'line-through opacity-60' : ''}`}>{item.item}</p>
+                      <p className={`text-sm font-medium ${checked.has(item.item) ? 'line-through opacity-60' : ''}`}>{localize(item, 'item')}</p>
                       <div className="flex gap-1">
                         {item.requiredFor.filter(t => t !== 'All').map(t => (
                           <span key={t} className={`w-2 h-2 rounded-full ${teamDots[t] || ''}`} />
