@@ -6,12 +6,14 @@ import { getWeatherInfo, degreesToCompass } from '@/utils/weatherCodes';
 import { getSponsorsByTier, trackSponsorClick } from '@/utils/sponsorUtils';
 import { Clock, Wind, Newspaper, ExternalLink, Megaphone } from 'lucide-react';
 import { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import OptimistBoat from '@/components/OptimistBoat';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 const Dashboard = () => {
   const { t } = useTranslation();
   const { localize } = useLocalizedField();
+  const navigate = useNavigate();
   const data = useDataStore(s => s.data);
 
   const defaultLat = data ? parseFloat(data.settings['Default Latitude'] || '57.4833') : 57.4833;
@@ -140,14 +142,17 @@ const Dashboard = () => {
         </div>
 
         {/* Latest News */}
-        <div className="rounded-xl bg-card border p-5 team-border-top card-hover">
+        <div
+          className="rounded-xl bg-card border p-5 team-border-top card-hover cursor-pointer"
+          onClick={() => navigate('/news')}
+        >
           <div className="flex items-center gap-2 text-muted-foreground mb-3">
             <Newspaper size={16} />
             <span className="text-sm font-medium uppercase tracking-wider">{t('dashboard.latestNews')}</span>
           </div>
           {recentNews.length > 0 ? (
-            recentNews.map(n => (
-              <div key={n.newsId} className="mb-3 last:mb-0">
+            recentNews.map((n, idx) => (
+              <div key={`${n.newsId}-${idx}`} className="mb-3 last:mb-0">
                 <p className="text-sm font-medium">{localize(n, 'title')}</p>
                 <p className="text-xs text-muted-foreground">{n.date}</p>
               </div>

@@ -6,6 +6,7 @@ import { createWhatsAppShareLink } from '@/utils/whatsapp';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Pin, Share2, Megaphone } from 'lucide-react';
 import { useState, useMemo } from 'react';
+import type { NewsItem } from '@/types';
 
 const teamBadge = (teams: string[]) => {
   if (!teams || teams.length === 0) return null;
@@ -19,12 +20,61 @@ const teamBadge = (teams: string[]) => {
   );
 };
 
+function NewsCard({ n }: { n: NewsItem }) {
+  const { t } = useTranslation();
+  const { localize } = useLocalizedField();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const title = localize(n, 'title');
+  const body = localize(n, 'body');
+
+  return (
+    <div className={`rounded-xl bg-card border p-5 card-hover ${n.pinned ? 'ring-1 ring-primary/30' : ''}`}>
+      <div className="flex items-center gap-2 mb-2">
+        {n.pinned && <Pin size={14} className="text-primary" />}
+        {teamBadge(n.teams)}
+        <span className="text-xs text-muted-foreground">{n.date}</span>
+      </div>
+      <h3 className="font-heading text-lg font-semibold mb-1">{title}</h3>
+      {isExpanded ? (
+        <p className="text-sm text-muted-foreground mb-3 whitespace-pre-line">{body}</p>
+      ) : (
+        <p className="text-sm text-muted-foreground mb-3">
+          {body.length > 150 ? (
+            <>
+              {body.slice(0, 150)}{'... '}
+              <button
+                className="text-primary hover:underline text-xs"
+                onClick={() => setIsExpanded(true)}
+              >
+                {t('news.readMore')}
+              </button>
+            </>
+          ) : body}
+        </p>
+      )}
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-muted-foreground">{n.author}</span>
+        <button
+          className="p-1.5 rounded-md hover:bg-secondary transition-colors"
+          aria-label={t('news.share')}
+          onClick={() => {
+            const shareUrl = createWhatsAppShareLink(title + ' - ' + body.slice(0, 150));
+            window.open(shareUrl, '_blank', 'noopener,noreferrer');
+          }}
+        >
+          <Share2 size={14} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 const NewsPage = () => {
   const { t } = useTranslation();
   const { localize } = useLocalizedField();
   const { data, isLoading } = useDataStore();
   const [filter, setFilter] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   const newsItems = useMemo(() => {
     if (!data?.news) return [];
@@ -70,51 +120,11 @@ const NewsPage = () => {
 
       <div className="space-y-4 max-w-2xl">
         {filtered.map((n, idx) => {
-          const title = localize(n, 'title');
-          const body = localize(n, 'body');
-          const itemKey = `${n.newsId}-${idx}`;
           const sponsorAd = sponsorAds.length > 0 ? sponsorAds[idx % sponsorAds.length] : null;
 
           return (
-            <div key={itemKey}>
-              <div className={`rounded-xl bg-card border p-5 card-hover ${n.pinned ? 'ring-1 ring-primary/30' : ''}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  {n.pinned && <Pin size={14} className="text-primary" />}
-                  {teamBadge(n.teams)}
-                  <span className="text-xs text-muted-foreground">{n.date}</span>
-                </div>
-                <h3 className="font-heading text-lg font-semibold mb-1">{title}</h3>
-                {expanded[itemKey] ? (
-                  <p className="text-sm text-muted-foreground mb-3 whitespace-pre-line">{body}</p>
-                ) : (
-                  <p className="text-sm text-muted-foreground mb-3">
-                    {body.length > 150 ? (
-                      <>
-                        {body.slice(0, 150)}{'... '}
-                        <button
-                          className="text-primary hover:underline text-xs"
-                          onClick={() => setExpanded(prev => ({ ...prev, [itemKey]: true }))}
-                        >
-                          {t('news.readMore')}
-                        </button>
-                      </>
-                    ) : body}
-                  </p>
-                )}
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground">{n.author}</span>
-                  <button
-                    className="p-1.5 rounded-md hover:bg-secondary transition-colors"
-                    aria-label={t('news.share')}
-                    onClick={() => {
-                      const shareUrl = createWhatsAppShareLink(title + ' - ' + body.slice(0, 150));
-                      window.open(shareUrl, '_blank', 'noopener,noreferrer');
-                    }}
-                  >
-                    <Share2 size={14} />
-                  </button>
-                </div>
-              </div>
+            <div key={`${n.newsId}-${idx}`}>
+              <NewsCard n={n} />
 
               {/* Sponsor card every 5th item */}
               {(idx + 1) % 5 === 0 && sponsorAd && (
