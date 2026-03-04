@@ -60,39 +60,87 @@
   .team-green {
     --team-primary: 125 46% 34%;
     --team-accent: 125 40% 56%;
-    --team-light-bg: 125 40% 95%;
+    --team-light-bg: 125 30% 96%;
     --team-dark-bg: 125 36% 17%;
     --primary: 125 46% 34%;
     --primary-foreground: 125 40% 95%;
     --accent: 125 40% 56%;
+    --accent-foreground: 125 50% 10%;
     --ring: 125 46% 34%;
+    --background: 125 20% 97%;
+    --secondary: 125 25% 92%;
+    --secondary-foreground: 125 40% 12%;
+    --muted: 125 18% 94%;
+    --muted-foreground: 125 12% 44%;
+    --border: 125 18% 88%;
+    --input: 125 18% 88%;
+    --sidebar-background: 125 36% 12%;
+    --sidebar-foreground: 125 30% 90%;
+    --sidebar-primary: 125 40% 90%;
+    --sidebar-primary-foreground: 125 36% 12%;
+    --sidebar-accent: 125 28% 20%;
+    --sidebar-accent-foreground: 125 30% 90%;
+    --sidebar-border: 125 25% 18%;
+    --sidebar-ring: 125 40% 56%;
   }
 
   /* Team Blue */
   .team-blue {
     --team-primary: 213 75% 43%;
     --team-accent: 210 90% 61%;
-    --team-light-bg: 213 80% 95%;
+    --team-light-bg: 213 50% 96%;
     --team-dark-bg: 213 63% 13%;
     --primary: 213 75% 43%;
     --primary-foreground: 213 80% 95%;
     --accent: 210 90% 61%;
+    --accent-foreground: 213 60% 10%;
     --ring: 213 75% 43%;
+    --background: 213 30% 97%;
+    --secondary: 213 30% 92%;
+    --secondary-foreground: 213 50% 12%;
+    --muted: 213 22% 94%;
+    --muted-foreground: 213 15% 44%;
+    --border: 213 22% 88%;
+    --input: 213 22% 88%;
+    --sidebar-background: 213 55% 12%;
+    --sidebar-foreground: 213 40% 90%;
+    --sidebar-primary: 213 60% 90%;
+    --sidebar-primary-foreground: 213 55% 12%;
+    --sidebar-accent: 213 40% 20%;
+    --sidebar-accent-foreground: 213 40% 90%;
+    --sidebar-border: 213 35% 18%;
+    --sidebar-ring: 210 90% 61%;
   }
 
   /* Team Red */
   .team-red {
     --team-primary: 0 70% 47%;
     --team-accent: 4 85% 63%;
-    --team-light-bg: 0 70% 95%;
+    --team-light-bg: 0 40% 96%;
     --team-dark-bg: 0 55% 15%;
     --primary: 0 70% 47%;
     --primary-foreground: 0 70% 95%;
     --accent: 4 85% 63%;
+    --accent-foreground: 0 50% 10%;
     --ring: 0 70% 47%;
+    --background: 0 20% 97%;
+    --secondary: 0 22% 92%;
+    --secondary-foreground: 0 40% 12%;
+    --muted: 0 16% 94%;
+    --muted-foreground: 0 10% 44%;
+    --border: 0 16% 88%;
+    --input: 0 16% 88%;
+    --sidebar-background: 0 45% 13%;
+    --sidebar-foreground: 0 30% 90%;
+    --sidebar-primary: 0 50% 90%;
+    --sidebar-primary-foreground: 0 45% 13%;
+    --sidebar-accent: 0 35% 22%;
+    --sidebar-accent-foreground: 0 30% 90%;
+    --sidebar-border: 0 30% 19%;
+    --sidebar-ring: 4 85% 63%;
   }
 
-  /* Night mode */
+  /* Night mode — default (neutral) */
   .night {
     --background: 213 50% 8%;
     --foreground: 210 30% 92%;
@@ -111,6 +159,69 @@
     --sidebar-accent: 213 40% 14%;
     --sidebar-accent-foreground: 210 30% 85%;
     --sidebar-border: 213 35% 14%;
+  }
+
+  /* Night + Green */
+  .team-green.night {
+    --background: 125 30% 8%;
+    --foreground: 125 20% 90%;
+    --card: 125 25% 12%;
+    --card-foreground: 125 20% 90%;
+    --popover: 125 25% 12%;
+    --popover-foreground: 125 20% 90%;
+    --secondary: 125 22% 18%;
+    --secondary-foreground: 125 20% 90%;
+    --muted: 125 20% 15%;
+    --muted-foreground: 125 12% 56%;
+    --border: 125 20% 20%;
+    --input: 125 20% 20%;
+    --sidebar-background: 125 30% 6%;
+    --sidebar-foreground: 125 25% 85%;
+    --sidebar-accent: 125 22% 14%;
+    --sidebar-accent-foreground: 125 25% 85%;
+    --sidebar-border: 125 20% 13%;
+  }
+
+  /* Night + Blue */
+  .team-blue.night {
+    --background: 213 45% 8%;
+    --foreground: 213 25% 90%;
+    --card: 213 40% 12%;
+    --card-foreground: 213 25% 90%;
+    --popover: 213 40% 12%;
+    --popover-foreground: 213 25% 90%;
+    --secondary: 213 32% 18%;
+    --secondary-foreground: 213 25% 90%;
+    --muted: 213 28% 15%;
+    --muted-foreground: 213 15% 56%;
+    --border: 213 28% 20%;
+    --input: 213 28% 20%;
+    --sidebar-background: 213 50% 6%;
+    --sidebar-foreground: 213 30% 85%;
+    --sidebar-accent: 213 35% 14%;
+    --sidebar-accent-foreground: 213 30% 85%;
+    --sidebar-border: 213 30% 13%;
+  }
+
+  /* Night + Red */
+  .team-red.night {
+    --background: 0 30% 8%;
+    --foreground: 0 15% 90%;
+    --card: 0 25% 12%;
+    --card-foreground: 0 15% 90%;
+    --popover: 0 25% 12%;
+    --popover-foreground: 0 15% 90%;
+    --secondary: 0 20% 18%;
+    --secondary-foreground: 0 15% 90%;
+    --muted: 0 18% 15%;
+    --muted-foreground: 0 10% 56%;
+    --border: 0 18% 20%;
+    --input: 0 18% 20%;
+    --sidebar-background: 0 35% 6%;
+    --sidebar-foreground: 0 20% 85%;
+    --sidebar-accent: 0 22% 14%;
+    --sidebar-accent-foreground: 0 20% 85%;
+    --sidebar-border: 0 18% 13%;
   }
 
   .night .glass-card {
