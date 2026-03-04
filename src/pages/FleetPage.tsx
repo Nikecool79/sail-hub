@@ -169,7 +169,11 @@ const FleetPage = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {ribs.map(rib => {
-                const statusConf = ribStatusConfig[rib.status] || ribStatusConfig.OK;
+                const ribStatus = rib.status?.trim() || 'OK';
+                const statusConf = ribStatusConfig[ribStatus]
+                  || (ribStatus.toLowerCase().includes('out') ? ribStatusConfig['Out of Service']
+                    : ribStatus.toLowerCase().includes('needs') ? ribStatusConfig['Needs Service']
+                    : ribStatusConfig.OK);
                 const StatusIcon = statusConf.icon;
 
                 const maintenanceDates = [
@@ -180,9 +184,11 @@ const FleetPage = () => {
                   { key: 'trailerCheck', date: rib.trailerCheckDate },
                 ];
 
-                const cardBorder = rib.status === 'Out of Service'
+                const isOutOfService = ribStatus.toLowerCase().includes('out');
+                const isNeedsService = ribStatus.toLowerCase().includes('needs');
+                const cardBorder = isOutOfService
                   ? 'border-red-300 bg-red-50/30 dark:bg-red-950/10'
-                  : rib.status === 'Needs Service'
+                  : isNeedsService
                     ? 'border-yellow-300 bg-yellow-50/30 dark:bg-yellow-950/10'
                     : '';
 
@@ -204,8 +210,8 @@ const FleetPage = () => {
                     <div className="space-y-2">
                       {maintenanceDates.map(({ key, date }) => {
                         // Override date status based on RIB status
-                        const status = rib.status === 'Out of Service' ? 'red'
-                          : rib.status === 'Needs Service' ? 'yellow'
+                        const status = isOutOfService ? 'red'
+                          : isNeedsService ? 'yellow'
                           : getDateStatus(date);
                         return (
                           <div
