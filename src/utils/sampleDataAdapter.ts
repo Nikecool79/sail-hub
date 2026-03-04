@@ -9,7 +9,7 @@ export function convertSampleData(): AppData {
     dateStart: e.date,
     dateEnd: (e as any).endDate || null,
     type: (e.type.charAt(0).toUpperCase() + e.type.slice(1)) as SailEvent['type'],
-    teams: e.team ? [e.team.charAt(0).toUpperCase() + e.team.slice(1)] : [],
+    teams: e.team ? [e.team.charAt(0).toUpperCase() + e.team.slice(1)] : ['All'],
     locationName: e.location,
     latitude: sample.venues.find((v) => v.name === e.location)?.lat || 0,
     longitude: sample.venues.find((v) => v.name === e.location)?.lng || 0,

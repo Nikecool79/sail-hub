@@ -33,7 +33,7 @@ const Marketplace = () => {
 
   const filtered = useMemo(() => {
     let items = activeItems.filter(i => {
-      const matchCategory = !category || i.category === category;
+      const matchCategory = !category || i.category.toLowerCase() === category.toLowerCase();
       const title = localize(i, 'title').toLowerCase();
       const description = localize(i, 'description').toLowerCase();
       const term = search.toLowerCase();

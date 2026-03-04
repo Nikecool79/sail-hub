@@ -1,15 +1,22 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import OptimistBoat from './OptimistBoat';
 
 interface State {
   hasError: boolean;
 }
 
-export class ErrorBoundary extends React.Component<React.PropsWithChildren, State> {
+class ErrorBoundaryInner extends React.Component<React.PropsWithChildren<{ resetKey: string }>, State> {
   state: State = { hasError: false };
 
   static getDerivedStateFromError() {
     return { hasError: true };
+  }
+
+  componentDidUpdate(prevProps: { resetKey: string }) {
+    if (prevProps.resetKey !== this.props.resetKey && this.state.hasError) {
+      this.setState({ hasError: false });
+    }
   }
 
   render() {
@@ -30,4 +37,9 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Stat
     }
     return this.props.children;
   }
+}
+
+export function ErrorBoundary({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  return <ErrorBoundaryInner resetKey={location.pathname}>{children}</ErrorBoundaryInner>;
 }

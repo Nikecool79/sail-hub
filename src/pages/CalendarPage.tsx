@@ -34,7 +34,7 @@ const CalendarPage = () => {
     // Filter by selected team if one is chosen
     if (team) {
       filtered = filtered.filter(e =>
-        e.teams.some(t => t.toLowerCase() === team.toLowerCase()) || e.teams.includes('All')
+        e.teams.length === 0 || e.teams.includes('All') || e.teams.some(t => t.toLowerCase() === team.toLowerCase())
       );
     }
     return filtered;

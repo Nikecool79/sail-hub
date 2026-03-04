@@ -12,12 +12,16 @@ const WeatherPage = () => {
   const data = useDataStore(s => s.data);
   const [locationIdx, setLocationIdx] = useState(0);
 
+  const locations = data?.locations || [];
+  const selectedLocation = locations[locationIdx] || locations[0] || null;
+
+  const weather = useWeather(
+    selectedLocation?.latitude ?? 0,
+    selectedLocation?.longitude ?? 0,
+    selectedLocation?.name ?? '',
+  );
+
   if (!data) return <LoadingSpinner />;
-
-  const locations = data.locations;
-  const selectedLocation = locations[locationIdx] || locations[0];
-
-  const weather = useWeather(selectedLocation.latitude, selectedLocation.longitude, selectedLocation.name);
 
   const current = weather.data?.current;
   const windSpeed = current?.windSpeed ?? 0;
