@@ -195,6 +195,50 @@ const EventsAndMaps = () => {
               {localize(selectedEvent, 'description') && (
                 <p className="text-sm text-muted-foreground">{localize(selectedEvent, 'description')}</p>
               )}
+              {/* Action buttons on event card */}
+              <div className="flex flex-wrap gap-2 mt-4">
+                {(() => {
+                  const parsed = venue ? parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl) : null;
+                  const lat = parsed?.lat ?? venue?.latitude ?? selectedEvent.latitude;
+                  const lng = parsed?.lng ?? venue?.longitude ?? selectedEvent.longitude;
+                  return lat && lng ? (
+                    <>
+                      <button
+                        onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank', 'noopener,noreferrer')}
+                        className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5"
+                      >
+                        <Navigation size={14} />
+                        {t('events.getDirections')}
+                      </button>
+                      <button
+                        onClick={() => window.open(venue?.googleMapsUrl || `https://www.google.com/maps?q=${lat},${lng}`, '_blank', 'noopener,noreferrer')}
+                        className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
+                      >
+                        <MapPin size={14} />
+                        {t('events.viewOnGoogleMaps')}
+                      </button>
+                    </>
+                  ) : null;
+                })()}
+                {selectedEvent.sailarenaLink && (
+                  <button
+                    onClick={() => window.open(selectedEvent.sailarenaLink, '_blank', 'noopener,noreferrer')}
+                    className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
+                  >
+                    <ExternalLink size={14} />
+                    {t('events.viewOnSailarena')}
+                  </button>
+                )}
+                {venue?.website && (
+                  <button
+                    onClick={() => window.open(venue.website, '_blank', 'noopener,noreferrer')}
+                    className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
+                  >
+                    <Globe size={14} />
+                    {t('events.website')}
+                  </button>
+                )}
+              </div>
             </div>
           )}
 
@@ -233,56 +277,6 @@ const EventsAndMaps = () => {
                       <p className="text-muted-foreground">{localize(venue, 'facilities')}</p>
                     </div>
                   </div>
-                )}
-              </div>
-              <div className="flex flex-wrap gap-2 mt-4">
-                {(() => {
-                  const parsed = parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl);
-                  const lat = parsed?.lat ?? venue.latitude ?? selectedEvent?.latitude;
-                  const lng = parsed?.lng ?? venue.longitude ?? selectedEvent?.longitude;
-                  const hasCoords = lat && lng;
-                  return hasCoords ? (
-                    <button
-                      onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank', 'noopener,noreferrer')}
-                      className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5"
-                    >
-                      <Navigation size={14} />
-                      {t('events.getDirections')}
-                    </button>
-                  ) : null;
-                })()}
-                {selectedEvent?.sailarenaLink && (
-                  <button
-                    onClick={() => window.open(selectedEvent.sailarenaLink, '_blank', 'noopener,noreferrer')}
-                    className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
-                  >
-                    <ExternalLink size={14} />
-                    {t('events.viewOnSailarena')}
-                  </button>
-                )}
-                {(() => {
-                  const parsed = parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl);
-                  const lat = parsed?.lat ?? venue.latitude ?? selectedEvent?.latitude;
-                  const lng = parsed?.lng ?? venue.longitude ?? selectedEvent?.longitude;
-                  const mapsUrl = venue.googleMapsUrl || (lat && lng ? `https://www.google.com/maps?q=${lat},${lng}` : '');
-                  return mapsUrl ? (
-                    <button
-                      onClick={() => window.open(mapsUrl, '_blank', 'noopener,noreferrer')}
-                      className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
-                    >
-                      <MapPin size={14} />
-                      {t('events.viewOnGoogleMaps')}
-                    </button>
-                  ) : null;
-                })()}
-                {venue.website && (
-                  <button
-                    onClick={() => window.open(venue.website, '_blank', 'noopener,noreferrer')}
-                    className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
-                  >
-                    <Globe size={14} />
-                    {t('events.website')}
-                  </button>
                 )}
               </div>
             </div>
