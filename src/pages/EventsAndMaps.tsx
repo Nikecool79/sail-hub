@@ -1,7 +1,7 @@
 import { useDataStore } from '@/store/dataStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
-import { MapPin, Navigation, Clock, Car, ExternalLink, Calendar, Users } from 'lucide-react';
+import { MapPin, Navigation, Clock, Car, ExternalLink, Calendar, Users, Globe } from 'lucide-react';
 import React, { useState, useMemo, useEffect, useRef, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -93,6 +93,7 @@ const EventsAndMaps = () => {
         latitude: selectedEvent.latitude,
         longitude: selectedEvent.longitude,
         googleMapsUrl: '',
+        website: '',
         parkingInfoSv: selectedEvent.parkingInfoSv || '',
         parkingInfoEn: selectedEvent.parkingInfoEn || '',
         facilitiesSv: '',
@@ -153,8 +154,11 @@ const EventsAndMaps = () => {
           <MapErrorBoundary>
             <Suspense fallback={<MapFallback />}>
               {(() => {
+                // Prefer venue coords parsed from Google Maps URL, then venue lat/lng, then event lat/lng
                 const parsed = venue ? parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl) : null;
-                return <LazyMapView markers={markers} selectedLat={parsed?.lat ?? venue?.latitude} selectedLng={parsed?.lng ?? venue?.longitude} height="400px" />;
+                const lat = parsed?.lat ?? venue?.latitude ?? selectedEvent?.latitude;
+                const lng = parsed?.lng ?? venue?.longitude ?? selectedEvent?.longitude;
+                return <LazyMapView markers={markers} selectedLat={lat} selectedLng={lng} height="400px" />;
               })()}
             </Suspense>
           </MapErrorBoundary>
@@ -232,17 +236,21 @@ const EventsAndMaps = () => {
                 )}
               </div>
               <div className="flex flex-wrap gap-2 mt-4">
-                <button
-                  onClick={() => {
-                    const parsed = parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl);
-                    const lat = parsed?.lat ?? venue.latitude;
-                    const lng = parsed?.lng ?? venue.longitude;
-                    window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank', 'noopener,noreferrer');
-                  }}
-                  className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-                >
-                  {t('events.getDirections')}
-                </button>
+                {(() => {
+                  const parsed = parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl);
+                  const lat = parsed?.lat ?? venue.latitude ?? selectedEvent?.latitude;
+                  const lng = parsed?.lng ?? venue.longitude ?? selectedEvent?.longitude;
+                  const hasCoords = lat && lng;
+                  return hasCoords ? (
+                    <button
+                      onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank', 'noopener,noreferrer')}
+                      className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5"
+                    >
+                      <Navigation size={14} />
+                      {t('events.getDirections')}
+                    </button>
+                  ) : null;
+                })()}
                 {selectedEvent?.sailarenaLink && (
                   <button
                     onClick={() => window.open(selectedEvent.sailarenaLink, '_blank', 'noopener,noreferrer')}
@@ -252,13 +260,28 @@ const EventsAndMaps = () => {
                     {t('events.viewOnSailarena')}
                   </button>
                 )}
-                {venue.googleMapsUrl && (
+                {(() => {
+                  const parsed = parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl);
+                  const lat = parsed?.lat ?? venue.latitude ?? selectedEvent?.latitude;
+                  const lng = parsed?.lng ?? venue.longitude ?? selectedEvent?.longitude;
+                  const mapsUrl = venue.googleMapsUrl || (lat && lng ? `https://www.google.com/maps?q=${lat},${lng}` : '');
+                  return mapsUrl ? (
+                    <button
+                      onClick={() => window.open(mapsUrl, '_blank', 'noopener,noreferrer')}
+                      className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
+                    >
+                      <MapPin size={14} />
+                      {t('events.viewOnGoogleMaps')}
+                    </button>
+                  ) : null;
+                })()}
+                {venue.website && (
                   <button
-                    onClick={() => window.open(venue.googleMapsUrl, '_blank', 'noopener,noreferrer')}
+                    onClick={() => window.open(venue.website, '_blank', 'noopener,noreferrer')}
                     className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
                   >
-                    <ExternalLink size={14} />
-                    Google Maps
+                    <Globe size={14} />
+                    {t('events.website')}
                   </button>
                 )}
               </div>
