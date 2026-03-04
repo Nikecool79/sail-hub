@@ -1,10 +1,34 @@
 import { useDataStore } from '@/store/dataStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
-import MapView from '@/components/map/MapView';
 import { MapPin, Navigation, Clock, Car } from 'lucide-react';
-import { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, Suspense } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner';
+
+const LazyMapView = React.lazy(() => import('@/components/map/MapView'));
+
+function MapFallback() {
+  return (
+    <div className="rounded-xl bg-muted border flex items-center justify-center text-muted-foreground" style={{ height: '400px' }}>
+      <p className="text-sm">Loading map...</p>
+    </div>
+  );
+}
+
+class MapErrorBoundary extends React.Component<React.PropsWithChildren, { hasError: boolean }> {
+  state = { hasError: false };
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="rounded-xl bg-muted border flex items-center justify-center text-muted-foreground" style={{ height: '400px' }}>
+          <p className="text-sm">Map could not be loaded</p>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const EventsAndMaps = () => {
   const { t } = useTranslation();
@@ -68,7 +92,11 @@ const EventsAndMaps = () => {
 
         {/* Map + Venue details */}
         <div className="lg:col-span-7 space-y-4">
-          <MapView markers={markers} selectedLat={venue?.latitude} selectedLng={venue?.longitude} height="400px" />
+          <MapErrorBoundary>
+            <Suspense fallback={<MapFallback />}>
+              <LazyMapView markers={markers} selectedLat={venue?.latitude} selectedLng={venue?.longitude} height="400px" />
+            </Suspense>
+          </MapErrorBoundary>
 
           {/* Venue details */}
           {venue && (
