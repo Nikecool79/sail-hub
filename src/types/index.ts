@@ -14,6 +14,7 @@ export interface SailEvent {
   parkingInfoEn: string;
   arrivalTime: string;
   startTime: string;
+  endTime: string;
   sailarenaLink: string;
   descriptionSv: string;
   descriptionEn: string;
@@ -147,6 +148,30 @@ export interface Sponsor {
   active: boolean;
 }
 
+export interface Boat {
+  boatId: string;
+  name: string;
+  sailNumber: string;
+  team: string;
+  status: 'Available' | 'In Repair' | 'Retired' | 'Lent Out';
+  conditionNotesSv: string;
+  conditionNotesEn: string;
+  lastInspectionDate: string;
+}
+
+export interface Rib {
+  ribId: string;
+  name: string;
+  status: 'OK' | 'Needs Service' | 'Out of Service';
+  engineCheckDate: string;
+  oilChangeDate: string;
+  sparkPlugsDate: string;
+  oilFilterDate: string;
+  trailerCheckDate: string;
+  notesSv: string;
+  notesEn: string;
+}
+
 export interface CurrentWeather {
   temperature: number;
   feelsLike: number;
@@ -198,4 +223,6 @@ export interface AppData {
   skillProgression: SkillItem[];
   settings: Record<string, string>;
   sponsors: Sponsor[];
+  boats: Boat[];
+  ribs: Rib[];
 }

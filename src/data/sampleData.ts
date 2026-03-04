@@ -11,6 +11,7 @@ export const navItems = [
   { title: 'Weather', url: '/weather', icon: 'CloudSun' },
   { title: 'Live Cameras', url: '/cameras', icon: 'Video' },
   { title: 'Coaches & Team', url: '/coaches', icon: 'Users' },
+  { title: 'Fleet', url: '/fleet', icon: 'Anchor' },
   { title: 'Club Contacts', url: '/contacts', icon: 'Phone' },
   { title: 'News', url: '/news', icon: 'Newspaper' },
   { title: 'Marketplace', url: '/marketplace', icon: 'ShoppingBag' },

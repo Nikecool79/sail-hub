@@ -13,6 +13,8 @@ export const SHEET_TABS = {
   SKILL_PROGRESSION: 'Skill Progression',
   SETTINGS: 'Settings',
   SPONSORS: 'Sponsors & Ads',
+  BOATS: 'Boats',
+  RIBS: 'RIBs',
 } as const;
 
 export type SheetTab = (typeof SHEET_TABS)[keyof typeof SHEET_TABS];

@@ -90,6 +90,11 @@ const Dashboard = () => {
             <>
               <h3 className="font-heading text-lg font-semibold">{localize(nextEvent, 'name')}</h3>
               <p className="text-sm text-muted-foreground mb-3">{nextEvent.dateStart} — {nextEvent.locationName}</p>
+              {(nextEvent.startTime || nextEvent.endTime) && (
+                <p className="text-xs text-muted-foreground">
+                  {nextEvent.startTime}{nextEvent.startTime && nextEvent.endTime && ' – '}{nextEvent.endTime}
+                </p>
+              )}
               <div className="flex gap-3">
                 {[
                   { label: t('dashboard.days'), value: countdown.days },

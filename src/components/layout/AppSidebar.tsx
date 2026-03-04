@@ -3,7 +3,7 @@ import { NavLink } from '@/components/NavLink';
 import { useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, CalendarDays, MapPin, CloudSun, Video, Users, Phone,
-  Newspaper, ShoppingBag, TrendingUp, ShieldCheck, Bell, Heart, Menu, X
+  Newspaper, ShoppingBag, TrendingUp, ShieldCheck, Bell, Heart, Menu, X, Anchor
 } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import OptimistBoat from '@/components/OptimistBoat';
@@ -15,7 +15,7 @@ import { useLocalizedField } from '@/hooks/useLocalizedField';
 
 const iconMap: Record<string, React.ElementType> = {
   LayoutDashboard, CalendarDays, MapPin, CloudSun, Video, Users, Phone,
-  Newspaper, ShoppingBag, TrendingUp, ShieldCheck, Bell, Heart,
+  Newspaper, ShoppingBag, TrendingUp, ShieldCheck, Bell, Heart, Anchor,
 };
 
 const navI18nKeys: Record<string, string> = {
@@ -25,6 +25,7 @@ const navI18nKeys: Record<string, string> = {
   '/weather': 'nav.weather',
   '/cameras': 'nav.liveCameras',
   '/coaches': 'nav.coaches',
+  '/fleet': 'nav.fleet',
   '/contacts': 'nav.contacts',
   '/news': 'nav.news',
   '/marketplace': 'nav.marketplace',

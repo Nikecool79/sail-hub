@@ -4,7 +4,7 @@ import { fetchAllSheetData, SHEET_TABS, clearCache } from '@/services/googleShee
 import {
   parseEvents, parseCoaches, parseEventAssignments, parseClubContacts,
   parseNews, parseMarketplace, parseLocations, parseSafetyChecklist,
-  parseSkillProgression, parseSettings, parseSponsors,
+  parseSkillProgression, parseSettings, parseSponsors, parseBoats, parseRibs,
 } from '@/utils/parseSheet';
 import { convertSampleData } from '@/utils/sampleDataAdapter';
 
@@ -57,6 +57,8 @@ export const useDataStore = create<DataState>((set, get) => ({
         skillProgression: parseSkillProgression(raw[SHEET_TABS.SKILL_PROGRESSION]),
         settings: parseSettings(raw[SHEET_TABS.SETTINGS]),
         sponsors: parseSponsors(raw[SHEET_TABS.SPONSORS]),
+        boats: parseBoats(raw[SHEET_TABS.BOATS]),
+        ribs: parseRibs(raw[SHEET_TABS.RIBS]),
       };
 
       set({ data, isLoading: false, lastUpdated: Date.now(), dataSource: 'google-sheets' });

@@ -82,6 +82,11 @@ const EventsAndMaps = () => {
             >
               <p className="font-medium text-sm">{localize(e, 'name')}</p>
               <p className="text-xs text-muted-foreground">{e.dateStart}</p>
+              {(e.startTime || e.endTime) && (
+                <p className="text-xs text-muted-foreground">
+                  {e.startTime}{e.startTime && e.endTime && ' – '}{e.endTime}
+                </p>
+              )}
               <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
                 <MapPin size={12} />
                 <span>{e.locationName}</span>

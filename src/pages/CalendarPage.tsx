@@ -129,6 +129,11 @@ const CalendarPage = () => {
                 </div>
                 <p className="font-medium">{localize(e, 'name')}</p>
                 <p className="text-sm text-muted-foreground">{e.locationName}</p>
+                {(e.startTime || e.endTime) && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {e.startTime}{e.startTime && e.endTime && ' – '}{e.endTime}
+                  </p>
+                )}
                 <p className="text-sm mt-1">{localize(e, 'description')}</p>
               </div>
             ))

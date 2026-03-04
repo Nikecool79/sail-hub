@@ -1,6 +1,7 @@
 import type {
   SailEvent, Coach, EventAssignment, ClubContact, NewsItem,
   MarketplaceItem, Location, SafetyItem, SkillItem, Sponsor,
+  Boat, Rib,
 } from '@/types';
 
 function parseArray(val: string): string[] {
@@ -50,6 +51,7 @@ export function parseEvents(rows: string[][]): SailEvent[] {
     parkingInfoEn: col(r, h, 'Parking Info EN'),
     arrivalTime: col(r, h, 'Arrival Time'),
     startTime: col(r, h, 'Start Time'),
+    endTime: col(r, h, 'End Time'),
     sailarenaLink: col(r, h, 'Sailarena Link'),
     descriptionSv: col(r, h, 'Description SV'),
     descriptionEn: col(r, h, 'Description EN'),
@@ -229,5 +231,37 @@ export function parseSponsors(rows: string[][]): Sponsor[] {
     teamAffinity: parseArray(col(r, h, 'Team Affinity')),
     clickUrl: col(r, h, 'Click URL'),
     active: parseBool(col(r, h, 'Active')),
+  }));
+}
+
+export function parseBoats(rows: string[][]): Boat[] {
+  if (rows.length < 2) return [];
+  const h = buildHeaders(rows[0]);
+  return rows.slice(1).filter(r => r.length > 0).map((r) => ({
+    boatId: col(r, h, 'Boat ID'),
+    name: col(r, h, 'Name'),
+    sailNumber: col(r, h, 'Sail Number'),
+    team: col(r, h, 'Team'),
+    status: (col(r, h, 'Status') || 'Available') as Boat['status'],
+    conditionNotesSv: col(r, h, 'Condition Notes SV'),
+    conditionNotesEn: col(r, h, 'Condition Notes EN'),
+    lastInspectionDate: col(r, h, 'Last Inspection Date'),
+  }));
+}
+
+export function parseRibs(rows: string[][]): Rib[] {
+  if (rows.length < 2) return [];
+  const h = buildHeaders(rows[0]);
+  return rows.slice(1).filter(r => r.length > 0).map((r) => ({
+    ribId: col(r, h, 'RIB ID'),
+    name: col(r, h, 'Name'),
+    status: (col(r, h, 'Status') || 'OK') as Rib['status'],
+    engineCheckDate: col(r, h, 'Engine Check Date'),
+    oilChangeDate: col(r, h, 'Oil Change Date'),
+    sparkPlugsDate: col(r, h, 'Spark Plugs Date'),
+    oilFilterDate: col(r, h, 'Oil Filter Date'),
+    trailerCheckDate: col(r, h, 'Trailer Check Date'),
+    notesSv: col(r, h, 'Notes SV'),
+    notesEn: col(r, h, 'Notes EN'),
   }));
 }

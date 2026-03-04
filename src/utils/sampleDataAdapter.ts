@@ -18,6 +18,7 @@ export function convertSampleData(): AppData {
     parkingInfoEn: sample.venues.find((v) => v.name === e.location)?.parking || '',
     arrivalTime: '',
     startTime: '',
+    endTime: '',
     sailarenaLink: '',
     descriptionSv: '',
     descriptionEn: e.description,
@@ -174,5 +175,7 @@ export function convertSampleData(): AppData {
   return {
     events, coaches, eventAssignments, clubContacts, news,
     marketplace, locations, safetyChecklist, skillProgression, settings, sponsors: allSponsors,
+    boats: [],
+    ribs: [],
   };
 }
