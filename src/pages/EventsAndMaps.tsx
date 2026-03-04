@@ -1,7 +1,7 @@
 import { useDataStore } from '@/store/dataStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
-import { MapPin, Navigation, Clock, Car, ExternalLink } from 'lucide-react';
+import { MapPin, Navigation, Clock, Car, ExternalLink, Calendar, Users } from 'lucide-react';
 import React, { useState, useMemo, useEffect, useRef, useCallback, Suspense } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
@@ -136,36 +136,77 @@ const EventsAndMaps = () => {
             </Suspense>
           </MapErrorBoundary>
 
+          {/* Selected event details */}
+          {selectedEvent && (
+            <div className="rounded-xl bg-card border p-5 team-border-top">
+              <h3 className="font-heading text-lg font-semibold mb-2">{localize(selectedEvent, 'name')}</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-3">
+                <div className="flex items-start gap-2">
+                  <Calendar size={14} className="mt-0.5 text-muted-foreground" />
+                  <div>
+                    <p className="text-muted-foreground">{selectedEvent.dateStart}</p>
+                    {(selectedEvent.arrivalTime || selectedEvent.startTime || selectedEvent.endTime) && (
+                      <p className="text-muted-foreground">
+                        {selectedEvent.arrivalTime && <>{t('events.arrivalTime')}: {selectedEvent.arrivalTime}<br /></>}
+                        {selectedEvent.startTime && <>{t('events.startTime')}: {selectedEvent.startTime}</>}
+                        {selectedEvent.endTime && <> – {selectedEvent.endTime}</>}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <MapPin size={14} className="mt-0.5 text-muted-foreground" />
+                  <p className="text-muted-foreground">{selectedEvent.locationName}</p>
+                </div>
+                {selectedEvent.teams.length > 0 && (
+                  <div className="flex items-start gap-2">
+                    <Users size={14} className="mt-0.5 text-muted-foreground" />
+                    <p className="text-muted-foreground">{selectedEvent.teams.join(', ')}</p>
+                  </div>
+                )}
+              </div>
+              {localize(selectedEvent, 'description') && (
+                <p className="text-sm text-muted-foreground">{localize(selectedEvent, 'description')}</p>
+              )}
+            </div>
+          )}
+
           {/* Venue details */}
           {venue && (
-            <div className="rounded-xl bg-card border p-5 team-border-top">
+            <div className="rounded-xl bg-card border p-5">
               <h3 className="font-heading text-lg font-semibold mb-3 flex items-center gap-2">
                 <MapPin size={18} className="text-primary" />
                 {venue.name}
                 {venue.name.includes('Kullavik') && <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{t('events.home')}</span>}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                <div className="flex items-start gap-2">
-                  <Navigation size={14} className="mt-0.5 text-muted-foreground" />
-                  <div>
-                    <p className="font-medium">{t('events.address')}</p>
-                    <p className="text-muted-foreground">{venue.address}</p>
+                {venue.address && (
+                  <div className="flex items-start gap-2">
+                    <Navigation size={14} className="mt-0.5 text-muted-foreground" />
+                    <div>
+                      <p className="font-medium">{t('events.address')}</p>
+                      <p className="text-muted-foreground">{venue.address}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Car size={14} className="mt-0.5 text-muted-foreground" />
-                  <div>
-                    <p className="font-medium">{t('events.parking')}</p>
-                    <p className="text-muted-foreground">{localize(venue, 'parkingInfo')}</p>
+                )}
+                {localize(venue, 'parkingInfo') && (
+                  <div className="flex items-start gap-2">
+                    <Car size={14} className="mt-0.5 text-muted-foreground" />
+                    <div>
+                      <p className="font-medium">{t('events.parking')}</p>
+                      <p className="text-muted-foreground">{localize(venue, 'parkingInfo')}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Clock size={14} className="mt-0.5 text-muted-foreground" />
-                  <div>
-                    <p className="font-medium">{t('events.facilities')}</p>
-                    <p className="text-muted-foreground">{localize(venue, 'facilities')}</p>
+                )}
+                {localize(venue, 'facilities') && (
+                  <div className="flex items-start gap-2">
+                    <Clock size={14} className="mt-0.5 text-muted-foreground" />
+                    <div>
+                      <p className="font-medium">{t('events.facilities')}</p>
+                      <p className="text-muted-foreground">{localize(venue, 'facilities')}</p>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <div className="flex flex-wrap gap-2 mt-4">
                 <button
