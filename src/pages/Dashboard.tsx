@@ -79,7 +79,10 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {/* Next Event */}
-        <div className="rounded-xl bg-card border p-5 team-border-top card-hover">
+        <div
+          className="rounded-xl bg-card border p-5 team-border-top card-hover cursor-pointer"
+          onClick={() => navigate('/events')}
+        >
           <div className="flex items-center gap-2 text-muted-foreground mb-3">
             <Clock size={16} />
             <span className="text-sm font-medium uppercase tracking-wider">{t('dashboard.nextEvent')}</span>
@@ -112,7 +115,7 @@ const Dashboard = () => {
         </div>
 
         {/* Weather */}
-        <div className="rounded-xl bg-card border p-5 team-border-top card-hover">
+        <div className="rounded-xl bg-card border p-5 team-border-top card-hover cursor-pointer" onClick={() => navigate('/weather')}>
           <div className="flex items-center gap-2 text-muted-foreground mb-3">
             <Wind size={16} />
             <span className="text-sm font-medium uppercase tracking-wider">{t('dashboard.weatherNow')}</span>

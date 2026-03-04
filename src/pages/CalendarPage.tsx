@@ -2,8 +2,9 @@ import { useDataStore } from '@/store/dataStore';
 import { useThemeStore } from '@/store/useThemeStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 const eventTypeColors: Record<string, string> = {
@@ -18,6 +19,7 @@ const CalendarPage = () => {
   const { localize } = useLocalizedField();
   const data = useDataStore(s => s.data);
   const team = useThemeStore(s => s.team);
+  const navigate = useNavigate();
 
   const [month, setMonth] = useState(3); // April = 3 (0-indexed)
   const [year] = useState(2026);
@@ -122,10 +124,17 @@ const CalendarPage = () => {
             <p className="text-sm text-muted-foreground">{t('calendar.noEvents')}</p>
           ) : (
             selectedDayEvents.map(e => (
-              <div key={e.eventId} className="p-3 rounded-lg bg-secondary">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className={`w-2 h-2 rounded-full ${eventTypeColors[e.type]}`} />
-                  <span className="text-xs capitalize text-muted-foreground">{e.type}</span>
+              <div
+                key={e.eventId}
+                className="p-3 rounded-lg bg-secondary cursor-pointer hover:bg-secondary/80 transition-colors"
+                onClick={() => navigate('/events')}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full ${eventTypeColors[e.type]}`} />
+                    <span className="text-xs capitalize text-muted-foreground">{e.type}</span>
+                  </div>
+                  <ExternalLink size={12} className="text-muted-foreground" />
                 </div>
                 <p className="font-medium">{localize(e, 'name')}</p>
                 <p className="text-sm text-muted-foreground">{e.locationName}</p>

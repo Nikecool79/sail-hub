@@ -2,7 +2,7 @@ import { useDataStore } from '@/store/dataStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 import { MapPin, Navigation, Clock, Car, ExternalLink } from 'lucide-react';
-import React, { useState, useMemo, useEffect, Suspense } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback, Suspense } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 /** Extract lat/lng from a Google Maps URL (various formats) */
@@ -57,6 +57,7 @@ const EventsAndMaps = () => {
   const locations = data?.locations || [];
 
   const [selectedEvent, setSelectedEvent] = useState(events[0] || null);
+  const detailsRef = useRef<HTMLDivElement>(null);
 
   // When data loads and no event is selected yet, pick the first
   useEffect(() => {
@@ -64,6 +65,14 @@ const EventsAndMaps = () => {
       setSelectedEvent(events[0]);
     }
   }, [events.length]);
+
+  const handleSelectEvent = useCallback((e: typeof events[0]) => {
+    setSelectedEvent(e);
+    // On mobile, scroll to venue details
+    setTimeout(() => {
+      detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }, []);
 
   const venue = useMemo(() => {
     if (!selectedEvent) return locations[0] || null;
@@ -94,7 +103,7 @@ const EventsAndMaps = () => {
           {events.map(e => (
             <button
               key={e.eventId}
-              onClick={() => setSelectedEvent(e)}
+              onClick={() => handleSelectEvent(e)}
               className={`w-full text-left p-4 rounded-xl border transition-all ${
                 selectedEvent?.eventId === e.eventId
                   ? 'border-primary bg-primary/5 shadow-sm'
@@ -117,7 +126,7 @@ const EventsAndMaps = () => {
         </div>
 
         {/* Map + Venue details */}
-        <div className="lg:col-span-7 space-y-4">
+        <div ref={detailsRef} className="lg:col-span-7 space-y-4">
           <MapErrorBoundary>
             <Suspense fallback={<MapFallback />}>
               {(() => {
