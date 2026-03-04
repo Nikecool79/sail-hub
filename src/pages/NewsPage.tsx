@@ -36,22 +36,30 @@ function NewsCard({ n }: { n: NewsItem }) {
         <span className="text-xs text-muted-foreground">{n.date}</span>
       </div>
       <h3 className="font-heading text-lg font-semibold mb-1">{title}</h3>
-      {isExpanded ? (
-        <p className="text-sm text-muted-foreground mb-3 whitespace-pre-line">{body}</p>
+      {body.length > 150 ? (
+        isExpanded ? (
+          <div className="text-sm text-muted-foreground mb-3">
+            <p className="whitespace-pre-line">{body}</p>
+            <button
+              className="text-primary hover:underline text-xs mt-1"
+              onClick={() => setIsExpanded(false)}
+            >
+              {t('news.showLess')}
+            </button>
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground mb-3">
+            {body.slice(0, 150)}{'... '}
+            <button
+              className="text-primary hover:underline text-xs"
+              onClick={() => setIsExpanded(true)}
+            >
+              {t('news.readMore')}
+            </button>
+          </p>
+        )
       ) : (
-        <p className="text-sm text-muted-foreground mb-3">
-          {body.length > 150 ? (
-            <>
-              {body.slice(0, 150)}{'... '}
-              <button
-                className="text-primary hover:underline text-xs"
-                onClick={() => setIsExpanded(true)}
-              >
-                {t('news.readMore')}
-              </button>
-            </>
-          ) : body}
-        </p>
+        <p className="text-sm text-muted-foreground mb-3">{body}</p>
       )}
       <div className="flex items-center justify-between">
         <span className="text-xs text-muted-foreground">{n.author}</span>
