@@ -57,7 +57,10 @@
     "clubWebsite": "Klubbens Webbplats",
     "socialMedia": "Sociala Medier",
     "followOnFacebook": "Följ på Facebook",
-    "latestOnInstagram": "Senaste på Instagram"
+    "latestOnInstagram": "Senaste på Instagram",
+    "visitFacebook": "Besök Facebook-sidan",
+    "visitInstagram": "Följ på Instagram",
+    "followUsOnInstagram": "Följ oss på Instagram för senaste nytt!"
   },
   "calendar": {
     "title": "Kalender",

@@ -57,7 +57,10 @@
     "clubWebsite": "Club Website",
     "socialMedia": "Social Media",
     "followOnFacebook": "Follow on Facebook",
-    "latestOnInstagram": "Latest on Instagram"
+    "latestOnInstagram": "Latest on Instagram",
+    "visitFacebook": "Visit Facebook Page",
+    "visitInstagram": "Follow on Instagram",
+    "followUsOnInstagram": "Follow us on Instagram for the latest updates!"
   },
   "calendar": {
     "title": "Calendar",
