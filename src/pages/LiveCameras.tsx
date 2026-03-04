@@ -4,6 +4,28 @@ import { useTranslation } from 'react-i18next';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Camera, ExternalLink } from 'lucide-react';
 
+function toEmbedUrl(url: string): string {
+  if (!url) return '';
+  try {
+    const u = new URL(url);
+    // YouTube watch URL → embed URL
+    if ((u.hostname === 'www.youtube.com' || u.hostname === 'youtube.com') && u.pathname === '/watch') {
+      const videoId = u.searchParams.get('v');
+      if (videoId) {
+        const list = u.searchParams.get('list');
+        return `https://www.youtube.com/embed/${videoId}${list ? `?list=${list}` : ''}`;
+      }
+    }
+    // youtu.be short URL
+    if (u.hostname === 'youtu.be') {
+      const videoId = u.pathname.slice(1);
+      const list = u.searchParams.get('list');
+      return `https://www.youtube.com/embed/${videoId}${list ? `?list=${list}` : ''}`;
+    }
+  } catch { /* not a valid URL, return as-is */ }
+  return url;
+}
+
 const LiveCameras = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useDataStore();
@@ -11,7 +33,9 @@ const LiveCameras = () => {
 
   const locations = useMemo(() => data?.locations || [], [data?.locations]);
   const selected = locations[selectedIdx] || null;
-  const webcamUrl = selected?.webcamUrl || '';
+  const defaultWebcamUrl = data?.settings?.['Default Webcam URL'] || '';
+  const rawUrl = selected?.webcamUrl || defaultWebcamUrl;
+  const webcamUrl = toEmbedUrl(rawUrl);
   const hasWebcam = webcamUrl.trim() !== '';
 
   if (isLoading) return <LoadingSpinner />;
