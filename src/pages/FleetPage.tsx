@@ -203,7 +203,10 @@ const FleetPage = () => {
                     {/* Maintenance dates */}
                     <div className="space-y-2">
                       {maintenanceDates.map(({ key, date }) => {
-                        const status = getDateStatus(date);
+                        // Override date status based on RIB status
+                        const status = rib.status === 'Out of Service' ? 'red'
+                          : rib.status === 'Needs Service' ? 'yellow'
+                          : getDateStatus(date);
                         return (
                           <div
                             key={key}
