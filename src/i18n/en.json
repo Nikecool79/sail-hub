@@ -1,0 +1,299 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "events": "Events & Maps",
+    "weather": "Weather",
+    "liveCameras": "Live Cameras",
+    "coaches": "Coaches & Team",
+    "contacts": "Club Contacts",
+    "news": "News",
+    "marketplace": "Marketplace",
+    "skills": "Skill Progression",
+    "safety": "Safety Checklist",
+    "subscribe": "Subscribe",
+    "sponsors": "Sponsors"
+  },
+  "teams": {
+    "green": "Green Team",
+    "blue": "Blue Team",
+    "red": "Red Team",
+    "selectTeam": "Choose your team",
+    "changeTeam": "Change team",
+    "ageRange": "Ages {{min}}–{{max}}"
+  },
+  "teamSelection": {
+    "subtitle": "Youth Sailing Dashboard",
+    "choosePrompt": "Choose your team to enter",
+    "teams": {
+      "green": {
+        "name": "Green Team",
+        "description": "First steps on the water — learn the basics and have fun!"
+      },
+      "blue": {
+        "name": "Blue Team",
+        "description": "Build confidence and racing skills on the open water."
+      },
+      "red": {
+        "name": "Red Team",
+        "description": "Compete at a higher level — regattas and championships."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "nextEvent": "Next Event",
+    "weatherNow": "Weather Now",
+    "latestNews": "Latest News",
+    "quickLinks": "Quick Links",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Min",
+    "goldSponsor": "Gold Sponsor",
+    "visit": "Visit",
+    "whatsappGroup": "WhatsApp Group",
+    "sailarena": "Sailarena",
+    "clubWebsite": "Club Website"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "today": "Today",
+    "noEvents": "No events on this day",
+    "filterByType": "Filter by type",
+    "allTypes": "All Types"
+  },
+  "events": {
+    "title": "Events & Maps",
+    "address": "Address",
+    "parking": "Parking",
+    "facilities": "Facilities",
+    "arrivalTime": "Arrival Time",
+    "startTime": "Start Time",
+    "getDirections": "Get Directions",
+    "viewOnSailarena": "View on Sailarena",
+    "home": "Home",
+    "assignedCoaches": "Assigned Coaches",
+    "rigsAvailable": "Rigs",
+    "boatsAvailable": "Boats",
+    "shareOnWhatsApp": "Share on WhatsApp"
+  },
+  "weather": {
+    "title": "Weather",
+    "temperature": "Temperature",
+    "feelsLike": "Feels Like",
+    "humidity": "Humidity",
+    "precipitation": "Precipitation",
+    "uvIndex": "UV Index",
+    "windSpeed": "Wind Speed",
+    "windDirection": "Wind Direction",
+    "knots": "knots",
+    "sevenDayForecast": "7-Day Forecast",
+    "hourly": "Hourly",
+    "sailing": {
+      "veryLight": "Very light wind",
+      "good": "Good for sailing",
+      "moderate": "Moderate — experienced sailors",
+      "notRecommended": "Not recommended for Optimist"
+    },
+    "unavailable": "Weather unavailable",
+    "retry": "Retry"
+  },
+  "cameras": {
+    "title": "Live Cameras",
+    "selectLocation": "Select location",
+    "noFeed": "No camera feed available",
+    "viewOnWindy": "View on Windy.com",
+    "comingSoon": "Coming soon — we are working on getting live cameras at the harbor",
+    "windyLink": "Check Windy.com for more cameras"
+  },
+  "coaches": {
+    "title": "Coaches & Team",
+    "eventAssignments": "Event Assignments",
+    "role": "Role",
+    "rigs": "Rigs",
+    "boats": "Boats",
+    "notes": "Notes"
+  },
+  "contacts": {
+    "title": "Club Contacts",
+    "welcome": "Welcome to Kullaviks Segelsällskap! Here are our key contacts."
+  },
+  "news": {
+    "title": "News",
+    "pinned": "Pinned",
+    "share": "Share",
+    "readMore": "Read more",
+    "filterAll": "All",
+    "ad": "Ad"
+  },
+  "marketplace": {
+    "title": "Marketplace",
+    "search": "Search items...",
+    "allCategories": "All Categories",
+    "condition": "Condition",
+    "price": "Price",
+    "seller": "Seller",
+    "contactSeller": "Contact Seller",
+    "viewOnBlocket": "View on Blocket",
+    "sortNewest": "Newest First",
+    "sortPriceLow": "Price: Low to High",
+    "sortPriceHigh": "Price: High to Low",
+    "featuredShops": "Featured Shops"
+  },
+  "skills": {
+    "title": "Your Sailing Journey",
+    "subtitle": "Track your progress through the sailing zones",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "greenZone": "Green Zone",
+    "blueZone": "Blue Zone",
+    "redZone": "Red Zone",
+    "zones": {
+      "green": "Green Zone",
+      "blue": "Blue Zone",
+      "red": "Red Zone"
+    }
+  },
+  "safety": {
+    "title": "Safety Checklist",
+    "subtitle": "Print this list and check before every session.",
+    "printChecklist": "Print Checklist",
+    "categories": {
+      "Safety": "Safety",
+      "Clothing": "Clothing",
+      "Equipment": "Equipment",
+      "Protection": "Protection",
+      "Nutrition": "Nutrition"
+    }
+  },
+  "subscribe": {
+    "title": "Subscribe & Alerts",
+    "emailSignup": "Email Signup",
+    "pushNotifications": "Push Notifications",
+    "whatsappGroups": "WhatsApp Groups",
+    "socialMedia": "Social Media",
+    "yourName": "Your name",
+    "yourEmail": "Your email",
+    "selectTeam": "Select team",
+    "signUp": "Sign Up",
+    "linkComingSoon": "Link coming soon",
+    "email": {
+      "heading": "Email Updates",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "your@email.com",
+      "allTeams": "All Teams",
+      "greenTeam": "Green Team",
+      "blueTeam": "Blue Team",
+      "redTeam": "Red Team",
+      "button": "Subscribe"
+    },
+    "push": {
+      "heading": "Push Notifications",
+      "description": "Get browser notifications for new events and cancellations.",
+      "enable": "Enable notifications"
+    },
+    "whatsapp": {
+      "heading": "WhatsApp Groups",
+      "green": "Green Team",
+      "blue": "Blue Team",
+      "red": "Red Team",
+      "all": "All Club"
+    }
+  },
+  "sponsors": {
+    "title": "Sponsors",
+    "gold": "Gold Sponsors",
+    "silver": "Silver Sponsors",
+    "bronze": "Bronze Sponsors",
+    "ad": "Annons / Ad",
+    "visitWebsite": "Visit",
+    "becomeSponsor": "Become a Sponsor",
+    "proudSponsor": "Proud sponsor"
+  },
+  "sponsor": {
+    "heroTitle": "Support Local Youth Sailing",
+    "heroSubtitle": "Help us grow the next generation of sailors",
+    "perMonth": "month",
+    "contactHeading": "Interested? Get in touch",
+    "emailUs": "Or email us at ads@klubben.se",
+    "tiers": {
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze"
+    },
+    "benefits": {
+      "logoEvents": "Logo on all event pages",
+      "featuredCard": "Featured card on Dashboard",
+      "sponsoredPosts": "News feed sponsored posts",
+      "footerRibbon": "Footer ribbon placement",
+      "socialMentions": "Social media mentions",
+      "sidebarRotation": "Sidebar sponsor rotation",
+      "logoSponsorsPage": "Logo on Sponsors page",
+      "socialQuarterly": "Social media mention (quarterly)"
+    },
+    "form": {
+      "name": "Your name",
+      "business": "Business name",
+      "email": "your@email.com",
+      "message": "Message...",
+      "send": "Send Message"
+    }
+  },
+  "becomeSponsor": {
+    "title": "Become a Sponsor",
+    "perMonth": "/month",
+    "contactUs": "Contact Us",
+    "name": "Name",
+    "businessName": "Business Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send"
+  },
+  "notFound": {
+    "message": "Oops! Page not found",
+    "returnHome": "Return to Home"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "reload": "Reload",
+    "lastUpdated": "Last updated",
+    "minutesAgo": "{{count}} min ago",
+    "share": "Share",
+    "close": "Close",
+    "sampleDataBanner": "Using sample data — connect a Google Sheet for live data."
+  },
+  "empty": {
+    "noEvents": "No upcoming events — smooth sailing ahead!",
+    "noNews": "No news yet — calm waters",
+    "noItems": "Nothing for sale right now — check back soon",
+    "noCameras": "No camera feed available"
+  },
+  "weatherCodes": {
+    "0": "Clear sky",
+    "1": "Mainly clear",
+    "2": "Partly cloudy",
+    "3": "Overcast",
+    "45": "Fog",
+    "48": "Depositing rime fog",
+    "51": "Light drizzle",
+    "53": "Moderate drizzle",
+    "55": "Dense drizzle",
+    "61": "Slight rain",
+    "63": "Moderate rain",
+    "65": "Heavy rain",
+    "71": "Slight snow",
+    "73": "Moderate snow",
+    "75": "Heavy snow",
+    "80": "Slight rain showers",
+    "81": "Moderate rain showers",
+    "82": "Violent rain showers",
+    "85": "Slight snow showers",
+    "86": "Heavy snow showers",
+    "95": "Thunderstorm",
+    "96": "Thunderstorm with slight hail",
+    "99": "Thunderstorm with heavy hail"
+  }
+}

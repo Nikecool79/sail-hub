@@ -1,37 +1,63 @@
+import { useState, useMemo } from 'react';
+import { useDataStore } from '@/store/dataStore';
+import { useTranslation } from 'react-i18next';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import { Camera, ExternalLink } from 'lucide-react';
-import { venues } from '@/data/sampleData';
-import { useState } from 'react';
 
 const LiveCameras = () => {
-  const [location, setLocation] = useState(venues[0].name);
+  const { t } = useTranslation();
+  const { data, isLoading } = useDataStore();
+  const [selectedIdx, setSelectedIdx] = useState(0);
+
+  const locations = useMemo(() => data?.locations || [], [data?.locations]);
+  const selected = locations[selectedIdx] || null;
+  const webcamUrl = selected?.webcamUrl || '';
+  const hasWebcam = webcamUrl.trim() !== '';
+
+  if (isLoading) return <LoadingSpinner />;
+  if (!data) return null;
 
   return (
     <div className="space-y-6">
-      <h1 className="font-heading text-2xl font-bold">Live Cameras</h1>
+      <h1 className="font-heading text-2xl font-bold">{t('cameras.title')}</h1>
 
       <select
-        value={location}
-        onChange={e => setLocation(e.target.value)}
+        value={selected?.name || ''}
+        onChange={e => {
+          const idx = locations.findIndex(l => l.name === e.target.value);
+          if (idx >= 0) setSelectedIdx(idx);
+        }}
         className="px-3 py-1.5 rounded-md border bg-card text-sm"
       >
-        {venues.map(v => <option key={v.name}>{v.name}</option>)}
+        {locations.map(v => <option key={v.name}>{v.name}</option>)}
       </select>
 
       {/* Main camera feed */}
-      <div className="rounded-xl bg-muted border overflow-hidden aspect-video flex items-center justify-center flex-col gap-3 text-muted-foreground">
-        <Camera size={48} className="opacity-30" />
-        <p className="text-lg font-heading font-medium">No camera feed available</p>
-        <p className="text-sm">{location}</p>
-      </div>
+      {hasWebcam ? (
+        <div className="rounded-xl bg-muted border overflow-hidden aspect-video">
+          <iframe
+            src={webcamUrl}
+            title={selected?.name}
+            className="w-full h-full border-0"
+            allowFullScreen
+          />
+        </div>
+      ) : (
+        <div className="rounded-xl bg-muted border overflow-hidden aspect-video flex items-center justify-center flex-col gap-3 text-muted-foreground">
+          <Camera size={48} className="opacity-30" />
+          <p className="text-lg font-heading font-medium">{t('cameras.noFeed')}</p>
+          <p className="text-sm">{selected?.name}</p>
+        </div>
+      )}
 
       {/* Thumbnails */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {venues.map(v => (
+        {locations.map((v, idx) => (
           <button
             key={v.name}
-            onClick={() => setLocation(v.name)}
+            onClick={() => setSelectedIdx(idx)}
             className={`rounded-lg bg-muted border aspect-video flex items-center justify-center transition-all ${
-              location === v.name ? 'ring-2 ring-primary' : 'opacity-60 hover:opacity-100'
+              selectedIdx === idx ? 'ring-2 ring-primary' : 'opacity-60 hover:opacity-100'
             }`}
           >
             <div className="text-center text-muted-foreground">
@@ -43,7 +69,7 @@ const LiveCameras = () => {
       </div>
 
       <div className="flex flex-col items-center gap-3 py-6 text-center">
-        <p className="text-sm text-muted-foreground">Coming soon — we are working on getting live cameras at the harbor</p>
+        <p className="text-sm text-muted-foreground">{t('cameras.comingSoon')}</p>
         <a
           href="https://www.windy.com"
           target="_blank"
@@ -51,7 +77,7 @@ const LiveCameras = () => {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
         >
           <ExternalLink size={14} />
-          Check Windy.com for more cameras
+          {t('cameras.windyLink')}
         </a>
       </div>
     </div>

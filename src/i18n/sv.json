@@ -1,0 +1,299 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "calendar": "Kalender",
+    "events": "Evenemang & Kartor",
+    "weather": "Väder",
+    "liveCameras": "Livekameror",
+    "coaches": "Tränare & Lag",
+    "contacts": "Klubbkontakter",
+    "news": "Nyheter",
+    "marketplace": "Köp & Sälj",
+    "skills": "Färdighetsutveckling",
+    "safety": "Säkerhetschecklista",
+    "subscribe": "Prenumerera",
+    "sponsors": "Sponsorer"
+  },
+  "teams": {
+    "green": "Gröna Laget",
+    "blue": "Blå Laget",
+    "red": "Röda Laget",
+    "selectTeam": "Välj ditt lag",
+    "changeTeam": "Byt lag",
+    "ageRange": "Ålder {{min}}–{{max}}"
+  },
+  "teamSelection": {
+    "subtitle": "Ungdomssegling Dashboard",
+    "choosePrompt": "Välj ditt lag för att komma in",
+    "teams": {
+      "green": {
+        "name": "Gröna Laget",
+        "description": "Första stegen på vattnet — lär dig grunderna och ha kul!"
+      },
+      "blue": {
+        "name": "Blå Laget",
+        "description": "Bygg självförtroende och kappseglingsfärdigheter på öppet vatten."
+      },
+      "red": {
+        "name": "Röda Laget",
+        "description": "Tävla på högre nivå — regatta och mästerskap."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "nextEvent": "Nästa Evenemang",
+    "weatherNow": "Väder Nu",
+    "latestNews": "Senaste Nytt",
+    "quickLinks": "Snabblänkar",
+    "days": "Dagar",
+    "hours": "Timmar",
+    "minutes": "Min",
+    "goldSponsor": "Guldsponsor",
+    "visit": "Besök",
+    "whatsappGroup": "WhatsApp-grupp",
+    "sailarena": "Sailarena",
+    "clubWebsite": "Klubbens Webbplats"
+  },
+  "calendar": {
+    "title": "Kalender",
+    "today": "Idag",
+    "noEvents": "Inga evenemang denna dag",
+    "filterByType": "Filtrera efter typ",
+    "allTypes": "Alla Typer"
+  },
+  "events": {
+    "title": "Evenemang & Kartor",
+    "address": "Adress",
+    "parking": "Parkering",
+    "facilities": "Anläggningar",
+    "arrivalTime": "Samling",
+    "startTime": "Start",
+    "getDirections": "Vägbeskrivning",
+    "viewOnSailarena": "Visa på Sailarena",
+    "home": "Hemma",
+    "assignedCoaches": "Tilldelade Tränare",
+    "rigsAvailable": "Riggar",
+    "boatsAvailable": "Båtar",
+    "shareOnWhatsApp": "Dela via WhatsApp"
+  },
+  "weather": {
+    "title": "Väder",
+    "temperature": "Temperatur",
+    "feelsLike": "Känns Som",
+    "humidity": "Fuktighet",
+    "precipitation": "Nederbörd",
+    "uvIndex": "UV-index",
+    "windSpeed": "Vindstyrka",
+    "windDirection": "Vindriktning",
+    "knots": "knop",
+    "sevenDayForecast": "7-dagarsprognos",
+    "hourly": "Timvis",
+    "sailing": {
+      "veryLight": "Mycket lätt vind",
+      "good": "Bra för segling",
+      "moderate": "Måttligt — erfarna seglare",
+      "notRecommended": "Ej rekommenderat för Optimist"
+    },
+    "unavailable": "Väder ej tillgängligt",
+    "retry": "Försök igen"
+  },
+  "cameras": {
+    "title": "Livekameror",
+    "selectLocation": "Välj plats",
+    "noFeed": "Ingen kameraström tillgänglig",
+    "viewOnWindy": "Visa på Windy.com",
+    "comingSoon": "Kommer snart — vi arbetar med att få livekameror i hamnen",
+    "windyLink": "Kolla Windy.com för fler kameror"
+  },
+  "coaches": {
+    "title": "Tränare & Lag",
+    "eventAssignments": "Evenemangsuppdrag",
+    "role": "Roll",
+    "rigs": "Riggar",
+    "boats": "Båtar",
+    "notes": "Anteckningar"
+  },
+  "contacts": {
+    "title": "Klubbkontakter",
+    "welcome": "Välkommen till Kullaviks Segelsällskap! Här är våra nyckelpersoner."
+  },
+  "news": {
+    "title": "Nyheter",
+    "pinned": "Fäst",
+    "share": "Dela",
+    "readMore": "Läs mer",
+    "filterAll": "Alla",
+    "ad": "Annons"
+  },
+  "marketplace": {
+    "title": "Köp & Sälj",
+    "search": "Sök artiklar...",
+    "allCategories": "Alla Kategorier",
+    "condition": "Skick",
+    "price": "Pris",
+    "seller": "Säljare",
+    "contactSeller": "Kontakta Säljare",
+    "viewOnBlocket": "Visa på Blocket",
+    "sortNewest": "Nyast Först",
+    "sortPriceLow": "Pris: Lägst Först",
+    "sortPriceHigh": "Pris: Högst Först",
+    "featuredShops": "Utvalda Butiker"
+  },
+  "skills": {
+    "title": "Din Seglingsresa",
+    "subtitle": "Följ dina framsteg genom seglingszonerna",
+    "beginner": "Nybörjare",
+    "intermediate": "Mellanliggande",
+    "advanced": "Avancerad",
+    "greenZone": "Grön Zon",
+    "blueZone": "Blå Zon",
+    "redZone": "Röd Zon",
+    "zones": {
+      "green": "Grön Zon",
+      "blue": "Blå Zon",
+      "red": "Röd Zon"
+    }
+  },
+  "safety": {
+    "title": "Säkerhetschecklista",
+    "subtitle": "Skriv ut och kontrollera innan varje pass.",
+    "printChecklist": "Skriv Ut Checklista",
+    "categories": {
+      "Safety": "Säkerhet",
+      "Clothing": "Kläder",
+      "Equipment": "Utrustning",
+      "Protection": "Skydd",
+      "Nutrition": "Näring"
+    }
+  },
+  "subscribe": {
+    "title": "Prenumerera & Aviseringar",
+    "emailSignup": "E-postregistrering",
+    "pushNotifications": "Push-notiser",
+    "whatsappGroups": "WhatsApp-grupper",
+    "socialMedia": "Sociala Medier",
+    "yourName": "Ditt namn",
+    "yourEmail": "Din e-post",
+    "selectTeam": "Välj lag",
+    "signUp": "Registrera Dig",
+    "linkComingSoon": "Länk kommer snart",
+    "email": {
+      "heading": "E-postuppdateringar",
+      "namePlaceholder": "Ditt namn",
+      "emailPlaceholder": "din@epost.se",
+      "allTeams": "Alla Lag",
+      "greenTeam": "Gröna Laget",
+      "blueTeam": "Blå Laget",
+      "redTeam": "Röda Laget",
+      "button": "Prenumerera"
+    },
+    "push": {
+      "heading": "Push-notiser",
+      "description": "Få webbläsarnotiser för nya evenemang och inställningar.",
+      "enable": "Aktivera notiser"
+    },
+    "whatsapp": {
+      "heading": "WhatsApp-grupper",
+      "green": "Gröna Laget",
+      "blue": "Blå Laget",
+      "red": "Röda Laget",
+      "all": "Hela Klubben"
+    }
+  },
+  "sponsors": {
+    "title": "Sponsorer",
+    "gold": "Guldsponsorer",
+    "silver": "Silversponsorer",
+    "bronze": "Bronssponsorer",
+    "ad": "Annons / Ad",
+    "visitWebsite": "Besök",
+    "becomeSponsor": "Bli Sponsor",
+    "proudSponsor": "Stolt sponsor"
+  },
+  "sponsor": {
+    "heroTitle": "Stöd Lokal Ungdomssegling",
+    "heroSubtitle": "Hjälp oss utveckla nästa generation seglare",
+    "perMonth": "månad",
+    "contactHeading": "Intresserad? Hör av dig",
+    "emailUs": "Eller maila oss på ads@klubben.se",
+    "tiers": {
+      "gold": "Guld",
+      "silver": "Silver",
+      "bronze": "Brons"
+    },
+    "benefits": {
+      "logoEvents": "Logotyp på alla evenemangssidor",
+      "featuredCard": "Utvalt kort på Dashboard",
+      "sponsoredPosts": "Sponsrade inlägg i nyhetsflödet",
+      "footerRibbon": "Placering i sidfotsbandet",
+      "socialMentions": "Omnämnanden i sociala medier",
+      "sidebarRotation": "Rotation i sidofältet",
+      "logoSponsorsPage": "Logotyp på Sponsorsidan",
+      "socialQuarterly": "Omnämnande i sociala medier (kvartalsvis)"
+    },
+    "form": {
+      "name": "Ditt namn",
+      "business": "Företagsnamn",
+      "email": "din@epost.se",
+      "message": "Meddelande...",
+      "send": "Skicka Meddelande"
+    }
+  },
+  "becomeSponsor": {
+    "title": "Bli Sponsor",
+    "perMonth": "/månad",
+    "contactUs": "Kontakta Oss",
+    "name": "Namn",
+    "businessName": "Företagsnamn",
+    "email": "E-post",
+    "message": "Meddelande",
+    "send": "Skicka"
+  },
+  "notFound": {
+    "message": "Hoppsan! Sidan hittades inte",
+    "returnHome": "Tillbaka till Startsidan"
+  },
+  "common": {
+    "loading": "Laddar...",
+    "error": "Något gick fel",
+    "retry": "Försök igen",
+    "reload": "Ladda om",
+    "lastUpdated": "Senast uppdaterad",
+    "minutesAgo": "{{count}} min sedan",
+    "share": "Dela",
+    "close": "Stäng",
+    "sampleDataBanner": "Visar exempeldata — anslut ett Google Sheet för livedata."
+  },
+  "empty": {
+    "noEvents": "Inga kommande evenemang — lugnt vatten framåt!",
+    "noNews": "Inga nyheter ännu — lugna vatten",
+    "noItems": "Inget till salu just nu — kolla tillbaka snart",
+    "noCameras": "Ingen kameraström tillgänglig"
+  },
+  "weatherCodes": {
+    "0": "Klart",
+    "1": "Mestadels klart",
+    "2": "Delvis molnigt",
+    "3": "Mulet",
+    "45": "Dimma",
+    "48": "Rimfrostdimma",
+    "51": "Lätt duggregn",
+    "53": "Måttligt duggregn",
+    "55": "Tätt duggregn",
+    "61": "Lätt regn",
+    "63": "Måttligt regn",
+    "65": "Kraftigt regn",
+    "71": "Lätt snöfall",
+    "73": "Måttligt snöfall",
+    "75": "Kraftigt snöfall",
+    "80": "Lätta regnskurar",
+    "81": "Måttliga regnskurar",
+    "82": "Kraftiga regnskurar",
+    "85": "Lätta snöbyar",
+    "86": "Kraftiga snöbyar",
+    "95": "Åskväder",
+    "96": "Åskväder med lätt hagel",
+    "99": "Åskväder med kraftigt hagel"
+  }
+}

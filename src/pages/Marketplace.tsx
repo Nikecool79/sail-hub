@@ -1,6 +1,10 @@
-import { marketplaceItems, sponsors } from '@/data/sampleData';
+import { useDataStore } from '@/store/dataStore';
+import { useTranslation } from 'react-i18next';
+import { useLocalizedField } from '@/hooks/useLocalizedField';
+import { getSponsorsByTier } from '@/utils/sponsorUtils';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import { Sailboat, Wind, Shirt, Wrench, Search, ExternalLink, Mail } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 const catIcons: Record<string, React.ElementType> = {
   boat: Sailboat, sail: Wind, clothing: Shirt, equipment: Wrench,
@@ -11,30 +15,72 @@ const conditionColors: Record<string, string> = {
   'Fair': 'bg-yellow-100 text-yellow-700',
 };
 
+type SortOption = 'newest' | 'price-asc' | 'price-desc';
+
 const Marketplace = () => {
+  const { t } = useTranslation();
+  const { localize } = useLocalizedField();
+  const { data, isLoading } = useDataStore();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<string | null>(null);
-  const [selected, setSelected] = useState<number | null>(null);
+  const [sort, setSort] = useState<SortOption>('newest');
+  const [selected, setSelected] = useState<string | null>(null);
 
-  const filtered = marketplaceItems.filter(i =>
-    (!category || i.category === category) &&
-    (!search || i.title.toLowerCase().includes(search.toLowerCase()))
-  );
-  const selectedItem = marketplaceItems.find(i => i.id === selected);
+  const activeItems = useMemo(() => {
+    if (!data?.marketplace) return [];
+    return data.marketplace.filter(i => i.status === 'Active');
+  }, [data?.marketplace]);
+
+  const filtered = useMemo(() => {
+    let items = activeItems.filter(i => {
+      const matchCategory = !category || i.category === category;
+      const title = localize(i, 'title').toLowerCase();
+      const description = localize(i, 'description').toLowerCase();
+      const term = search.toLowerCase();
+      const matchSearch = !search || title.includes(term) || description.includes(term);
+      return matchCategory && matchSearch;
+    });
+
+    switch (sort) {
+      case 'newest':
+        items = [...items].sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime());
+        break;
+      case 'price-asc':
+        items = [...items].sort((a, b) => a.priceSek - b.priceSek);
+        break;
+      case 'price-desc':
+        items = [...items].sort((a, b) => b.priceSek - a.priceSek);
+        break;
+    }
+
+    return items;
+  }, [activeItems, category, search, sort, localize]);
+
+  const selectedItem = useMemo(() => {
+    if (!selected) return null;
+    return activeItems.find(i => i.itemId === selected) ?? null;
+  }, [activeItems, selected]);
+
+  const featuredShops = useMemo(() => {
+    if (!data?.sponsors) return [];
+    return getSponsorsByTier(data.sponsors, 'Gold');
+  }, [data?.sponsors]);
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="space-y-6">
-      <h1 className="font-heading text-2xl font-bold">Marketplace</h1>
+      <h1 className="font-heading text-2xl font-bold">{t('marketplace.title')}</h1>
 
       {/* Featured shops */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {sponsors.gold.map(s => (
-          <div key={s.name} className="rounded-xl border border-dashed p-4 card-hover bg-sand/20">
+        {featuredShops.map(s => (
+          <div key={s.adId} className="rounded-xl border border-dashed p-4 card-hover bg-sand/20">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-muted flex items-center justify-center font-bold text-sm text-muted-foreground">{s.name.charAt(0)}</div>
+              <div className="w-10 h-10 rounded bg-muted flex items-center justify-center font-bold text-sm text-muted-foreground">{s.businessName.charAt(0)}</div>
               <div>
-                <p className="font-medium text-sm">{s.name}</p>
-                <p className="text-xs text-muted-foreground">{s.tagline}</p>
+                <p className="font-medium text-sm">{s.businessName}</p>
+                <p className="text-xs text-muted-foreground">{localize(s, 'tagline')}</p>
               </div>
             </div>
           </div>
@@ -48,7 +94,7 @@ const Marketplace = () => {
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Search items..."
+            placeholder={t('marketplace.search')}
             className="w-full pl-9 pr-3 py-2 rounded-md border bg-card text-sm"
           />
         </div>
@@ -57,11 +103,20 @@ const Marketplace = () => {
           onChange={e => setCategory(e.target.value || null)}
           className="px-3 py-2 rounded-md border bg-card text-sm"
         >
-          <option value="">All categories</option>
+          <option value="">{t('marketplace.allCategories')}</option>
           <option value="boat">Boats</option>
           <option value="sail">Sails</option>
           <option value="clothing">Clothing</option>
           <option value="equipment">Equipment</option>
+        </select>
+        <select
+          value={sort}
+          onChange={e => setSort(e.target.value as SortOption)}
+          className="px-3 py-2 rounded-md border bg-card text-sm"
+        >
+          <option value="newest">{t('marketplace.sortNewest')}</option>
+          <option value="price-asc">{t('marketplace.sortPriceLow')}</option>
+          <option value="price-desc">{t('marketplace.sortPriceHigh')}</option>
         </select>
       </div>
 
@@ -69,21 +124,22 @@ const Marketplace = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map(item => {
           const CatIcon = catIcons[item.category] || Wrench;
+          const title = localize(item, 'title');
           return (
             <button
-              key={item.id}
-              onClick={() => setSelected(item.id)}
-              className={`text-left rounded-xl bg-card border p-5 card-hover transition-all ${selected === item.id ? 'ring-2 ring-primary' : ''}`}
+              key={item.itemId}
+              onClick={() => setSelected(item.itemId)}
+              className={`text-left rounded-xl bg-card border p-5 card-hover transition-all ${selected === item.itemId ? 'ring-2 ring-primary' : ''}`}
             >
               <div className="flex items-center gap-2 mb-2">
                 <CatIcon size={16} className="text-muted-foreground" />
                 <span className={`text-xs px-2 py-0.5 rounded-full ${conditionColors[item.condition] || 'bg-muted'}`}>{item.condition}</span>
               </div>
-              <h3 className="font-heading font-semibold mb-1">{item.title}</h3>
-              <p className="font-heading text-xl font-bold text-primary">{item.price} SEK</p>
+              <h3 className="font-heading font-semibold mb-1">{title}</h3>
+              <p className="font-heading text-xl font-bold text-primary">{item.priceSek} SEK</p>
               <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
-                <span>{item.seller}</span>
-                <span>{item.date}</span>
+                <span>{item.sellerName}</span>
+                <span>{item.datePosted}</span>
               </div>
             </button>
           );
@@ -93,16 +149,24 @@ const Marketplace = () => {
       {/* Detail panel */}
       {selectedItem && (
         <div className="rounded-xl bg-card border p-5 team-border-top">
-          <h3 className="font-heading text-lg font-semibold mb-1">{selectedItem.title}</h3>
-          <p className="font-heading text-2xl font-bold text-primary mb-3">{selectedItem.price} SEK</p>
-          <p className="text-sm text-muted-foreground mb-4">{selectedItem.description}</p>
+          <h3 className="font-heading text-lg font-semibold mb-1">{localize(selectedItem, 'title')}</h3>
+          <p className="font-heading text-2xl font-bold text-primary mb-3">{selectedItem.priceSek} SEK</p>
+          <p className="text-sm text-muted-foreground mb-4">{localize(selectedItem, 'description')}</p>
           <div className="flex flex-wrap gap-2">
-            <button className="flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm hover:opacity-90">
-              <ExternalLink size={14} /> View on Blocket
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-md border text-sm hover:bg-secondary">
-              <Mail size={14} /> Contact seller
-            </button>
+            <a
+              href={selectedItem.externalLink || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm hover:opacity-90"
+            >
+              <ExternalLink size={14} /> {t('marketplace.viewOnBlocket')}
+            </a>
+            <a
+              href={`mailto:${selectedItem.sellerEmail}`}
+              className="flex items-center gap-2 px-4 py-2 rounded-md border text-sm hover:bg-secondary"
+            >
+              <Mail size={14} /> {t('marketplace.contactSeller')}
+            </a>
           </div>
         </div>
       )}
