@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useDataStore } from '@/store/dataStore';
-import { useThemeStore } from '@/store/useThemeStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -13,19 +12,10 @@ const zones = [
   { key: 'Red' as const, themeKey: 'red' as const, color: '#C62828', bgClass: 'from-red-50 to-red-100', boatSize: 56 },
 ];
 
-const teamOrder = ['Green', 'Blue', 'Red'];
-
 const SkillProgression = () => {
   const { t } = useTranslation();
   const { localize } = useLocalizedField();
   const { data, isLoading } = useDataStore();
-  const { team } = useThemeStore();
-
-  const visibleZones = useMemo(() => {
-    if (!team) return zones;
-    const idx = teamOrder.indexOf(team.charAt(0).toUpperCase() + team.slice(1));
-    return zones.slice(0, idx + 1);
-  }, [team]);
 
   const grouped = useMemo(() => {
     if (!data?.skillProgression) return {};
@@ -53,7 +43,7 @@ const SkillProgression = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {visibleZones.map(zone => (
+        {zones.map(zone => (
           <div
             key={zone.key}
             className={`rounded-xl border p-6 bg-gradient-to-b ${zone.bgClass}`}
