@@ -24,6 +24,7 @@ const NewsPage = () => {
   const { localize } = useLocalizedField();
   const { data, isLoading } = useDataStore();
   const [filter, setFilter] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   const newsItems = useMemo(() => {
     if (!data?.news) return [];
@@ -71,10 +72,11 @@ const NewsPage = () => {
         {filtered.map((n, idx) => {
           const title = localize(n, 'title');
           const body = localize(n, 'body');
+          const itemKey = `${n.newsId}-${idx}`;
           const sponsorAd = sponsorAds.length > 0 ? sponsorAds[idx % sponsorAds.length] : null;
 
           return (
-            <div key={n.newsId}>
+            <div key={itemKey}>
               <div className={`rounded-xl bg-card border p-5 card-hover ${n.pinned ? 'ring-1 ring-primary/30' : ''}`}>
                 <div className="flex items-center gap-2 mb-2">
                   {n.pinned && <Pin size={14} className="text-primary" />}
@@ -82,7 +84,23 @@ const NewsPage = () => {
                   <span className="text-xs text-muted-foreground">{n.date}</span>
                 </div>
                 <h3 className="font-heading text-lg font-semibold mb-1">{title}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{body.slice(0, 150)}... <button className="text-primary hover:underline text-xs">{t('news.readMore')}</button></p>
+                {expanded[itemKey] ? (
+                  <p className="text-sm text-muted-foreground mb-3 whitespace-pre-line">{body}</p>
+                ) : (
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {body.length > 150 ? (
+                      <>
+                        {body.slice(0, 150)}{'... '}
+                        <button
+                          className="text-primary hover:underline text-xs"
+                          onClick={() => setExpanded(prev => ({ ...prev, [itemKey]: true }))}
+                        >
+                          {t('news.readMore')}
+                        </button>
+                      </>
+                    ) : body}
+                  </p>
+                )}
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-muted-foreground">{n.author}</span>
                   <button
