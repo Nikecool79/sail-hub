@@ -54,7 +54,10 @@
     "visit": "Visit",
     "whatsappGroup": "WhatsApp Group",
     "sailarena": "Sailarena",
-    "clubWebsite": "Club Website"
+    "clubWebsite": "Club Website",
+    "socialMedia": "Social Media",
+    "followOnFacebook": "Follow on Facebook",
+    "latestOnInstagram": "Latest on Instagram"
   },
   "calendar": {
     "title": "Calendar",

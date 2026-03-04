@@ -9,6 +9,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OptimistBoat from '@/components/OptimistBoat';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import SocialMediaWidget from '@/components/SocialMediaWidget';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -211,6 +212,9 @@ const Dashboard = () => {
           </div>
         </div>
       )}
+
+      {/* Social Media */}
+      <SocialMediaWidget settings={data.settings} />
     </div>
   );
 };
