@@ -180,8 +180,14 @@ const FleetPage = () => {
                   { key: 'trailerCheck', date: rib.trailerCheckDate },
                 ];
 
+                const cardBorder = rib.status === 'Out of Service'
+                  ? 'border-red-300 bg-red-50/30 dark:bg-red-950/10'
+                  : rib.status === 'Needs Service'
+                    ? 'border-yellow-300 bg-yellow-50/30 dark:bg-yellow-950/10'
+                    : '';
+
                 return (
-                  <div key={rib.ribId} className="rounded-xl bg-card border p-5 card-hover team-border-top space-y-4">
+                  <div key={rib.ribId} className={`rounded-xl bg-card border p-5 card-hover team-border-top space-y-4 ${cardBorder}`}>
                     {/* Header */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">

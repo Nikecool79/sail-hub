@@ -89,14 +89,20 @@ const Subscribe = () => {
       </div>
 
       {/* Social */}
-      <div className="flex justify-center gap-3">
-        <button className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Facebook">
-          <Facebook size={20} />
-        </button>
-        <button className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Instagram">
-          <Instagram size={20} />
-        </button>
-      </div>
+      {(settings['Facebook URL'] || settings['Instagram URL']) && (
+        <div className="flex justify-center gap-3">
+          {settings['Facebook URL'] && (
+            <a href={settings['Facebook URL']} target="_blank" rel="noopener noreferrer" className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Facebook">
+              <Facebook size={20} />
+            </a>
+          )}
+          {settings['Instagram URL'] && (
+            <a href={settings['Instagram URL']} target="_blank" rel="noopener noreferrer" className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Instagram">
+              <Instagram size={20} />
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -53,12 +53,16 @@ const AppFooter = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <button className="p-2 rounded-md hover:bg-secondary transition-colors" aria-label="Facebook">
-            <Facebook size={18} />
-          </button>
-          <button className="p-2 rounded-md hover:bg-secondary transition-colors" aria-label="Instagram">
-            <Instagram size={18} />
-          </button>
+          {data?.settings['Facebook URL'] && (
+            <a href={data.settings['Facebook URL']} target="_blank" rel="noopener noreferrer" className="p-2 rounded-md hover:bg-secondary transition-colors" aria-label="Facebook">
+              <Facebook size={18} />
+            </a>
+          )}
+          {data?.settings['Instagram URL'] && (
+            <a href={data.settings['Instagram URL']} target="_blank" rel="noopener noreferrer" className="p-2 rounded-md hover:bg-secondary transition-colors" aria-label="Instagram">
+              <Instagram size={18} />
+            </a>
+          )}
           <span className="flex items-center gap-1 text-xs">
             Made with <Heart size={12} className="text-destructive" /> for young sailors
           </span>
