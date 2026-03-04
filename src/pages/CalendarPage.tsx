@@ -127,7 +127,7 @@ const CalendarPage = () => {
               <div
                 key={e.eventId}
                 className="p-3 rounded-lg bg-secondary cursor-pointer hover:bg-secondary/80 transition-colors"
-                onClick={() => navigate('/events')}
+                onClick={() => navigate(`/events?event=${e.eventId}`)}
               >
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-2">

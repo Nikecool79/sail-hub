@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 import { MapPin, Navigation, Clock, Car, ExternalLink, Calendar, Users } from 'lucide-react';
 import React, { useState, useMemo, useEffect, useRef, useCallback, Suspense } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 /** Extract lat/lng from a Google Maps URL (various formats) */
@@ -53,18 +54,24 @@ const EventsAndMaps = () => {
   const { localize } = useLocalizedField();
   const data = useDataStore(s => s.data);
 
+  const [searchParams] = useSearchParams();
   const events = data?.events || [];
   const locations = data?.locations || [];
 
   const [selectedEvent, setSelectedEvent] = useState(events[0] || null);
   const detailsRef = useRef<HTMLDivElement>(null);
 
-  // When data loads and no event is selected yet, pick the first
+  // When data loads, select event from URL param or default to first
   useEffect(() => {
-    if (events.length > 0 && !selectedEvent) {
-      setSelectedEvent(events[0]);
+    if (events.length > 0) {
+      const eventId = searchParams.get('event');
+      if (eventId) {
+        const found = events.find(e => e.eventId === eventId);
+        if (found) { setSelectedEvent(found); return; }
+      }
+      if (!selectedEvent) setSelectedEvent(events[0]);
     }
-  }, [events.length]);
+  }, [events.length, searchParams]);
 
   const handleSelectEvent = useCallback((e: typeof events[0]) => {
     setSelectedEvent(e);
@@ -76,7 +83,23 @@ const EventsAndMaps = () => {
 
   const venue = useMemo(() => {
     if (!selectedEvent) return locations[0] || null;
-    return locations.find(loc => loc.name === selectedEvent.locationName) || locations[0] || null;
+    const found = locations.find(loc => loc.name === selectedEvent.locationName);
+    if (found) return found;
+    // Build a venue-like object from the event's own data when no matching location
+    if (selectedEvent.locationName) {
+      return {
+        name: selectedEvent.locationName,
+        address: selectedEvent.address || '',
+        latitude: selectedEvent.latitude,
+        longitude: selectedEvent.longitude,
+        googleMapsUrl: '',
+        parkingInfoSv: selectedEvent.parkingInfoSv || '',
+        parkingInfoEn: selectedEvent.parkingInfoEn || '',
+        facilitiesSv: '',
+        facilitiesEn: '',
+      };
+    }
+    return locations[0] || null;
   }, [selectedEvent, locations]);
 
   const markers = useMemo(() => {
