@@ -184,34 +184,34 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Gold Sponsor */}
-      {goldSponsor && (
-        <div className="rounded-xl bg-card border p-5 card-hover relative overflow-hidden">
-          <span className="absolute top-2 right-2 text-[10px] bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{t('sponsors.ad')}</span>
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center">
-              {goldSponsor.logoUrl ? (
-                <img src={goldSponsor.logoUrl} alt={goldSponsor.businessName} className="w-12 h-12 object-contain" />
-              ) : (
-                <Megaphone size={24} className="text-muted-foreground" />
-              )}
+        {/* Gold Sponsor */}
+        {goldSponsor && (
+          <div className="md:col-span-2 rounded-xl bg-card border p-5 card-hover relative overflow-hidden">
+            <span className="absolute top-2 right-2 text-[10px] bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{t('sponsors.ad')}</span>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center">
+                {goldSponsor.logoUrl ? (
+                  <img src={goldSponsor.logoUrl} alt={goldSponsor.businessName} className="w-12 h-12 object-contain" />
+                ) : (
+                  <Megaphone size={24} className="text-muted-foreground" />
+                )}
+              </div>
+              <div className="flex-1">
+                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5">{t('dashboard.goldSponsor')}</p>
+                <h3 className="font-heading text-lg font-semibold">{goldSponsor.businessName}</h3>
+                <p className="text-sm text-muted-foreground">{localize(goldSponsor, 'tagline')}</p>
+              </div>
+              <button
+                onClick={() => trackSponsorClick(goldSponsor.adId, goldSponsor.clickUrl || goldSponsor.websiteUrl)}
+                className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+              >
+                {t('dashboard.visit')}
+              </button>
             </div>
-            <div className="flex-1">
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5">{t('dashboard.goldSponsor')}</p>
-              <h3 className="font-heading text-lg font-semibold">{goldSponsor.businessName}</h3>
-              <p className="text-sm text-muted-foreground">{localize(goldSponsor, 'tagline')}</p>
-            </div>
-            <button
-              onClick={() => trackSponsorClick(goldSponsor.adId, goldSponsor.clickUrl || goldSponsor.websiteUrl)}
-              className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-            >
-              {t('dashboard.visit')}
-            </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Social Media */}
       <SocialMediaWidget settings={data.settings} />
