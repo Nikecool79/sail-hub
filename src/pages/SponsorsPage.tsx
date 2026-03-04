@@ -40,9 +40,13 @@ const SponsorsPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {goldSponsors.map(s => (
             <div key={s.adId} className="rounded-xl border-2 border-dashed border-yellow-300 p-6 card-hover">
-              <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center font-heading text-2xl font-bold text-muted-foreground mb-3">
-                {s.businessName.charAt(0)}
-              </div>
+              {s.logoUrl ? (
+                <img src={s.logoUrl} alt={s.businessName} className="w-16 h-16 rounded-lg object-contain mb-3" />
+              ) : (
+                <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center font-heading text-2xl font-bold text-muted-foreground mb-3">
+                  {s.businessName.charAt(0)}
+                </div>
+              )}
               <h3 className="font-heading text-lg font-semibold">{s.businessName}</h3>
               <p className="text-sm text-muted-foreground mb-1">{localize(s, 'tagline')}</p>
               <p className="text-sm text-muted-foreground mb-3">{localize(s, 'description')}</p>
@@ -65,9 +69,13 @@ const SponsorsPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {silverSponsors.map(s => (
             <div key={s.adId} className="rounded-xl border border-dashed p-5 card-hover">
-              <div className="w-12 h-12 rounded bg-muted flex items-center justify-center font-heading text-lg font-bold text-muted-foreground mb-2">
-                {s.businessName.charAt(0)}
-              </div>
+              {s.logoUrl ? (
+                <img src={s.logoUrl} alt={s.businessName} className="w-12 h-12 rounded object-contain mb-2" />
+              ) : (
+                <div className="w-12 h-12 rounded bg-muted flex items-center justify-center font-heading text-lg font-bold text-muted-foreground mb-2">
+                  {s.businessName.charAt(0)}
+                </div>
+              )}
               <h3 className="font-heading font-semibold">{s.businessName}</h3>
               <p className="text-sm text-muted-foreground">{localize(s, 'tagline')}</p>
             </div>
@@ -83,9 +91,13 @@ const SponsorsPage = () => {
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {bronzeSponsors.map(s => (
             <div key={s.adId} className="rounded-lg border border-dashed p-3 text-center card-hover">
-              <div className="w-10 h-10 rounded-full bg-muted mx-auto mb-1 flex items-center justify-center text-xs font-bold text-muted-foreground">
-                {s.businessName.charAt(0)}
-              </div>
+              {s.logoUrl ? (
+                <img src={s.logoUrl} alt={s.businessName} className="w-10 h-10 rounded-full mx-auto mb-1 object-contain" />
+              ) : (
+                <div className="w-10 h-10 rounded-full bg-muted mx-auto mb-1 flex items-center justify-center text-xs font-bold text-muted-foreground">
+                  {s.businessName.charAt(0)}
+                </div>
+              )}
               <p className="text-sm font-medium">{s.businessName}</p>
             </div>
           ))}
