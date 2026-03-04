@@ -20,21 +20,27 @@ const AppFooter = () => {
         <p className="text-center text-xs text-muted-foreground mb-3 tracking-wider uppercase">{t('sponsors.proudSponsor')}</p>
         <div className="relative">
           <div className="flex gap-8 sponsor-scroll whitespace-nowrap">
-            {[...allSponsors, ...allSponsors].map((s, i) => (
-              <div
-                key={i}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md border bg-muted/30 hover:bg-muted transition-colors flex-shrink-0 grayscale hover:grayscale-0"
-              >
-                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">
-                  {s.logoUrl ? (
-                    <img src={s.logoUrl} alt="" className="w-8 h-8 rounded-full object-cover" loading="lazy" />
-                  ) : (
-                    s.businessName.charAt(0)
-                  )}
-                </div>
-                <span className="text-sm text-muted-foreground">{s.businessName}</span>
-              </div>
-            ))}
+            {[...allSponsors, ...allSponsors].map((s, i) => {
+              const url = s.clickUrl || s.websiteUrl;
+              const Tag = url ? 'a' : 'div';
+              const linkProps = url ? { href: url, target: '_blank' as const, rel: 'noopener noreferrer' } : {};
+              return (
+                <Tag
+                  key={i}
+                  {...linkProps}
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-md border bg-muted/30 hover:bg-muted transition-colors flex-shrink-0 grayscale hover:grayscale-0 ${url ? 'cursor-pointer' : ''}`}
+                >
+                  <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">
+                    {s.logoUrl ? (
+                      <img src={s.logoUrl} alt="" className="w-8 h-8 rounded-full object-cover" loading="lazy" />
+                    ) : (
+                      s.businessName.charAt(0)
+                    )}
+                  </div>
+                  <span className="text-sm text-muted-foreground">{s.businessName}</span>
+                </Tag>
+              );
+            })}
           </div>
         </div>
       </div>
