@@ -1,9 +1,27 @@
 import { useDataStore } from '@/store/dataStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
-import { MapPin, Navigation, Clock, Car } from 'lucide-react';
+import { MapPin, Navigation, Clock, Car, ExternalLink } from 'lucide-react';
 import React, { useState, useMemo, useEffect, Suspense } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner';
+
+/** Extract lat/lng from a Google Maps URL (various formats) */
+function parseCoordsFromGoogleMapsUrl(url: string): { lat: number; lng: number } | null {
+  if (!url) return null;
+  // Matches: @57.123,11.456  or  /place/57.123,11.456  or  ?q=57.123,11.456  or  ll=57.123,11.456
+  const patterns = [
+    /@(-?\d+\.\d+),(-?\d+\.\d+)/,
+    /[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/,
+    /[?&]ll=(-?\d+\.\d+),(-?\d+\.\d+)/,
+    /\/place\/(-?\d+\.\d+),(-?\d+\.\d+)/,
+    /destination=(-?\d+\.\d+),(-?\d+\.\d+)/,
+  ];
+  for (const pat of patterns) {
+    const m = url.match(pat);
+    if (m) return { lat: parseFloat(m[1]), lng: parseFloat(m[2]) };
+  }
+  return null;
+}
 
 const LazyMapView = React.lazy(() => import('@/components/map/MapView'));
 
@@ -53,12 +71,15 @@ const EventsAndMaps = () => {
   }, [selectedEvent, locations]);
 
   const markers = useMemo(() => {
-    return locations.map(loc => ({
-      lat: loc.latitude,
-      lng: loc.longitude,
-      label: loc.name,
-      isHome: loc.name.includes('Kullavik'),
-    }));
+    return locations.map(loc => {
+      const parsed = parseCoordsFromGoogleMapsUrl(loc.googleMapsUrl);
+      return {
+        lat: parsed?.lat ?? loc.latitude,
+        lng: parsed?.lng ?? loc.longitude,
+        label: loc.name,
+        isHome: loc.name.includes('Kullavik'),
+      };
+    });
   }, [locations]);
 
   if (!data) return <LoadingSpinner />;
@@ -99,7 +120,10 @@ const EventsAndMaps = () => {
         <div className="lg:col-span-7 space-y-4">
           <MapErrorBoundary>
             <Suspense fallback={<MapFallback />}>
-              <LazyMapView markers={markers} selectedLat={venue?.latitude} selectedLng={venue?.longitude} height="400px" />
+              {(() => {
+                const parsed = venue ? parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl) : null;
+                return <LazyMapView markers={markers} selectedLat={parsed?.lat ?? venue?.latitude} selectedLng={parsed?.lng ?? venue?.longitude} height="400px" />;
+              })()}
             </Suspense>
           </MapErrorBoundary>
 
@@ -134,12 +158,28 @@ const EventsAndMaps = () => {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${venue.latitude},${venue.longitude}`, '_blank', 'noopener,noreferrer')}
-                className="mt-4 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-              >
-                {t('events.getDirections')}
-              </button>
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={() => {
+                    const parsed = parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl);
+                    const lat = parsed?.lat ?? venue.latitude;
+                    const lng = parsed?.lng ?? venue.longitude;
+                    window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank', 'noopener,noreferrer');
+                  }}
+                  className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+                >
+                  {t('events.getDirections')}
+                </button>
+                {venue.googleMapsUrl && (
+                  <button
+                    onClick={() => window.open(venue.googleMapsUrl, '_blank', 'noopener,noreferrer')}
+                    className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
+                  >
+                    <ExternalLink size={14} />
+                    Google Maps
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </div>

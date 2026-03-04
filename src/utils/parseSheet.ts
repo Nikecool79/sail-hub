@@ -164,6 +164,7 @@ export function parseLocations(rows: string[][]): Location[] {
     typicalArrivalTime: col(r, h, 'Typical Arrival Time'),
     webcamUrl: col(r, h, 'Webcam URL'),
     website: col(r, h, 'Website'),
+    googleMapsUrl: col(r, h, 'Google Maps URL'),
     notesSv: col(r, h, 'Notes SV'),
     notesEn: col(r, h, 'Notes EN'),
   }));

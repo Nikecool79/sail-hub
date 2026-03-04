@@ -96,6 +96,7 @@ export function convertSampleData(): AppData {
     typicalArrivalTime: '',
     webcamUrl: '',
     website: '',
+    googleMapsUrl: '',
     notesSv: '',
     notesEn: '',
   }));

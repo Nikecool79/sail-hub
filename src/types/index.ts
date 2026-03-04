@@ -103,6 +103,7 @@ export interface Location {
   typicalArrivalTime: string;
   webcamUrl: string;
   website: string;
+  googleMapsUrl: string;
   notesSv: string;
   notesEn: string;
 }
