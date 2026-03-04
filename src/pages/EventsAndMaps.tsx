@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 import MapView from '@/components/map/MapView';
 import { MapPin, Navigation, Clock, Car } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 const EventsAndMaps = () => {
@@ -17,11 +17,11 @@ const EventsAndMaps = () => {
   const [selectedEvent, setSelectedEvent] = useState(events[0] || null);
 
   // When data loads and no event is selected yet, pick the first
-  useMemo(() => {
+  useEffect(() => {
     if (events.length > 0 && !selectedEvent) {
       setSelectedEvent(events[0]);
     }
-  }, [events]);
+  }, [events.length]);
 
   const venue = useMemo(() => {
     if (!selectedEvent) return locations[0] || null;

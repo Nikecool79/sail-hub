@@ -38,6 +38,13 @@ export const useDataStore = create<DataState>((set, get) => ({
       }
 
       const raw = await fetchAllSheetData();
+
+      // Check if we actually got data — if all tabs returned empty (header only or no rows), fall back
+      const hasData = Object.values(raw).some((rows) => rows.length > 1);
+      if (!hasData) {
+        throw new Error('Google Sheets returned no data — check sharing settings and API key');
+      }
+
       const data: AppData = {
         events: parseEvents(raw[SHEET_TABS.EVENTS]),
         coaches: parseCoaches(raw[SHEET_TABS.COACHES]),
