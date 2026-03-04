@@ -1,4 +1,5 @@
 import { useDataStore } from '@/store/dataStore';
+import { useThemeStore } from '@/store/useThemeStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 import { MapPin, Navigation, Clock, Car, ExternalLink, Calendar, Users, Globe } from 'lucide-react';
@@ -53,9 +54,16 @@ const EventsAndMaps = () => {
   const { t } = useTranslation();
   const { localize } = useLocalizedField();
   const data = useDataStore(s => s.data);
+  const team = useThemeStore(s => s.team);
 
   const [searchParams] = useSearchParams();
-  const events = data?.events || [];
+  const events = useMemo(() => {
+    if (!data) return [];
+    if (!team) return data.events;
+    return data.events.filter(e =>
+      e.teams.length === 0 || e.teams.includes('All') || e.teams.some(t => t.toLowerCase() === team.toLowerCase())
+    );
+  }, [data, team]);
   const locations = data?.locations || [];
 
   const [selectedEvent, setSelectedEvent] = useState(events[0] || null);
