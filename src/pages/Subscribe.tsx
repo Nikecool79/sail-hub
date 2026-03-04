@@ -91,12 +91,12 @@ const Subscribe = () => {
       {/* Social */}
       {(settings['Facebook Page'] || settings['Facebook URL'] || settings['Instagram'] || settings['Instagram URL']) && (
         <div className="flex justify-center gap-3">
-          {settings['Facebook Page'] || settings['Facebook URL'] && (
+          {(settings['Facebook Page'] || settings['Facebook URL']) && (
             <a href={settings['Facebook Page'] || settings['Facebook URL']} target="_blank" rel="noopener noreferrer" className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Facebook">
               <Facebook size={20} />
             </a>
           )}
-          {settings['Instagram'] || settings['Instagram URL'] && (
+          {(settings['Instagram'] || settings['Instagram URL']) && (
             <a href={settings['Instagram'] || settings['Instagram URL']} target="_blank" rel="noopener noreferrer" className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Instagram">
               <Instagram size={20} />
             </a>
