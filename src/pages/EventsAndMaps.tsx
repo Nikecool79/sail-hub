@@ -167,7 +167,7 @@ const EventsAndMaps = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex gap-2 mt-4">
+              <div className="flex flex-wrap gap-2 mt-4">
                 <button
                   onClick={() => {
                     const parsed = parseCoordsFromGoogleMapsUrl(venue.googleMapsUrl);
@@ -179,6 +179,15 @@ const EventsAndMaps = () => {
                 >
                   {t('events.getDirections')}
                 </button>
+                {selectedEvent?.sailarenaLink && (
+                  <button
+                    onClick={() => window.open(selectedEvent.sailarenaLink, '_blank', 'noopener,noreferrer')}
+                    className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-secondary transition-colors flex items-center gap-1.5"
+                  >
+                    <ExternalLink size={14} />
+                    {t('events.viewOnSailarena')}
+                  </button>
+                )}
                 {venue.googleMapsUrl && (
                   <button
                     onClick={() => window.open(venue.googleMapsUrl, '_blank', 'noopener,noreferrer')}
