@@ -86,6 +86,7 @@ export interface MarketplaceItem {
   sellerEmail: string;
   photoUrl: string;
   externalLink: string;
+  facebookLink: string;
   datePosted: string;
   status: string;
 }

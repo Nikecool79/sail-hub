@@ -79,6 +79,7 @@ export function convertSampleData(): AppData {
     sellerEmail: '',
     photoUrl: '',
     externalLink: '',
+    facebookLink: '',
     datePosted: m.date,
     status: 'Active',
   }));

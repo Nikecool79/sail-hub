@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 import { getSponsorsByTier } from '@/utils/sponsorUtils';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { Sailboat, Wind, Shirt, Wrench, Search, ExternalLink, Mail } from 'lucide-react';
+import { Sailboat, Wind, Shirt, Wrench, Search, ExternalLink, Mail, Phone, Facebook } from 'lucide-react';
 import { useState, useMemo } from 'react';
 
 const catIcons: Record<string, React.ElementType> = {
@@ -163,20 +163,42 @@ const Marketplace = () => {
           <p className="font-heading text-2xl font-bold text-primary mb-3">{selectedItem.priceSek} SEK</p>
           <p className="text-sm text-muted-foreground mb-4">{localize(selectedItem, 'description')}</p>
           <div className="flex flex-wrap gap-2">
-            <a
-              href={selectedItem.externalLink || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm hover:opacity-90"
-            >
-              <ExternalLink size={14} /> {t('marketplace.viewOnBlocket')}
-            </a>
-            <a
-              href={`mailto:${selectedItem.sellerEmail}`}
-              className="flex items-center gap-2 px-4 py-2 rounded-md border text-sm hover:bg-secondary"
-            >
-              <Mail size={14} /> {t('marketplace.contactSeller')}
-            </a>
+            {selectedItem.externalLink && (
+              <a
+                href={selectedItem.externalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm hover:opacity-90"
+              >
+                <ExternalLink size={14} /> {t('marketplace.viewOnBlocket')}
+              </a>
+            )}
+            {selectedItem.facebookLink && (
+              <a
+                href={selectedItem.facebookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-md bg-[#1877F2] text-white text-sm hover:opacity-90"
+              >
+                <Facebook size={14} /> {t('marketplace.viewOnFacebook')}
+              </a>
+            )}
+            {selectedItem.sellerEmail && (
+              <a
+                href={`mailto:${selectedItem.sellerEmail}`}
+                className="flex items-center gap-2 px-4 py-2 rounded-md border text-sm hover:bg-secondary"
+              >
+                <Mail size={14} /> {t('marketplace.contactSeller')}
+              </a>
+            )}
+            {selectedItem.sellerPhone && (
+              <a
+                href={`tel:${selectedItem.sellerPhone}`}
+                className="flex items-center gap-2 px-4 py-2 rounded-md border text-sm hover:bg-secondary"
+              >
+                <Phone size={14} /> {selectedItem.sellerPhone}
+              </a>
+            )}
           </div>
         </div>
       )}

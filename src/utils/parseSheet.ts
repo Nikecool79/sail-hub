@@ -143,6 +143,7 @@ export function parseMarketplace(rows: string[][]): MarketplaceItem[] {
     sellerEmail: col(r, h, 'Seller Email'),
     photoUrl: col(r, h, 'Photo URL'),
     externalLink: col(r, h, 'External Link'),
+    facebookLink: col(r, h, 'Facebook Link'),
     datePosted: col(r, h, 'Date Posted'),
     status: col(r, h, 'Status') || 'Active',
   }));
