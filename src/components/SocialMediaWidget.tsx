@@ -47,7 +47,7 @@ const SocialMediaWidget = ({ settings }: Props) => {
 
         {/* Instagram */}
         {hasInstagram && (
-          <div className="rounded-xl bg-card border p-5 space-y-4">
+          <div className="rounded-xl bg-card border p-5 space-y-4 card-hover">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center flex-shrink-0">
                 <Instagram size={24} className="text-white" />
