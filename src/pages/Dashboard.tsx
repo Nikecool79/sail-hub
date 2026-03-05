@@ -1,4 +1,5 @@
 import { useDataStore } from '@/store/dataStore';
+import { useThemeStore } from '@/store/useThemeStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 import { useWeather } from '@/hooks/useWeather';
@@ -16,6 +17,7 @@ const Dashboard = () => {
   const { localize } = useLocalizedField();
   const navigate = useNavigate();
   const data = useDataStore(s => s.data);
+  const { team } = useThemeStore();
 
   const defaultLat = data ? parseFloat(data.settings['Default Latitude'] || '57.4833') : 57.4833;
   const defaultLng = data ? parseFloat(data.settings['Default Longitude'] || '11.9333') : 11.9333;
@@ -29,16 +31,18 @@ const Dashboard = () => {
     if (!data) return null;
     return data.events
       .filter(e => e.dateStart >= today)
+      .filter(e => !team || e.teams.length === 0 || e.teams.includes('All') || e.teams.some(t => t.toLowerCase() === team.toLowerCase()))
       .sort((a, b) => a.dateStart.localeCompare(b.dateStart))[0] || null;
-  }, [data, today]);
+  }, [data, today, team]);
 
   const recentNews = useMemo(() => {
     if (!data) return [];
     return data.news
       .filter(n => n.active)
+      .filter(n => !team || n.teams.length === 0 || n.teams.includes('All') || n.teams.some(t => t.toLowerCase() === team.toLowerCase()))
       .sort((a, b) => b.date.localeCompare(a.date))
       .slice(0, 2);
-  }, [data]);
+  }, [data, team]);
 
   const goldSponsor = useMemo(() => {
     if (!data) return null;
