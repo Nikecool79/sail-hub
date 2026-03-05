@@ -8,6 +8,23 @@ import { Pin, Share2, Megaphone } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import type { NewsItem } from '@/types';
 
+/** Render text with URLs as clickable links */
+function Linkify({ children }: { children: string }) {
+  const urlRegex = /(https?:\/\/[^\s,)]+)/g;
+  const parts = children.split(urlRegex);
+  return (
+    <>
+      {parts.map((part, i) =>
+        urlRegex.test(part) ? (
+          <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline break-all">{part}</a>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+}
+
 const teamBadge = (teams: string[]) => {
   if (!teams || teams.length === 0) return null;
   const colors: Record<string, string> = { green: 'bg-green-500', blue: 'bg-blue-500', red: 'bg-red-500' };
@@ -39,7 +56,7 @@ function NewsCard({ n }: { n: NewsItem }) {
       {body.length > 150 ? (
         isExpanded ? (
           <div className="text-sm text-muted-foreground mb-3">
-            <p className="whitespace-pre-line">{body}</p>
+            <p className="whitespace-pre-line"><Linkify>{body}</Linkify></p>
             <button
               className="text-primary hover:underline text-xs mt-1"
               onClick={() => setIsExpanded(false)}
@@ -49,7 +66,7 @@ function NewsCard({ n }: { n: NewsItem }) {
           </div>
         ) : (
           <p className="text-sm text-muted-foreground mb-3">
-            {body.slice(0, 150)}{'... '}
+            <Linkify>{body.slice(0, 150)}</Linkify>{'... '}
             <button
               className="text-primary hover:underline text-xs"
               onClick={() => setIsExpanded(true)}
@@ -59,7 +76,7 @@ function NewsCard({ n }: { n: NewsItem }) {
           </p>
         )
       ) : (
-        <p className="text-sm text-muted-foreground mb-3">{body}</p>
+        <p className="text-sm text-muted-foreground mb-3"><Linkify>{body}</Linkify></p>
       )}
       <div className="flex items-center justify-between">
         <span className="text-xs text-muted-foreground">{n.author}</span>
