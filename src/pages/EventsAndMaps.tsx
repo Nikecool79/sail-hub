@@ -57,13 +57,14 @@ const EventsAndMaps = () => {
   const team = useThemeStore(s => s.team);
 
   const [searchParams] = useSearchParams();
+  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
   const events = useMemo(() => {
     if (!data) return [];
-    if (!team) return data.events;
-    return data.events.filter(e =>
-      e.teams.length === 0 || e.teams.includes('All') || e.teams.some(t => t.toLowerCase() === team.toLowerCase())
-    );
-  }, [data, team]);
+    return data.events
+      .filter(e => (e.dateEnd || e.dateStart) >= today)
+      .filter(e => !team || e.teams.length === 0 || e.teams.includes('All') || e.teams.some(t => t.toLowerCase() === team.toLowerCase()))
+      .sort((a, b) => a.dateStart.localeCompare(b.dateStart));
+  }, [data, team, today]);
   const locations = data?.locations || [];
 
   const [selectedEvent, setSelectedEvent] = useState(events[0] || null);
