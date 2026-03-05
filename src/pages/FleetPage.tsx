@@ -4,7 +4,7 @@ import { useLocalizedField } from '@/hooks/useLocalizedField';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Sailboat, Anchor, Wrench, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
+import { Sailboat, Anchor, Wrench, AlertTriangle, CheckCircle2, XCircle, Lock } from 'lucide-react';
 import { useMemo } from 'react';
 
 function getDateStatus(dateStr: string): 'green' | 'yellow' | 'red' | 'none' {
@@ -38,6 +38,7 @@ const boatStatusConfig: Record<string, { className: string; icon: typeof CheckCi
   'In Repair': { className: 'bg-yellow-500/15 text-yellow-700 border-yellow-300', icon: Wrench },
   Retired: { className: 'bg-muted text-muted-foreground border-border', icon: XCircle },
   'Lent Out': { className: 'bg-blue-500/15 text-blue-700 border-blue-300', icon: Sailboat },
+  Private: { className: 'bg-blue-500/15 text-blue-700 border-blue-300', icon: Lock },
 };
 
 const ribStatusConfig: Record<string, { className: string; icon: typeof CheckCircle2 }> = {
@@ -109,7 +110,9 @@ const FleetPage = () => {
               </div>
 
               {/* Boats table grouped by team */}
-              {Object.entries(boatsByTeam).map(([team, teamBoats]) => (
+              {Object.entries(boatsByTeam).map(([team, teamBoats]) => {
+                const isPrivateTeam = team.toLowerCase() === 'blue' || team.toLowerCase() === 'red';
+                return (
                 <div key={team} className="space-y-2">
                   <h3 className="font-heading text-lg font-semibold">
                     {t('fleet.team')}: {team}
@@ -118,7 +121,7 @@ const FleetPage = () => {
                     <table className="w-full text-sm">
                       <thead className="bg-secondary">
                         <tr>
-                          <th className="text-left p-3 font-medium">{t('fleet.boatId')}</th>
+                          {!isPrivateTeam && <th className="text-left p-3 font-medium">{t('fleet.boatId')}</th>}
                           <th className="text-left p-3 font-medium">{t('fleet.name')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.sailNumber')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.status')}</th>
@@ -130,15 +133,16 @@ const FleetPage = () => {
                         {teamBoats.map(b => {
                           const statusConf = boatStatusConfig[b.status] || boatStatusConfig.Available;
                           const StatusIcon = statusConf.icon;
+                          const statusKey = b.status === 'Available' ? 'available' : b.status === 'In Repair' ? 'inRepair' : b.status === 'Retired' ? 'retired' : b.status === 'Private' ? 'private' : 'lentOut';
                           return (
                             <tr key={b.boatId} className="border-t">
-                              <td className="p-3 font-mono text-xs">{b.boatId}</td>
+                              {!isPrivateTeam && <td className="p-3 font-mono text-xs">{b.boatId}</td>}
                               <td className="p-3 font-medium">{b.name}</td>
                               <td className="p-3">{b.sailNumber}</td>
                               <td className="p-3">
                                 <Badge variant="outline" className={`gap-1 ${statusConf.className}`}>
                                   <StatusIcon size={12} />
-                                  {t(`fleet.${b.status === 'Available' ? 'available' : b.status === 'In Repair' ? 'inRepair' : b.status === 'Retired' ? 'retired' : 'lentOut'}`)}
+                                  {t(`fleet.${statusKey}`)}
                                 </Badge>
                               </td>
                               <td className="p-3 text-muted-foreground max-w-[200px] truncate">
@@ -154,7 +158,8 @@ const FleetPage = () => {
                     </table>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </>
           )}
         </TabsContent>

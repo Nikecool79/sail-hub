@@ -156,7 +156,7 @@ export interface Boat {
   name: string;
   sailNumber: string;
   team: string;
-  status: 'Available' | 'In Repair' | 'Retired' | 'Lent Out';
+  status: 'Available' | 'In Repair' | 'Retired' | 'Lent Out' | 'Private';
   conditionNotesSv: string;
   conditionNotesEn: string;
   lastInspectionDate: string;

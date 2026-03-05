@@ -299,6 +299,7 @@
     "inRepair": "In Repair",
     "retired": "Retired",
     "lentOut": "Lent Out",
+    "private": "Private",
     "boatSummary": "{{available}} of {{total}} boats available",
     "ribId": "RIB",
     "ok": "OK",

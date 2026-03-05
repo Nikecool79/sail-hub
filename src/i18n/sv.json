@@ -299,6 +299,7 @@
     "inRepair": "Under Reparation",
     "retired": "Pensionerad",
     "lentOut": "Utlånad",
+    "private": "Privat",
     "boatSummary": "{{available}} av {{total}} båtar tillgängliga",
     "ribId": "RIB",
     "ok": "OK",

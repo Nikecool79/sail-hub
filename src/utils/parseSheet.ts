@@ -247,6 +247,7 @@ const boatStatusMap: Record<string, Boat['status']> = {
   'in repair': 'In Repair', 'under reparation': 'In Repair',
   'retired': 'Retired', 'uttagen': 'Retired',
   'lent out': 'Lent Out', 'utlånad': 'Lent Out',
+  'private': 'Private', 'privat': 'Private',
 };
 
 function normalizeBoatStatus(raw: string): Boat['status'] {
