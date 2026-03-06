@@ -5,6 +5,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Sailboat, Anchor, Wrench, AlertTriangle, CheckCircle2, XCircle, Lock } from 'lucide-react';
+import { useThemeStore } from '@/store/useThemeStore';
 import { useMemo } from 'react';
 
 function getDateStatus(dateStr: string): 'green' | 'yellow' | 'red' | 'none' {
@@ -58,23 +59,35 @@ const FleetPage = () => {
   const { t } = useTranslation();
   const { localize } = useLocalizedField();
   const data = useDataStore(s => s.data);
+  const { team } = useThemeStore();
+
+  const boats = useMemo(() => {
+    if (!data) return [];
+    if (!team) return data.boats;
+    return data.boats.filter(b => b.team?.toLowerCase() === team.toLowerCase());
+  }, [data, team]);
+
+  const ribs = useMemo(() => {
+    if (!data) return [];
+    if (!team) return data.ribs;
+    return data.ribs.filter(r =>
+      r.teams.length === 0 || r.teams.includes('All') || r.teams.some(t => t.toLowerCase() === team.toLowerCase())
+    );
+  }, [data, team]);
 
   const boatSummary = useMemo(() => {
-    if (!data) return { available: 0, total: 0 };
-    const total = data.boats.length;
-    const available = data.boats.filter(b => b.status === 'Available').length;
+    const total = boats.length;
+    const available = boats.filter(b => b.status === 'Available').length;
     return { available, total };
-  }, [data]);
+  }, [boats]);
 
   if (!data) return <LoadingSpinner />;
 
-  const { boats, ribs } = data;
-
   // Group boats by team
   const boatsByTeam = boats.reduce<Record<string, typeof boats>>((acc, b) => {
-    const team = b.team || 'Unassigned';
-    if (!acc[team]) acc[team] = [];
-    acc[team].push(b);
+    const grp = b.team || 'Unassigned';
+    if (!acc[grp]) acc[grp] = [];
+    acc[grp].push(b);
     return acc;
   }, {});
 

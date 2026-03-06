@@ -166,6 +166,7 @@ export interface Boat {
 export interface Rib {
   ribId: string;
   name: string;
+  teams: string[];
   status: 'OK' | 'Needs Service' | 'Out of Service';
   engineCheckDate: string;
   oilChangeDate: string;

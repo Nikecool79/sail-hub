@@ -286,6 +286,7 @@ export function parseRibs(rows: string[][]): Rib[] {
   return rows.slice(1).filter(r => r.length > 0).map((r) => ({
     ribId: col(r, h, 'RIB ID'),
     name: col(r, h, 'Name'),
+    teams: parseArray(col(r, h, 'Teams')),
     status: normalizeRibStatus(col(r, h, 'Status')),
     engineCheckDate: col(r, h, 'Engine Check Date'),
     oilChangeDate: col(r, h, 'Oil Change Date'),
