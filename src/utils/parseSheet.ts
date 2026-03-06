@@ -1,7 +1,7 @@
 import type {
   SailEvent, Coach, EventAssignment, ClubContact, NewsItem,
   MarketplaceItem, Location, SafetyItem, SkillItem, Sponsor,
-  Boat, Rib,
+  Boat, Rib, KioskItem, KioskShift, KioskSeason,
 } from '@/types';
 
 function parseArray(val: string): string[] {
@@ -295,5 +295,44 @@ export function parseRibs(rows: string[][]): Rib[] {
     trailerCheckDate: col(r, h, 'Trailer Check Date'),
     notesSv: col(r, h, 'Notes SV'),
     notesEn: col(r, h, 'Notes EN'),
+  }));
+}
+
+export function parseKioskMenu(rows: string[][]): KioskItem[] {
+  if (rows.length < 2) return [];
+  const h = buildHeaders(rows[0]);
+  return rows.slice(1).filter(r => r.length > 0).map((r) => ({
+    itemId: col(r, h, 'Item ID'),
+    nameSv: col(r, h, 'Name SV'),
+    nameEn: col(r, h, 'Name EN'),
+    category: (col(r, h, 'Category').toLowerCase() || 'snack') as KioskItem['category'],
+    priceSek: parseNum(col(r, h, 'Price SEK')),
+    allergens: col(r, h, 'Allergens'),
+    active: parseBool(col(r, h, 'Active')),
+  }));
+}
+
+export function parseKioskShifts(rows: string[][]): KioskShift[] {
+  if (rows.length < 2) return [];
+  const h = buildHeaders(rows[0]);
+  return rows.slice(1).filter(r => r.length > 0).map((r) => ({
+    shiftId: col(r, h, 'Shift ID'),
+    eventId: col(r, h, 'Event ID'),
+    date: col(r, h, 'Date'),
+    openTime: col(r, h, 'Open Time'),
+    closeTime: col(r, h, 'Close Time'),
+    volunteers: parseArray(col(r, h, 'Volunteers')),
+    notesSv: col(r, h, 'Notes SV'),
+    notesEn: col(r, h, 'Notes EN'),
+  }));
+}
+
+export function parseKioskFundraising(rows: string[][]): KioskSeason[] {
+  if (rows.length < 2) return [];
+  const h = buildHeaders(rows[0]);
+  return rows.slice(1).filter(r => r.length > 0).map((r) => ({
+    teamColor: col(r, h, 'Team').toLowerCase(),
+    raisedSek: parseNum(col(r, h, 'Raised SEK')),
+    goalSek: parseNum(col(r, h, 'Goal SEK')),
   }));
 }

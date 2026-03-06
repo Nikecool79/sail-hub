@@ -216,6 +216,33 @@ export interface WeatherData {
   fetchedAt: number;
 }
 
+export interface KioskItem {
+  itemId: string;
+  nameSv: string;
+  nameEn: string;
+  category: 'drink' | 'food' | 'snack';
+  priceSek: number;
+  allergens: string;
+  active: boolean;
+}
+
+export interface KioskShift {
+  shiftId: string;
+  eventId: string;
+  date: string;
+  openTime: string;
+  closeTime: string;
+  volunteers: string[];
+  notesSv: string;
+  notesEn: string;
+}
+
+export interface KioskSeason {
+  teamColor: string;
+  raisedSek: number;
+  goalSek: number;
+}
+
 export interface AppData {
   events: SailEvent[];
   coaches: Coach[];
@@ -230,4 +257,7 @@ export interface AppData {
   sponsors: Sponsor[];
   boats: Boat[];
   ribs: Rib[];
+  kioskMenu: KioskItem[];
+  kioskShifts: KioskShift[];
+  kioskFundraising: KioskSeason[];
 }

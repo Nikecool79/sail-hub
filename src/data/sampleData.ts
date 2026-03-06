@@ -12,6 +12,7 @@ export const navItems = [
   { title: 'Live Cameras', url: '/cameras', icon: 'Video' },
   { title: 'Coaches & Team', url: '/coaches', icon: 'Users' },
   { title: 'Fleet', url: '/fleet', icon: 'Anchor' },
+  { title: 'Kiosk & Café', url: '/kiosk', icon: 'Coffee' },
   { title: 'Club Contacts', url: '/contacts', icon: 'Phone' },
   { title: 'News', url: '/news', icon: 'Newspaper' },
   { title: 'Marketplace', url: '/marketplace', icon: 'ShoppingBag' },
@@ -151,6 +152,33 @@ export const sponsors = {
     { name: 'Fiskeboden' },
   ],
 };
+
+export const kioskMenu = [
+  { itemId: 'K001', nameSv: 'Kaffe', nameEn: 'Coffee', category: 'drink' as const, priceSek: 15, allergens: '', active: true },
+  { itemId: 'K002', nameSv: 'Te', nameEn: 'Tea', category: 'drink' as const, priceSek: 12, allergens: '', active: true },
+  { itemId: 'K003', nameSv: 'Saft / Juice', nameEn: 'Juice', category: 'drink' as const, priceSek: 20, allergens: '', active: true },
+  { itemId: 'K004', nameSv: 'Vatten', nameEn: 'Water', category: 'drink' as const, priceSek: 10, allergens: '', active: true },
+  { itemId: 'K005', nameSv: 'Smörgås', nameEn: 'Sandwich', category: 'food' as const, priceSek: 35, allergens: 'Gluten', active: true },
+  { itemId: 'K006', nameSv: 'Bulle', nameEn: 'Cinnamon Bun', category: 'food' as const, priceSek: 20, allergens: 'Gluten, Laktos', active: true },
+  { itemId: 'K007', nameSv: 'Soppa', nameEn: 'Soup', category: 'food' as const, priceSek: 40, allergens: '', active: true },
+  { itemId: 'K008', nameSv: 'Frukt', nameEn: 'Fruit', category: 'snack' as const, priceSek: 10, allergens: '', active: true },
+  { itemId: 'K009', nameSv: 'Kex / Kaka', nameEn: 'Biscuits', category: 'snack' as const, priceSek: 15, allergens: 'Gluten', active: true },
+  { itemId: 'K010', nameSv: 'Godis (påse)', nameEn: 'Sweets (bag)', category: 'snack' as const, priceSek: 15, allergens: '', active: true },
+];
+
+export const kioskShifts = [
+  { shiftId: 'SH001', eventId: '1', date: '2026-04-18', openTime: '08:30', closeTime: '16:00', volunteers: ['Anna Lindqvist', 'Björn Karlsson'], notesSv: 'Ta med termosarna!', notesEn: 'Bring the thermoses!' },
+  { shiftId: 'SH002', eventId: '1', date: '2026-04-19', openTime: '09:00', closeTime: '15:00', volunteers: ['Maria Svensson'], notesSv: 'Dag 2 — kortare dag', notesEn: 'Day 2 — shorter day' },
+  { shiftId: 'SH003', eventId: '2', date: '2026-04-25', openTime: '09:30', closeTime: '13:00', volunteers: ['Per Eriksson', 'Lena Berg'], notesSv: '', notesEn: '' },
+  { shiftId: 'SH004', eventId: '3', date: '2026-05-16', openTime: '08:00', closeTime: '17:00', volunteers: ['Johan Holm'], notesSv: 'Extrabemanning önskas', notesEn: 'Extra help welcome' },
+  { shiftId: 'SH005', eventId: '4', date: '2026-06-20', openTime: '11:00', closeTime: '18:00', volunteers: ['Sofia Strand', 'Anders Nilsson'], notesSv: 'BBQ-dag — kiosk stänger tidigt', notesEn: 'BBQ day — kiosk closes early' },
+];
+
+export const kioskFundraising = [
+  { teamColor: 'green', raisedSek: 1650, goalSek: 3000 },
+  { teamColor: 'blue', raisedSek: 2100, goalSek: 3000 },
+  { teamColor: 'red', raisedSek: 900, goalSek: 3000 },
+];
 
 export const weatherData = {
   current: {

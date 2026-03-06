@@ -19,6 +19,7 @@ const WeatherPage = React.lazy(() => import("@/pages/WeatherPage"));
 const LiveCameras = React.lazy(() => import("@/pages/LiveCameras"));
 const CoachesAndTeam = React.lazy(() => import("@/pages/CoachesAndTeam"));
 const FleetPage = React.lazy(() => import("@/pages/FleetPage"));
+const KioskPage = React.lazy(() => import("@/pages/KioskPage"));
 const ClubContacts = React.lazy(() => import("@/pages/ClubContacts"));
 const NewsPage = React.lazy(() => import("@/pages/NewsPage"));
 const Marketplace = React.lazy(() => import("@/pages/Marketplace"));
@@ -56,6 +57,7 @@ const AppInner = () => {
             <Route path="/cameras" element={<LiveCameras />} />
             <Route path="/coaches" element={<CoachesAndTeam />} />
             <Route path="/fleet" element={<FleetPage />} />
+            <Route path="/kiosk" element={<KioskPage />} />
             <Route path="/contacts" element={<ClubContacts />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/marketplace" element={<Marketplace />} />

@@ -15,6 +15,9 @@ export const SHEET_TABS = {
   SPONSORS: 'Sponsors & Ads',
   BOATS: 'Boats',
   RIBS: 'RIBs',
+  KIOSK_MENU: 'Kiosk Menu',
+  KIOSK_SHIFTS: 'Kiosk Shifts',
+  KIOSK_FUNDRAISING: 'Kiosk Fundraising',
 } as const;
 
 export type SheetTab = (typeof SHEET_TABS)[keyof typeof SHEET_TABS];

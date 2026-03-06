@@ -5,6 +5,7 @@ import {
   parseEvents, parseCoaches, parseEventAssignments, parseClubContacts,
   parseNews, parseMarketplace, parseLocations, parseSafetyChecklist,
   parseSkillProgression, parseSettings, parseSponsors, parseBoats, parseRibs,
+  parseKioskMenu, parseKioskShifts, parseKioskFundraising,
 } from '@/utils/parseSheet';
 import { convertSampleData } from '@/utils/sampleDataAdapter';
 
@@ -59,6 +60,9 @@ export const useDataStore = create<DataState>((set, get) => ({
         sponsors: parseSponsors(raw[SHEET_TABS.SPONSORS]),
         boats: parseBoats(raw[SHEET_TABS.BOATS]),
         ribs: parseRibs(raw[SHEET_TABS.RIBS]),
+        kioskMenu: parseKioskMenu(raw[SHEET_TABS.KIOSK_MENU]),
+        kioskShifts: parseKioskShifts(raw[SHEET_TABS.KIOSK_SHIFTS]),
+        kioskFundraising: parseKioskFundraising(raw[SHEET_TABS.KIOSK_FUNDRAISING]),
       };
 
       set({ data, isLoading: false, lastUpdated: Date.now(), dataSource: 'google-sheets' });

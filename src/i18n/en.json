@@ -7,6 +7,7 @@
     "liveCameras": "Live Cameras",
     "coaches": "Coaches & Team",
     "fleet": "Fleet",
+    "kiosk": "Kiosk & Café",
     "contacts": "Club Contacts",
     "news": "News",
     "marketplace": "Marketplace",
@@ -339,5 +340,31 @@
     "95": "Thunderstorm",
     "96": "Thunderstorm with slight hail",
     "99": "Thunderstorm with heavy hail"
+  },
+  "kiosk": {
+    "title": "Kiosk & Café",
+    "subtitle": "Open during regattas and training — all proceeds go to the teams!",
+    "tabMenu": "Menu",
+    "tabSchedule": "Schedule",
+    "tabVolunteers": "Volunteers",
+    "fundraising": "Season fundraising",
+    "raised": "raised",
+    "goal": "goal",
+    "categories": {
+      "drink": "Drinks",
+      "food": "Food",
+      "snack": "Snacks"
+    },
+    "allergens": "Allergens",
+    "noAllergens": "No known allergens",
+    "noMenu": "No menu available at the moment",
+    "shiftOpen": "Open",
+    "shiftVolunteers": "Volunteers",
+    "shiftNotes": "Notes",
+    "noShifts": "No kiosk shifts planned yet",
+    "signUp": "Volunteer to help",
+    "signUpDesc": "Help out in the kiosk during regattas and training — easy and appreciated!",
+    "signUpButton": "Sign up",
+    "contactForSignup": "Contact us to sign up"
   }
 }

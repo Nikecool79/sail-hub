@@ -181,5 +181,8 @@ export function convertSampleData(): AppData {
     marketplace, locations, safetyChecklist, skillProgression, settings, sponsors: allSponsors,
     boats: [],
     ribs: [],
+    kioskMenu: sample.kioskMenu,
+    kioskShifts: sample.kioskShifts.map((s) => ({ ...s, volunteers: s.volunteers })),
+    kioskFundraising: sample.kioskFundraising,
   };
 }

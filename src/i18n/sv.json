@@ -7,6 +7,7 @@
     "liveCameras": "Livekameror",
     "coaches": "Tränare & Lag",
     "fleet": "Flotta",
+    "kiosk": "Kiosk & Café",
     "contacts": "Klubbkontakter",
     "news": "Nyheter",
     "marketplace": "Köp & Sälj",
@@ -339,5 +340,31 @@
     "95": "Åskväder",
     "96": "Åskväder med lätt hagel",
     "99": "Åskväder med kraftigt hagel"
+  },
+  "kiosk": {
+    "title": "Kiosk & Café",
+    "subtitle": "Öppet under regatter och träning — inkomsterna går till lagen!",
+    "tabMenu": "Meny",
+    "tabSchedule": "Schema",
+    "tabVolunteers": "Volontärer",
+    "fundraising": "Insamling denna säsong",
+    "raised": "insamlat",
+    "goal": "mål",
+    "categories": {
+      "drink": "Dryck",
+      "food": "Mat",
+      "snack": "Snacks"
+    },
+    "allergens": "Allergener",
+    "noAllergens": "Inga kända allergener",
+    "noMenu": "Ingen meny tillgänglig just nu",
+    "shiftOpen": "Öppet",
+    "shiftVolunteers": "Volontärer",
+    "shiftNotes": "Noteringar",
+    "noShifts": "Inga planerade kioskvakter ännu",
+    "signUp": "Anmäl dig som volontär",
+    "signUpDesc": "Hjälp till i kiosken under regatter och träning — det är enkelt och uppskattat!",
+    "signUpButton": "Anmäl dig",
+    "contactForSignup": "Kontakta oss för att anmäla dig"
   }
 }
