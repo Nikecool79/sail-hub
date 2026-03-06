@@ -1,4 +1,5 @@
 import { useDataStore } from '@/store/dataStore';
+import { useThemeStore } from '@/store/useThemeStore';
 import { useTranslation } from 'react-i18next';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Bell, MessageCircle, Facebook, Instagram } from 'lucide-react';
@@ -6,11 +7,17 @@ import { Bell, MessageCircle, Facebook, Instagram } from 'lucide-react';
 const Subscribe = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useDataStore();
+  const team = useThemeStore((s) => s.team);
 
   if (isLoading) return <LoadingSpinner />;
   if (!data) return null;
 
   const settings = data.settings || {};
+  const instagramUrl = team?.toLowerCase() === 'green'
+    ? (settings['Instagram Skola'] || settings['Instagram'] || '')
+    : team
+      ? (settings['Instagram KKKK'] || settings['Instagram'] || '')
+      : (settings['Instagram'] || settings['Instagram Skola'] || settings['Instagram KKKK'] || '');
   const mailchimpUrl = settings['Mailchimp URL'] || settings['Mailchimp Action URL'] || '';
   const hasMailchimp = mailchimpUrl.trim() !== '';
 
@@ -89,15 +96,15 @@ const Subscribe = () => {
       </div>
 
       {/* Social */}
-      {(settings['Facebook Page'] || settings['Facebook URL'] || settings['Instagram'] || settings['Instagram URL']) && (
+      {(settings['Facebook Page'] || settings['Facebook URL'] || instagramUrl) && (
         <div className="flex justify-center gap-3">
           {(settings['Facebook Page'] || settings['Facebook URL']) && (
             <a href={settings['Facebook Page'] || settings['Facebook URL']} target="_blank" rel="noopener noreferrer" className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Facebook">
               <Facebook size={20} />
             </a>
           )}
-          {(settings['Instagram'] || settings['Instagram URL']) && (
-            <a href={settings['Instagram'] || settings['Instagram URL']} target="_blank" rel="noopener noreferrer" className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Instagram">
+          {instagramUrl && (
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="p-3 rounded-md border hover:bg-secondary transition-colors" aria-label="Instagram">
               <Instagram size={20} />
             </a>
           )}

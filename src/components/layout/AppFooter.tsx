@@ -3,14 +3,22 @@ import { Heart, Facebook, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDataStore } from '@/store/dataStore';
+import { useThemeStore } from '@/store/useThemeStore';
 import { getActiveSponsors } from '@/utils/sponsorUtils';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 
 const AppFooter = () => {
   const { t } = useTranslation();
   const data = useDataStore((s) => s.data);
+  const team = useThemeStore((s) => s.team);
   const { localize } = useLocalizedField();
   const allSponsors = data ? getActiveSponsors(data.sponsors) : [];
+
+  const instagramUrl = team?.toLowerCase() === 'green'
+    ? (data?.settings['Instagram Skola'] || data?.settings['Instagram'] || '')
+    : team
+      ? (data?.settings['Instagram KKKK'] || data?.settings['Instagram'] || '')
+      : (data?.settings['Instagram'] || data?.settings['Instagram Skola'] || data?.settings['Instagram KKKK'] || '');
 
   return (
     <footer className="mt-auto border-t bg-card">
@@ -64,8 +72,8 @@ const AppFooter = () => {
               <Facebook size={18} />
             </a>
           )}
-          {(data?.settings['Instagram'] || data?.settings['Instagram URL']) && (
-            <a href={data!.settings['Instagram'] || data!.settings['Instagram URL']} target="_blank" rel="noopener noreferrer" className="p-2 rounded-md hover:bg-secondary transition-colors" aria-label="Instagram">
+          {instagramUrl && (
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-md hover:bg-secondary transition-colors" aria-label="Instagram">
               <Instagram size={18} />
             </a>
           )}
