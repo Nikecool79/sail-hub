@@ -28,6 +28,7 @@ const SafetyChecklist = React.lazy(() => import("@/pages/SafetyChecklist"));
 const Subscribe = React.lazy(() => import("@/pages/Subscribe"));
 const SponsorsPage = React.lazy(() => import("@/pages/SponsorsPage"));
 const BecomeSponsor = React.lazy(() => import("@/pages/BecomeSponsor"));
+const ClubServicesPage = React.lazy(() => import("@/pages/ClubServicesPage"));
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -66,6 +67,7 @@ const AppInner = () => {
             <Route path="/subscribe" element={<Subscribe />} />
             <Route path="/sponsors" element={<SponsorsPage />} />
             <Route path="/become-sponsor" element={<BecomeSponsor />} />
+            <Route path="/services" element={<ClubServicesPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

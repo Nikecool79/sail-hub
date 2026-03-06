@@ -14,7 +14,8 @@
     "skills": "Färdighetsutveckling",
     "safety": "Säkerhetschecklista",
     "subscribe": "Prenumerera",
-    "sponsors": "Sponsorer"
+    "sponsors": "Sponsorer",
+    "services": "Klubbtjänster"
   },
   "teams": {
     "green": "Gröna Laget",
@@ -366,6 +367,51 @@
     "signUpDesc": "Hjälp till i kiosken under regatter och träning — det är enkelt och uppskattat!",
     "signUpButton": "Anmäl dig",
     "contactForSignup": "Kontakta oss för att anmäla dig"
+  },
+  "services": {
+    "title": "Klubbtjänster",
+    "subtitle": "Allt du behöver veta om att köpa båt, hamnplatser och förvaring",
+    "pricing": "Priser",
+    "readMore": "Läs mer på kkkk.se",
+    "contactTreasurer": "Kontakta kassor",
+    "contactTraining": "Kontakta träning",
+    "infoNote": "Priser och regler kan förändras. Kontakta alltid klubben för aktuell information innan du fattar beslut.",
+    "buyBoat": {
+      "title": "Köpa Optimistjolle",
+      "subtitle": "Guide för att hitta rätt båt",
+      "description": "Att köpa en Optimistjolle är ett stort steg. Här hittar du prisguider och tips på vad du ska tänka på — från nybörjarbåtar till tävlingsklara jollar.",
+      "priceBeginnerLabel": "Nybörjare / testa på",
+      "priceBeginnerNote": "Äldre båt för att utforska intresset",
+      "priceRacingLabel": "Vanlig tävling",
+      "priceRacingNote": "Bra skick för träning och kappsegling",
+      "priceCompLabel": "Kvalitetsbåt",
+      "priceCompNote": "Seriös tävling på hög nivå",
+      "tip1": "Köp en godkänd one-design-båt (Winner, Finessa, Osis, OS, Nordest m.fl.)",
+      "tip2": "Skrovet (utan block, linor eller segel) ska väga minst 35 kg",
+      "tip3": "Kontrollera att mätcertifikat medföljer — det är ett krav",
+      "tip4": "Bra platser att leta: Blocket.se och jolleplan.se"
+    },
+    "harborSpots": {
+      "title": "Jolleplatser på Hamnplan",
+      "subtitle": "Båtplats mars–oktober",
+      "description": "KKKK erbjuder jolleplatser på hamnplan under seglingssäsongen. Platserna finns i två kategorier beroende på läge och tillgång till kran.",
+      "priceCraneLabel": "Plats 1–10 (med kran)",
+      "priceCraneNote": "Inkluderar fri kranlyft under säsongen",
+      "priceRegLabel": "Plats 11–39",
+      "priceRegNote": "Säsong mars–oktober",
+      "tip1": "Säsongen pågår mars–oktober — båtar måste vara borta senast 15 november",
+      "tip2": "Båten måste ha en synlig dekall och en vagnlapp för identifiering",
+      "tip3": "Båtar som inte hämtas på över ett år tillfaller klubben"
+    },
+    "mastStorage": {
+      "title": "Mastskjul",
+      "subtitle": "Ingår i träningsavgiften",
+      "description": "Aktiva Optimistseglare i träningsgrupp kan förvara rigg, roder och centerbord i klubbens mastskjul — kostnadsfritt för de som betalt träningsavgift.",
+      "tip1": "Plats ingår i träningsavgiften — inga extra kostnader för aktiva seglare",
+      "tip2": "Administreras av föräldrakoordinatorer inom Optimistgruppen",
+      "tip3": "Lediga platser annonseras inne i skjulet självt",
+      "tip4": "Utrustningen måste tas bort om du avslutar träningen"
+    }
   },
   "results": {
     "tabEvents": "Evenemang",

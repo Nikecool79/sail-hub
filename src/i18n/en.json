@@ -14,7 +14,8 @@
     "skills": "Skill Progression",
     "safety": "Safety Checklist",
     "subscribe": "Subscribe",
-    "sponsors": "Sponsors"
+    "sponsors": "Sponsors",
+    "services": "Club Services"
   },
   "teams": {
     "green": "Green Team",
@@ -366,6 +367,51 @@
     "signUpDesc": "Help out in the kiosk during regattas and training — easy and appreciated!",
     "signUpButton": "Sign up",
     "contactForSignup": "Contact us to sign up"
+  },
+  "services": {
+    "title": "Club Services",
+    "subtitle": "Everything you need to know about buying a boat, harbor spots, and storage",
+    "pricing": "Pricing",
+    "readMore": "Read more at kkkk.se",
+    "contactTreasurer": "Contact treasurer",
+    "contactTraining": "Contact training",
+    "infoNote": "Prices and rules may change. Always contact the club for current information before making any decisions.",
+    "buyBoat": {
+      "title": "Buying an Optimist",
+      "subtitle": "Guide to finding the right boat",
+      "description": "Buying an Optimist is a big step. Here you'll find price guides and tips on what to look for — from beginner boats to race-ready dinghies.",
+      "priceBeginnerLabel": "Beginner / try-out",
+      "priceBeginnerNote": "Older boat for exploring the sport",
+      "priceRacingLabel": "Regular racing",
+      "priceRacingNote": "Good condition for training and racing",
+      "priceCompLabel": "Quality boat",
+      "priceCompNote": "Serious competition at a high level",
+      "tip1": "Buy an approved one-design boat (Winner, Finessa, Osis, OS, Nordest, etc.)",
+      "tip2": "The hull (without block, lines or sail) must weigh at least 35 kg",
+      "tip3": "Check that a measurement certificate is included — it is required",
+      "tip4": "Good places to search: Blocket.se and jolleplan.se"
+    },
+    "harborSpots": {
+      "title": "Harbor Dinghy Spots",
+      "subtitle": "Boat storage March–October",
+      "description": "KKKK offers dinghy spots at the harbor during the sailing season. Spots come in two categories depending on location and crane access.",
+      "priceCraneLabel": "Spots 1–10 (with crane)",
+      "priceCraneNote": "Includes free crane lift during season",
+      "priceRegLabel": "Spots 11–39",
+      "priceRegNote": "Season March–October",
+      "tip1": "Season runs March–October — boats must be removed by November 15",
+      "tip2": "Boat must have a visible decal and wagon label for identification",
+      "tip3": "Boats left unclaimed for over one year become club property"
+    },
+    "mastStorage": {
+      "title": "Mast Storage",
+      "subtitle": "Included in training fees",
+      "description": "Active Optimist sailors in a training group can store their rig, rudder and centerboard in the club's mast shed — free for those who have paid training fees.",
+      "tip1": "Spot is included in training fees — no extra cost for active sailors",
+      "tip2": "Administered by parent coordinators within the Optimist training group",
+      "tip3": "Available spaces are posted inside the shed itself",
+      "tip4": "Equipment must be removed when you stop attending training"
+    }
   },
   "results": {
     "tabEvents": "Events",

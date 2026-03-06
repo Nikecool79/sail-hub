@@ -19,6 +19,7 @@ export const navItems = [
   { title: 'Skill Progression', url: '/skills', icon: 'TrendingUp' },
   { title: 'Safety Checklist', url: '/safety', icon: 'ShieldCheck' },
   { title: 'Subscribe', url: '/subscribe', icon: 'Bell' },
+  { title: 'Club Services', url: '/services', icon: 'Wrench' },
   { title: 'Sponsors', url: '/sponsors', icon: 'Heart' },
 ];
 
