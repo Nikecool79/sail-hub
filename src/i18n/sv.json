@@ -67,9 +67,11 @@
   "calendar": {
     "title": "Kalender",
     "today": "Idag",
-    "noEvents": "Inga evenemang denna dag",
+    "noEvents": "Inga kommande evenemang",
     "filterByType": "Filtrera efter typ",
-    "allTypes": "Alla Typer"
+    "allTypes": "Alla Typer",
+    "upcomingEvents": "Kommande evenemang",
+    "from": "Från"
   },
   "events": {
     "title": "Evenemang & Kartor",

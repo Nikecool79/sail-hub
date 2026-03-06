@@ -71,7 +71,17 @@ const CalendarPage = () => {
   }, [month, year, monthEvents.length]);
 
   const dayEvents = (day: number) => monthEvents.filter(e => new Date(e.dateStart).getDate() === day);
-  const selectedDayEvents = selectedDay ? dayEvents(selectedDay) : [];
+
+  // Up to 5 upcoming events from the selected date (or today), across all months
+  const upcomingFromSelected = useMemo(() => {
+    const fromDate = selectedDay
+      ? `${year}-${String(month + 1).padStart(2, '0')}-${String(selectedDay).padStart(2, '0')}`
+      : today.toISOString().split('T')[0];
+    return allEvents
+      .filter(e => (e.dateEnd || e.dateStart) >= fromDate)
+      .sort((a, b) => a.dateStart.localeCompare(b.dateStart))
+      .slice(0, 5);
+  }, [allEvents, selectedDay, month, year, today]);
 
   const types = ['Regatta', 'Training', 'Championship', 'Social'];
 
@@ -102,44 +112,44 @@ const CalendarPage = () => {
 
       {/* Two-column layout: events left, calendar right */}
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
-        {/* Left: Selected day events */}
+        {/* Left: Upcoming events from selected date */}
         <div className="lg:col-span-4 order-2 lg:order-1">
-          {selectedDay ? (
-            <div className="rounded-xl bg-card border p-5 space-y-3">
-              <h3 className="font-heading font-semibold">{months[month]} {selectedDay}, {year}</h3>
-              {selectedDayEvents.length === 0 ? (
-                <p className="text-sm text-muted-foreground">{t('calendar.noEvents')}</p>
-              ) : (
-                selectedDayEvents.map(e => (
-                  <div
-                    key={e.eventId}
-                    className="p-3 rounded-lg bg-secondary cursor-pointer hover:bg-secondary/80 transition-colors"
-                    onClick={() => navigate(`/events?event=${e.eventId}`)}
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full ${eventTypeColors[e.type]}`} />
-                        <span className="text-xs capitalize text-muted-foreground">{e.type}</span>
-                      </div>
+          <div className="rounded-xl bg-card border p-5 space-y-3">
+            <h3 className="font-heading font-semibold text-sm text-muted-foreground uppercase tracking-wide">
+              {selectedDay
+                ? `${t('calendar.from')} ${months[month]} ${selectedDay}`
+                : t('calendar.upcomingEvents')}
+            </h3>
+            {upcomingFromSelected.length === 0 ? (
+              <p className="text-sm text-muted-foreground">{t('calendar.noEvents')}</p>
+            ) : (
+              upcomingFromSelected.map(e => (
+                <div
+                  key={e.eventId}
+                  className="p-3 rounded-lg bg-secondary cursor-pointer hover:bg-secondary/80 transition-colors"
+                  onClick={() => navigate(`/events?event=${e.eventId}`)}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2">
+                      <span className={`w-2 h-2 rounded-full ${eventTypeColors[e.type]}`} />
+                      <span className="text-xs capitalize text-muted-foreground">{e.type}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">{e.dateStart}</span>
                       <ExternalLink size={12} className="text-muted-foreground" />
                     </div>
-                    <p className="font-medium">{localize(e, 'name')}</p>
-                    <p className="text-sm text-muted-foreground">{e.locationName}</p>
-                    {(e.startTime || e.endTime) && (
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {e.startTime}{e.startTime && e.endTime && ' – '}{e.endTime}
-                      </p>
-                    )}
-                    <p className="text-sm mt-1">{localize(e, 'description')}</p>
                   </div>
-                ))
-              )}
-            </div>
-          ) : (
-            <div className="rounded-xl bg-card border p-5">
-              <p className="text-sm text-muted-foreground">{t('calendar.noEvents')}</p>
-            </div>
-          )}
+                  <p className="font-medium">{localize(e, 'name')}</p>
+                  <p className="text-sm text-muted-foreground">{e.locationName}</p>
+                  {(e.startTime || e.endTime) && (
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {e.startTime}{e.startTime && e.endTime && ' – '}{e.endTime}
+                    </p>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
         </div>
 
         {/* Right: Calendar grid */}

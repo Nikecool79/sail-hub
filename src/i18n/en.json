@@ -67,9 +67,11 @@
   "calendar": {
     "title": "Calendar",
     "today": "Today",
-    "noEvents": "No events on this day",
+    "noEvents": "No upcoming events",
     "filterByType": "Filter by type",
-    "allTypes": "All Types"
+    "allTypes": "All Types",
+    "upcomingEvents": "Upcoming events",
+    "from": "From"
   },
   "events": {
     "title": "Events & Maps",
