@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useThemeStore } from '@/store/useThemeStore';
 import { Facebook, Instagram } from 'lucide-react';
 import { InstagramEmbed } from 'react-social-media-embed';
 
@@ -8,9 +9,16 @@ interface Props {
 
 const SocialMediaWidget = ({ settings }: Props) => {
   const { t } = useTranslation();
+  const { team } = useThemeStore();
 
   const facebookUrl = settings['Facebook Page'] || settings['Facebook URL'] || '';
-  const instagramUrl = settings['Instagram'] || settings['Instagram URL'] || '';
+
+  // Pick Instagram account based on selected team
+  const instagramUrl = team?.toLowerCase() === 'green'
+    ? (settings['Instagram Skola'] || settings['Instagram'] || '')
+    : team
+      ? (settings['Instagram KKKK'] || settings['Instagram'] || '')
+      : (settings['Instagram'] || settings['Instagram Skola'] || settings['Instagram KKKK'] || '');
   const instagramPostUrl = settings['Instagram Post URL'] || '';
 
   const hasFacebook = facebookUrl.trim() !== '';
