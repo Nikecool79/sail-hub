@@ -72,16 +72,18 @@ const CalendarPage = () => {
 
   const dayEvents = (day: number) => monthEvents.filter(e => new Date(e.dateStart).getDate() === day);
 
-  // Up to 5 upcoming events from the selected date (or today), across all months
+  // Up to 5 upcoming events from the selected date (or today), respecting the active filter
   const upcomingFromSelected = useMemo(() => {
     const fromDate = selectedDay
       ? `${year}-${String(month + 1).padStart(2, '0')}-${String(selectedDay).padStart(2, '0')}`
       : today.toISOString().split('T')[0];
-    return allEvents
+    const base = allEvents
       .filter(e => (e.dateEnd || e.dateStart) >= fromDate)
-      .sort((a, b) => a.dateStart.localeCompare(b.dateStart))
-      .slice(0, 5);
-  }, [allEvents, selectedDay, month, year, today]);
+      .sort((a, b) => a.dateStart.localeCompare(b.dateStart));
+    const filtered = filter ? base.filter(e => e.type === filter) : base;
+    // Fall back to all types if the active filter yields nothing
+    return (filtered.length > 0 ? filtered : base).slice(0, 5);
+  }, [allEvents, selectedDay, month, year, today, filter]);
 
   const types = ['Regatta', 'Training', 'Championship', 'Social'];
 
