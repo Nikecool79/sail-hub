@@ -54,9 +54,11 @@ const Dashboard = () => {
   useEffect(() => {
     if (!nextEvent) return;
     const calc = () => {
-      const target = new Date(nextEvent.dateStart).getTime();
-      const now = Date.now();
-      const diff = Math.max(0, target - now);
+      // Event times are in Stockholm timezone — compare against "now" in Stockholm
+      const timeStr = nextEvent.startTime || '00:00';
+      const eventLocal = new Date(`${nextEvent.dateStart}T${timeStr}:00`);
+      const nowStockholm = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Stockholm' }));
+      const diff = Math.max(0, eventLocal.getTime() - nowStockholm.getTime());
       setCountdown({
         days: Math.floor(diff / 86400000),
         hours: Math.floor((diff % 86400000) / 3600000),

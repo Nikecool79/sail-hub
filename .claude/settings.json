@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.google.com)",
+      "WebFetch(domain:doc-0k-10-sheets.googleusercontent.com)",
+      "Bash(railway:*)",
+      "Bash(git rm:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(kill:*)",
+      "Bash(grep:*)",
+      "Bash(npm ls:*)"
+    ]
+  }
+}
