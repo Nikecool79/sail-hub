@@ -1,24 +1,40 @@
 import { useDataStore } from '@/store/dataStore';
+import { useThemeStore } from '@/store/useThemeStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Phone, Mail } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 const CoachesAndTeam = () => {
   const { t } = useTranslation();
   const { localize } = useLocalizedField();
   const data = useDataStore(s => s.data);
+  const { team } = useThemeStore();
+
+  const coaches = useMemo(() => {
+    if (!data) return [];
+    return data.coaches
+      .filter(c => c.active)
+      .filter(c => !team || c.teams.length === 0 || c.teams.includes('All') || c.teams.some(t => t.toLowerCase() === team.toLowerCase()));
+  }, [data, team]);
+
+  const events = useMemo(() => {
+    if (!data) return [];
+    return data.events
+      .filter(e => !team || e.teams.length === 0 || e.teams.includes('All') || e.teams.some(t => t.toLowerCase() === team.toLowerCase()));
+  }, [data, team]);
+
+  const [selectedEventId, setSelectedEventId] = useState('');
+
+  // Auto-select first event when list changes
+  const effectiveEventId = selectedEventId && events.some(e => e.eventId === selectedEventId)
+    ? selectedEventId
+    : events[0]?.eventId ?? '';
 
   if (!data) return <LoadingSpinner />;
 
-  const coaches = data.coaches.filter(c => c.active);
-  const eventAssignments = data.eventAssignments;
-  const events = data.events;
-
-  const [selectedEventId, setSelectedEventId] = useState(events[0]?.eventId ?? '');
-
-  const selectedAssignments = eventAssignments.filter(a => a.eventId === selectedEventId);
+  const selectedAssignments = data.eventAssignments.filter(a => a.eventId === effectiveEventId);
 
   const getInitials = (name: string) =>
     name.split(/\s+/).map(part => part[0]).join('').toUpperCase();
@@ -64,7 +80,7 @@ const CoachesAndTeam = () => {
       <div>
         <h2 className="font-heading text-xl font-semibold mb-4">{t('coaches.eventAssignments')}</h2>
         <select
-          value={selectedEventId}
+          value={effectiveEventId}
           onChange={e => setSelectedEventId(e.target.value)}
           className="px-3 py-1.5 rounded-md border bg-card text-sm mb-4"
         >
