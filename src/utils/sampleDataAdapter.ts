@@ -174,6 +174,8 @@ export function convertSampleData(): AppData {
     'Blue Team Age Range': '9-12',
     'Red Team Age Range': '12-15',
     'Ad Rotation Interval Seconds': '10',
+    'Instagram': 'https://www.instagram.com/kullaviksegelsallskap/',
+    'Facebook Page': 'https://www.facebook.com/kullaviksegelsallskap/',
   };
 
   return {
