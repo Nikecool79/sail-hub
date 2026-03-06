@@ -366,5 +366,16 @@
     "signUpDesc": "Hjälp till i kiosken under regatter och träning — det är enkelt och uppskattat!",
     "signUpButton": "Anmäl dig",
     "contactForSignup": "Kontakta oss för att anmäla dig"
+  },
+  "results": {
+    "tabEvents": "Evenemang",
+    "tabResults": "Resultat",
+    "noResults": "Inga regattaresultat registrerade ännu",
+    "position": "Pos",
+    "sailor": "Seglare",
+    "sailNumber": "Segelnr",
+    "team": "Lag",
+    "race": "Lopp",
+    "total": "Totalt"
   }
 }

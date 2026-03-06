@@ -72,7 +72,7 @@ const KioskPage = () => {
   }, [data?.kioskFundraising]);
 
   const signupUrl = data?.settings?.['Kiosk Signup URL'] || '';
-  const contactEmail = data?.clubContacts?.[0]?.email || '';
+  const contactEmail = 'information@kkkk.se';
 
   const categoryOrder: KioskItem['category'][] = ['drink', 'food', 'snack'];
 

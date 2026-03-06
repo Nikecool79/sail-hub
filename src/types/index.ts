@@ -243,6 +243,19 @@ export interface KioskSeason {
   goalSek: number;
 }
 
+export interface RegattaResult {
+  resultId: string;
+  eventId: string;
+  position: number;
+  sailorName: string;
+  sailNumber: string;
+  team: string;
+  raceScores: string;   // comma-separated, e.g. "1,2,DSQ,3"
+  totalPoints: number;
+  notesSv: string;
+  notesEn: string;
+}
+
 export interface AppData {
   events: SailEvent[];
   coaches: Coach[];
@@ -260,4 +273,5 @@ export interface AppData {
   kioskMenu: KioskItem[];
   kioskShifts: KioskShift[];
   kioskFundraising: KioskSeason[];
+  regattaResults: RegattaResult[];
 }

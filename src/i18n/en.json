@@ -366,5 +366,16 @@
     "signUpDesc": "Help out in the kiosk during regattas and training — easy and appreciated!",
     "signUpButton": "Sign up",
     "contactForSignup": "Contact us to sign up"
+  },
+  "results": {
+    "tabEvents": "Events",
+    "tabResults": "Results",
+    "noResults": "No regatta results recorded yet",
+    "position": "Pos",
+    "sailor": "Sailor",
+    "sailNumber": "Sail No.",
+    "team": "Team",
+    "race": "Race",
+    "total": "Total"
   }
 }

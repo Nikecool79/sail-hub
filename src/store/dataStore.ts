@@ -5,7 +5,7 @@ import {
   parseEvents, parseCoaches, parseEventAssignments, parseClubContacts,
   parseNews, parseMarketplace, parseLocations, parseSafetyChecklist,
   parseSkillProgression, parseSettings, parseSponsors, parseBoats, parseRibs,
-  parseKioskMenu, parseKioskShifts, parseKioskFundraising,
+  parseKioskMenu, parseKioskShifts, parseKioskFundraising, parseRegattaResults,
 } from '@/utils/parseSheet';
 import { convertSampleData } from '@/utils/sampleDataAdapter';
 
@@ -63,6 +63,7 @@ export const useDataStore = create<DataState>((set, get) => ({
         kioskMenu: parseKioskMenu(raw[SHEET_TABS.KIOSK_MENU]),
         kioskShifts: parseKioskShifts(raw[SHEET_TABS.KIOSK_SHIFTS]),
         kioskFundraising: parseKioskFundraising(raw[SHEET_TABS.KIOSK_FUNDRAISING]),
+        regattaResults: parseRegattaResults(raw[SHEET_TABS.REGATTA_RESULTS] || []),
       };
 
       set({ data, isLoading: false, lastUpdated: Date.now(), dataSource: 'google-sheets' });

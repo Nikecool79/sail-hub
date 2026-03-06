@@ -1,5 +1,5 @@
 import * as sample from '@/data/sampleData';
-import type { AppData, SailEvent, Coach, EventAssignment, ClubContact, NewsItem, MarketplaceItem, Location, SafetyItem, SkillItem, Sponsor } from '@/types';
+import type { AppData, SailEvent, Coach, EventAssignment, ClubContact, NewsItem, MarketplaceItem, Location, SafetyItem, SkillItem, Sponsor, RegattaResult } from '@/types';
 
 export function convertSampleData(): AppData {
   const events: SailEvent[] = sample.events.map((e) => ({
@@ -184,5 +184,6 @@ export function convertSampleData(): AppData {
     kioskMenu: sample.kioskMenu,
     kioskShifts: sample.kioskShifts.map((s) => ({ ...s, volunteers: s.volunteers })),
     kioskFundraising: sample.kioskFundraising,
+    regattaResults: sample.regattaResults as RegattaResult[],
   };
 }

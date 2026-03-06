@@ -180,6 +180,19 @@ export const kioskFundraising = [
   { teamColor: 'red', raisedSek: 900, goalSek: 3000 },
 ];
 
+// eventId '1' = Spring Regatta (2026-04-18), eventId '6' = Sandhamn Regatta (2026-07-11)
+export const regattaResults = [
+  { resultId: 'RES001', eventId: '1', position: 1, sailorName: 'Erik Andersson',  sailNumber: 'SE 7823', team: 'red',   raceScores: '1,2,1,3,2', totalPoints: 9,  notesSv: '', notesEn: '' },
+  { resultId: 'RES002', eventId: '1', position: 2, sailorName: 'Anna Björk',      sailNumber: 'SE 4412', team: 'red',   raceScores: '3,1,2,2,1', totalPoints: 9,  notesSv: '', notesEn: 'Tiebreak on last race' },
+  { resultId: 'RES003', eventId: '1', position: 3, sailorName: 'Lucas Holm',      sailNumber: 'SE 6601', team: 'blue',  raceScores: '2,3,4,1,3', totalPoints: 13, notesSv: '', notesEn: '' },
+  { resultId: 'RES004', eventId: '1', position: 4, sailorName: 'Maja Lindgren',   sailNumber: 'SE 5530', team: 'blue',  raceScores: '4,4,3,4,4', totalPoints: 19, notesSv: '', notesEn: '' },
+  { resultId: 'RES005', eventId: '1', position: 5, sailorName: 'Oskar Strand',    sailNumber: 'SE 9102', team: 'green', raceScores: '5,5,5,5,5', totalPoints: 25, notesSv: 'Bra insats för debutant!', notesEn: 'Great effort for a first regatta!' },
+  { resultId: 'RES006', eventId: '6', position: 1, sailorName: 'Anna Björk',      sailNumber: 'SE 4412', team: 'red',   raceScores: '1,1,2,1',   totalPoints: 5,  notesSv: '', notesEn: '' },
+  { resultId: 'RES007', eventId: '6', position: 2, sailorName: 'Erik Andersson',  sailNumber: 'SE 7823', team: 'red',   raceScores: '2,2,1,2',   totalPoints: 7,  notesSv: '', notesEn: '' },
+  { resultId: 'RES008', eventId: '6', position: 3, sailorName: 'Lucas Holm',      sailNumber: 'SE 6601', team: 'blue',  raceScores: '3,3,3,3',   totalPoints: 12, notesSv: '', notesEn: '' },
+  { resultId: 'RES009', eventId: '6', position: 4, sailorName: 'Saga Nilsson',    sailNumber: 'SE 3345', team: 'blue',  raceScores: '4,DSQ,4,4', totalPoints: 20, notesSv: '', notesEn: '' },
+];
+
 export const weatherData = {
   current: {
     temp: 14,

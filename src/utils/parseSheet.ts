@@ -1,7 +1,7 @@
 import type {
   SailEvent, Coach, EventAssignment, ClubContact, NewsItem,
   MarketplaceItem, Location, SafetyItem, SkillItem, Sponsor,
-  Boat, Rib, KioskItem, KioskShift, KioskSeason,
+  Boat, Rib, KioskItem, KioskShift, KioskSeason, RegattaResult,
 } from '@/types';
 
 function parseArray(val: string): string[] {
@@ -334,5 +334,22 @@ export function parseKioskFundraising(rows: string[][]): KioskSeason[] {
     teamColor: col(r, h, 'Team').toLowerCase(),
     raisedSek: parseNum(col(r, h, 'Raised SEK')),
     goalSek: parseNum(col(r, h, 'Goal SEK')),
+  }));
+}
+
+export function parseRegattaResults(rows: string[][]): RegattaResult[] {
+  if (rows.length < 2) return [];
+  const h = buildHeaders(rows[0]);
+  return rows.slice(1).filter(r => r.length > 0).map((r) => ({
+    resultId: col(r, h, 'Result ID'),
+    eventId: col(r, h, 'Event ID'),
+    position: parseNum(col(r, h, 'Position')),
+    sailorName: col(r, h, 'Sailor Name'),
+    sailNumber: col(r, h, 'Sail Number'),
+    team: col(r, h, 'Team').toLowerCase(),
+    raceScores: col(r, h, 'Race Scores'),
+    totalPoints: parseNum(col(r, h, 'Total Points')),
+    notesSv: col(r, h, 'Notes SV'),
+    notesEn: col(r, h, 'Notes EN'),
   }));
 }
