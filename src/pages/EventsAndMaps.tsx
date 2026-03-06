@@ -113,16 +113,20 @@ const EventsAndMaps = () => {
   }, [selectedEvent, locations]);
 
   const markers = useMemo(() => {
-    return locations.map(loc => {
-      const parsed = parseCoordsFromGoogleMapsUrl(loc.googleMapsUrl);
-      return {
-        lat: parsed?.lat ?? loc.latitude,
-        lng: parsed?.lng ?? loc.longitude,
-        label: loc.name,
-        isHome: loc.name.includes('Kullavik'),
-      };
-    });
-  }, [locations]);
+    // Only show markers for locations referenced by filtered events
+    const eventLocationNames = new Set(events.map(e => e.locationName));
+    return locations
+      .filter(loc => eventLocationNames.has(loc.name))
+      .map(loc => {
+        const parsed = parseCoordsFromGoogleMapsUrl(loc.googleMapsUrl);
+        return {
+          lat: parsed?.lat ?? loc.latitude,
+          lng: parsed?.lng ?? loc.longitude,
+          label: loc.name,
+          isHome: loc.name.includes('Kullavik'),
+        };
+      });
+  }, [locations, events]);
 
   if (!data) return <LoadingSpinner />;
 
