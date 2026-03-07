@@ -315,6 +315,12 @@
     "sparkPlugs": "Tändstift",
     "oilFilter": "Oljefilter",
     "trailerCheck": "Trailerkontroll",
+    "batteryCheck": "Batterikontroll",
+    "cleaning": "Rengöring",
+    "petrolCheck": "Bränslekontroll",
+    "generalCheck": "Allmän Kontroll",
+    "onWater": "I Vattnet",
+    "onLand": "På Land",
     "notes": "Anteckningar",
     "noBoats": "Inga båtar registrerade ännu",
     "noRibs": "Inga RIBs registrerade ännu"

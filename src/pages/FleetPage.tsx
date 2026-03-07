@@ -4,7 +4,7 @@ import { useLocalizedField } from '@/hooks/useLocalizedField';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Sailboat, Anchor, Wrench, AlertTriangle, CheckCircle2, XCircle, Lock } from 'lucide-react';
+import { Sailboat, Anchor, Wrench, AlertTriangle, CheckCircle2, XCircle, Lock, Waves, Mountain } from 'lucide-react';
 import { useThemeStore } from '@/store/useThemeStore';
 import { useMemo } from 'react';
 
@@ -200,6 +200,10 @@ const FleetPage = () => {
                   { key: 'sparkPlugs', date: rib.sparkPlugsDate },
                   { key: 'oilFilter', date: rib.oilFilterDate },
                   { key: 'trailerCheck', date: rib.trailerCheckDate },
+                  { key: 'batteryCheck', date: rib.batteryCheckDate },
+                  { key: 'cleaning', date: rib.cleaningDate },
+                  { key: 'petrolCheck', date: rib.petrolCheckDate },
+                  { key: 'generalCheck', date: rib.generalCheckDate },
                 ];
 
                 const isOutOfService = ribStatus.toLowerCase().includes('out');
@@ -218,10 +222,18 @@ const FleetPage = () => {
                         <Anchor size={20} className="text-primary" />
                         <h3 className="font-heading text-lg font-bold">{rib.name || rib.ribId}</h3>
                       </div>
-                      <Badge variant="outline" className={`gap-1 ${statusConf.className}`}>
-                        <StatusIcon size={12} />
-                        {t(`fleet.${rib.status === 'OK' ? 'ok' : rib.status === 'Needs Service' ? 'needsService' : 'outOfService'}`)}
-                      </Badge>
+                      <div className="flex items-center gap-1.5">
+                        {rib.location && (
+                          <Badge variant="outline" className={`gap-1 ${rib.location === 'Water' ? 'bg-blue-500/15 text-blue-700 border-blue-300' : 'bg-amber-500/15 text-amber-700 border-amber-300'}`}>
+                            {rib.location === 'Water' ? <Waves size={12} /> : <Mountain size={12} />}
+                            {t(`fleet.${rib.location === 'Water' ? 'onWater' : 'onLand'}`)}
+                          </Badge>
+                        )}
+                        <Badge variant="outline" className={`gap-1 ${statusConf.className}`}>
+                          <StatusIcon size={12} />
+                          {t(`fleet.${rib.status === 'OK' ? 'ok' : rib.status === 'Needs Service' ? 'needsService' : 'outOfService'}`)}
+                        </Badge>
+                      </div>
                     </div>
 
                     {/* Maintenance dates */}

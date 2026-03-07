@@ -265,6 +265,13 @@ function normalizeRibStatus(raw: string): Rib['status'] {
   return ribStatusMap[raw.trim().toLowerCase()] || 'OK';
 }
 
+function normalizeLocation(raw: string): Rib['location'] {
+  const v = raw.trim().toLowerCase();
+  if (v === 'water' || v === 'vatten' || v === 'i vattnet') return 'Water';
+  if (v === 'land' || v === 'på land') return 'Land';
+  return '';
+}
+
 export function parseBoats(rows: string[][]): Boat[] {
   if (rows.length < 2) return [];
   const h = buildHeaders(rows[0]);
@@ -293,6 +300,11 @@ export function parseRibs(rows: string[][]): Rib[] {
     sparkPlugsDate: col(r, h, 'Spark Plugs Date'),
     oilFilterDate: col(r, h, 'Oil Filter Date'),
     trailerCheckDate: col(r, h, 'Trailer Check Date'),
+    batteryCheckDate: col(r, h, 'Battery Check Date'),
+    cleaningDate: col(r, h, 'Cleaning Date'),
+    petrolCheckDate: col(r, h, 'Petrol Check Date'),
+    generalCheckDate: col(r, h, 'General Check Date'),
+    location: normalizeLocation(col(r, h, 'Location')),
     notesSv: col(r, h, 'Notes SV'),
     notesEn: col(r, h, 'Notes EN'),
   }));

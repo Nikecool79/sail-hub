@@ -173,6 +173,11 @@ export interface Rib {
   sparkPlugsDate: string;
   oilFilterDate: string;
   trailerCheckDate: string;
+  batteryCheckDate: string;
+  cleaningDate: string;
+  petrolCheckDate: string;
+  generalCheckDate: string;
+  location: 'Water' | 'Land' | '';
   notesSv: string;
   notesEn: string;
 }
