@@ -177,7 +177,6 @@ export interface Rib {
   cleaningDate: string;
   petrolCheckDate: string;
   generalCheckDate: string;
-  location: 'Water' | 'Land' | '';
   notesSv: string;
   notesEn: string;
 }
