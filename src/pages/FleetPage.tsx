@@ -138,8 +138,8 @@ const FleetPage = () => {
                           {!isPrivateTeam && <th className="text-left p-3 font-medium">{t('fleet.boatId')}</th>}
                           <th className="text-left p-3 font-medium">{t('fleet.name')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.sailNumber')}</th>
-                          <th className="text-left p-3 font-medium">{t('fleet.status')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.space')}</th>
+                          <th className="text-left p-3 font-medium">{t('fleet.status')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.conditionNotes')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.lastInspection')}</th>
                         </tr>
