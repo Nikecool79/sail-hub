@@ -69,10 +69,10 @@ const FleetPage = () => {
 
   const ribs = useMemo(() => {
     if (!data) return [];
-    if (!team) return data.ribs;
-    return data.ribs.filter(r =>
+    const filtered = !team ? data.ribs : data.ribs.filter(r =>
       r.teams.length === 0 || r.teams.includes('All') || r.teams.some(t => t.toLowerCase() === team.toLowerCase())
     );
+    return [...filtered].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
   }, [data, team]);
 
   const boatSummary = useMemo(() => {
@@ -84,7 +84,8 @@ const FleetPage = () => {
   if (!data) return <LoadingSpinner />;
 
   // Group boats by team
-  const boatsByTeam = boats.reduce<Record<string, typeof boats>>((acc, b) => {
+  const sortedBoats = [...boats].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+  const boatsByTeam = sortedBoats.reduce<Record<string, typeof boats>>((acc, b) => {
     const grp = b.team || 'Unassigned';
     if (!acc[grp]) acc[grp] = [];
     acc[grp].push(b);
@@ -138,6 +139,7 @@ const FleetPage = () => {
                           <th className="text-left p-3 font-medium">{t('fleet.name')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.sailNumber')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.status')}</th>
+                          <th className="text-left p-3 font-medium">{t('fleet.space')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.conditionNotes')}</th>
                           <th className="text-left p-3 font-medium">{t('fleet.lastInspection')}</th>
                         </tr>
@@ -152,6 +154,7 @@ const FleetPage = () => {
                               {!isPrivateTeam && <td className="p-3 font-mono text-xs">{b.boatId}</td>}
                               <td className="p-3 font-medium">{b.name}</td>
                               <td className="p-3">{b.sailNumber}</td>
+                              <td className="p-3 text-muted-foreground">{b.space || '—'}</td>
                               <td className="p-3">
                                 <Badge variant="outline" className={`gap-1 ${statusConf.className}`}>
                                   <StatusIcon size={12} />

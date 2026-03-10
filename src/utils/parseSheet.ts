@@ -278,6 +278,7 @@ export function parseBoats(rows: string[][]): Boat[] {
     conditionNotesSv: col(r, h, 'Condition Notes SV'),
     conditionNotesEn: col(r, h, 'Condition Notes EN'),
     lastInspectionDate: col(r, h, 'Last Inspection Date'),
+    space: col(r, h, 'Space'),
   }));
 }
 

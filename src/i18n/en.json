@@ -296,6 +296,7 @@
     "boatId": "Boat ID",
     "name": "Name",
     "sailNumber": "Sail Number",
+    "space": "Space",
     "team": "Team",
     "status": "Status",
     "conditionNotes": "Condition Notes",

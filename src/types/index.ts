@@ -161,6 +161,7 @@ export interface Boat {
   conditionNotesSv: string;
   conditionNotesEn: string;
   lastInspectionDate: string;
+  space: string;
 }
 
 export interface Rib {

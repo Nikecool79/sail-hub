@@ -296,6 +296,7 @@
     "boatId": "Båt-ID",
     "name": "Namn",
     "sailNumber": "Segelnummer",
+    "space": "Plats",
     "team": "Lag",
     "status": "Status",
     "conditionNotes": "Tillståndsnoteringar",
