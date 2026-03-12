@@ -34,6 +34,7 @@ export const TIER_COLORS = {
 type Settings = Record<string, string>;
 
 const DEFAULTS: Settings = {
+  // ── Identity (rows 2-8 in Sheet) ──
   'Club Name SV': 'My Sailing Club',
   'Club Name EN': 'My Sailing Club',
   'Club Short Name': '',
@@ -44,24 +45,36 @@ const DEFAULTS: Settings = {
   'Home Location Keyword': '',
   'Club Website': '',
   'Sailarena URL': '',
-  'WhatsApp Group URL': '',
-  'Instagram': '',
+  'Club Logo URL': '',
+  // ── WhatsApp per team (rows 9-11) ──
+  'WhatsApp Green Group': '',
+  'WhatsApp Blue Group': '',
+  'WhatsApp Red Group': '',
+  // ── Social (rows 12-14) ──
+  'Facebook Page': '',
   'Instagram Skola': '',
   'Instagram KKKK': '',
-  'Facebook Page': '',
-  'Green Team Age Range': '6–9',
-  'Blue Team Age Range': '9–12',
-  'Red Team Age Range': '12–15',
+  // ── Signup / volunteer (rows 15-16) ──
+  'Kiosk Signup URL': '',
+  'Mailchimp Signup URL': '',
+  // ── Teams (rows 17-19) ──
+  'Green Team Age Range': '6-9',
+  'Blue Team Age Range': '9-12',
+  'Red Team Age Range': '12-15',
+  // ── Ads & sponsors (rows 20-25) ──
   'Ad Rotation Interval Seconds': '10',
+  'Max Ads Per Page': '3',
+  'Ad Contact Email': '',
   'Gold Tier Price SEK/Month': '500',
   'Silver Tier Price SEK/Month': '300',
   'Bronze Tier Price SEK/Month': '150',
-  // Feature flags — clubs toggle pages on/off
+  // ── Media (row 26) ──
+  'Default Webcam URL': '',
+  // ── Feature flags ──
   'Enable Kiosk': 'yes',
   'Enable Marketplace': 'yes',
   'Enable Live Cameras': 'yes',
   'Enable Club Services': 'yes',
-  'Contact Email Ads': '',
 };
 
 /** Read a single setting, falling back to DEFAULTS then to the provided fallback. */

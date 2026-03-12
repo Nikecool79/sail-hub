@@ -163,6 +163,7 @@ export function convertSampleData(): AppData {
   sample.sponsors.silver.forEach((s) => allSponsors.push(makeSponsor(s, 'Silver')));
   sample.sponsors.bronze.forEach((s) => allSponsors.push(makeSponsor(s, 'Bronze')));
 
+  // Mirror the real Google Sheets "Settings" tab structure
   const settings: Record<string, string> = {
     'Club Name SV': 'Kullaviks Segelsällskap',
     'Club Name EN': 'Kullavik Sailing Club',
@@ -172,19 +173,27 @@ export function convertSampleData(): AppData {
     'Default Longitude': '11.9333',
     'Default Location Name': 'Kullavik Hamn',
     'Home Location Keyword': 'Kullavik',
-    'Club Website': '',
-    'Sailarena URL': '',
+    'Club Website': 'https://www.kkkk.se/',
+    'Sailarena URL': 'https://www.sailarena.com/',
+    'Club Logo URL': 'https://www.kkkk.se/skin/default/header/logotyp.png',
+    'WhatsApp Green Group': '',
+    'WhatsApp Blue Group': '',
+    'WhatsApp Red Group': '',
+    'Facebook Page': 'https://www.facebook.com/kullavikskanotochkajak/',
+    'Instagram Skola': 'https://www.instagram.com/kullaviksseglarskola/',
+    'Instagram KKKK': 'https://www.instagram.com/kkkk__se/',
+    'Kiosk Signup URL': '',
+    'Mailchimp Signup URL': '',
     'Green Team Age Range': '6-9',
     'Blue Team Age Range': '9-12',
     'Red Team Age Range': '12-15',
     'Ad Rotation Interval Seconds': '10',
-    'Instagram Skola': 'https://www.instagram.com/kullaviksseglarskola/',
-    'Instagram KKKK': 'https://www.instagram.com/kkkk__se/',
-    'Facebook Page': 'https://www.facebook.com/kullaviksegelsallskap/',
-    'Enable Kiosk': 'yes',
-    'Enable Marketplace': 'yes',
-    'Enable Live Cameras': 'yes',
-    'Enable Club Services': 'yes',
+    'Max Ads Per Page': '3',
+    'Ad Contact Email': 'traning@kkkk.se',
+    'Gold Tier Price SEK/Month': '500',
+    'Silver Tier Price SEK/Month': '300',
+    'Bronze Tier Price SEK/Month': '150',
+    'Default Webcam URL': '',
   };
 
   return {

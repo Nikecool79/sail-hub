@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import OptimistBoat from '@/components/OptimistBoat';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import SocialMediaWidget from '@/components/SocialMediaWidget';
-import { getDefaultCoords, getDefaultLocationName } from '@/config/clubConfig';
+import { getDefaultCoords, getDefaultLocationName, getSetting } from '@/config/clubConfig';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -76,10 +76,13 @@ const Dashboard = () => {
 
   const w = weather.data?.current;
 
+  const whatsappKey = team ? `WhatsApp ${team.charAt(0).toUpperCase() + team.slice(1)} Group` : '';
+  const whatsappUrl = (whatsappKey && data.settings[whatsappKey]) || data.settings['WhatsApp Group URL'] || '';
+
   const quickLinks = [
-    { label: t('dashboard.whatsappGroup'), url: data.settings['WhatsApp Group URL'] },
-    { label: t('dashboard.sailarena'), url: data.settings['Sailarena URL'] },
-    { label: t('dashboard.clubWebsite'), url: data.settings['Club Website'] || data.settings['Club Website URL'] },
+    { label: t('dashboard.whatsappGroup'), url: whatsappUrl },
+    { label: t('dashboard.sailarena'), url: getSetting(data.settings, 'Sailarena URL') },
+    { label: t('dashboard.clubWebsite'), url: getSetting(data.settings, 'Club Website') },
   ].filter(link => link.url && link.url.trim() !== '');
 
   return (
