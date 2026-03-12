@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import OptimistBoat from '@/components/OptimistBoat';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import SocialMediaWidget from '@/components/SocialMediaWidget';
+import { getDefaultCoords, getDefaultLocationName } from '@/config/clubConfig';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -19,9 +20,10 @@ const Dashboard = () => {
   const data = useDataStore(s => s.data);
   const { team } = useThemeStore();
 
-  const defaultLat = data ? parseFloat(data.settings['Default Latitude'] || '57.4833') : 57.4833;
-  const defaultLng = data ? parseFloat(data.settings['Default Longitude'] || '11.9333') : 11.9333;
-  const locationName = data?.settings['Default Location Name'] || 'Kullavik Hamn';
+  const coords = getDefaultCoords(data?.settings);
+  const defaultLat = coords.lat;
+  const defaultLng = coords.lng;
+  const locationName = getDefaultLocationName(data?.settings);
 
   const weather = useWeather(defaultLat, defaultLng, locationName);
 

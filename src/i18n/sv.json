@@ -130,7 +130,7 @@
   },
   "contacts": {
     "title": "Klubbkontakter",
-    "welcome": "Välkommen till Kullaviks Segelsällskap! Här är våra nyckelpersoner.",
+    "welcome": "Välkommen till {{clubName}}! Här är våra nyckelpersoner.",
     "welcomeSub": "Kontakter"
   },
   "news": {

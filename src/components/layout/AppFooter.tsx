@@ -6,12 +6,15 @@ import { useDataStore } from '@/store/dataStore';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getActiveSponsors } from '@/utils/sponsorUtils';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
+import { getClubName, getSetting } from '@/config/clubConfig';
 
 const AppFooter = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const data = useDataStore((s) => s.data);
   const team = useThemeStore((s) => s.team);
   const { localize } = useLocalizedField();
+  const settings = data?.settings;
+  const lang = (i18n.language?.startsWith('sv') ? 'sv' : 'en') as 'sv' | 'en';
   const allSponsors = data ? getActiveSponsors(data.sponsors) : [];
 
   const instagramUrl = team?.toLowerCase() === 'green'
@@ -55,8 +58,8 @@ const AppFooter = () => {
 
       <div className="container py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <div className="text-center md:text-left">
-          <p className="font-heading font-semibold text-foreground">Kullaviks Segelsällskap</p>
-          <p>Hamnvägen 12, 429 44 Kullavik</p>
+          <p className="font-heading font-semibold text-foreground">{getClubName(settings, lang)}</p>
+          {getSetting(settings, 'Club Address') && <p>{getSetting(settings, 'Club Address')}</p>}
         </div>
 
         <div className="flex items-center gap-4">

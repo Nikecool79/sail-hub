@@ -4,11 +4,13 @@ import { useLocalizedField } from '@/hooks/useLocalizedField';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Phone, Mail } from 'lucide-react';
 import WaveDivider from '@/components/WaveDivider';
+import { getClubName } from '@/config/clubConfig';
 
 const ClubContacts = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { localize } = useLocalizedField();
   const data = useDataStore(s => s.data);
+  const lang = (i18n.language?.startsWith('sv') ? 'sv' : 'en') as 'sv' | 'en';
 
   if (!data) return <LoadingSpinner />;
 
@@ -18,7 +20,7 @@ const ClubContacts = () => {
     <div className="space-y-6">
       {/* Welcome banner */}
       <div className="relative rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 p-8 text-center overflow-hidden">
-        <h1 className="font-heading text-3xl font-bold mb-2">{t('contacts.welcome')}</h1>
+        <h1 className="font-heading text-3xl font-bold mb-2">{t('contacts.welcome', { clubName: getClubName(data?.settings, lang) })}</h1>
         <p className="text-lg text-muted-foreground">{t('contacts.welcomeSub')}</p>
         <WaveDivider className="absolute bottom-0 left-0" />
       </div>

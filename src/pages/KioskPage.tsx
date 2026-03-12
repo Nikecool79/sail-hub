@@ -6,18 +6,7 @@ import WaveDivider from '@/components/WaveDivider';
 import { Coffee, Utensils, CalendarDays, Users, ExternalLink } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import type { KioskItem, KioskShift } from '@/types';
-
-const TEAM_COLORS: Record<string, string> = {
-  green: '#2E7D32',
-  blue: '#1565C0',
-  red: '#C62828',
-};
-
-const TEAM_BG: Record<string, string> = {
-  green: 'bg-green-100 text-green-800',
-  blue: 'bg-blue-100 text-blue-800',
-  red: 'bg-red-100 text-red-800',
-};
+import { TEAM_COLORS, TEAM_BG } from '@/config/clubConfig';
 
 type Tab = 'menu' | 'schedule' | 'volunteers';
 

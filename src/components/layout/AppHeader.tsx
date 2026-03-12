@@ -1,11 +1,14 @@
 import { useThemeStore } from '@/store/useThemeStore';
+import { useDataStore } from '@/store/dataStore';
 import { Sun, Moon, ArrowLeftRight, Languages } from 'lucide-react';
 import OptimistBoat from '@/components/OptimistBoat';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getClubShortName } from '@/config/clubConfig';
 
 const AppHeader = () => {
   const { team, mode, toggleMode, setTeam } = useThemeStore();
+  const settings = useDataStore((s) => s.data?.settings);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
@@ -21,7 +24,7 @@ const AppHeader = () => {
     <header className="sticky top-0 z-30 flex items-center justify-between h-14 px-4 border-b bg-card/80 backdrop-blur-md">
       <div className="flex items-center gap-2">
         <OptimistBoat size={28} color="hsl(var(--primary))" />
-        <span className="font-heading font-semibold text-lg hidden sm:inline">Kullaviks SS</span>
+        <span className="font-heading font-semibold text-lg hidden sm:inline">{getClubShortName(settings)}</span>
       </div>
 
       <div className="flex items-center gap-3">

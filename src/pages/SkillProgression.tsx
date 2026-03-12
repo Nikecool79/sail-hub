@@ -5,12 +5,15 @@ import { useLocalizedField } from '@/hooks/useLocalizedField';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import OptimistBoat from '@/components/OptimistBoat';
 import { CheckCircle2 } from 'lucide-react';
+import { TEAMS } from '@/config/clubConfig';
 
-const zones = [
-  { key: 'Green' as const, themeKey: 'green' as const, color: '#2E7D32', bgClass: 'from-green-50 to-green-100', boatSize: 32 },
-  { key: 'Blue' as const, themeKey: 'blue' as const, color: '#1565C0', bgClass: 'from-blue-50 to-blue-100', boatSize: 44 },
-  { key: 'Red' as const, themeKey: 'red' as const, color: '#C62828', bgClass: 'from-red-50 to-red-100', boatSize: 56 },
-];
+const zones = TEAMS.map((t, i) => ({
+  key: (t.id.charAt(0).toUpperCase() + t.id.slice(1)) as 'Green' | 'Blue' | 'Red',
+  themeKey: t.id,
+  color: t.color,
+  bgClass: t.bgClass,
+  boatSize: 32 + i * 12,
+}));
 
 const SkillProgression = () => {
   const { t } = useTranslation();

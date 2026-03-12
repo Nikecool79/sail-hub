@@ -130,7 +130,7 @@
   },
   "contacts": {
     "title": "Club Contacts",
-    "welcome": "Welcome to Kullaviks Segelsällskap! Here are our key contacts.",
+    "welcome": "Welcome to {{clubName}}! Here are our key contacts.",
     "welcomeSub": "Contacts"
   },
   "news": {

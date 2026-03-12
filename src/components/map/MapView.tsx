@@ -1,6 +1,8 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useEffect } from 'react';
+import { useDataStore } from '@/store/dataStore';
+import { getDefaultCoords } from '@/config/clubConfig';
 
 // Fix default marker icons for Vite bundler
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
@@ -41,9 +43,11 @@ function FlyToSelected({ lat, lng }: { lat?: number; lng?: number }) {
 }
 
 export default function MapView({ markers, selectedLat, selectedLng, height = '400px', zoom = 10 }: Props) {
+  const settings = useDataStore((s) => s.data?.settings);
+  const defaults = getDefaultCoords(settings);
   const center: [number, number] = selectedLat && selectedLng
     ? [selectedLat, selectedLng]
-    : [57.4833, 11.9333];
+    : [defaults.lat, defaults.lng];
 
   return (
     <MapContainer center={center} zoom={zoom} style={{ height, width: '100%' }} className="rounded-xl z-0">

@@ -7,6 +7,7 @@ import React, { useState, useMemo, useEffect, useRef, useCallback, Suspense } fr
 import { useSearchParams } from 'react-router-dom';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import type { RegattaResult, SailEvent } from '@/types';
+import { isHomeLocation } from '@/config/clubConfig';
 
 /** Extract lat/lng from a Google Maps URL (various formats) */
 function parseCoordsFromGoogleMapsUrl(url: string): { lat: number; lng: number } | null {
@@ -273,7 +274,7 @@ const EventsAndMaps = () => {
           lat: parsed?.lat ?? loc.latitude,
           lng: parsed?.lng ?? loc.longitude,
           label: loc.name,
-          isHome: loc.name.includes('Kullavik'),
+          isHome: isHomeLocation(data?.settings, loc.name),
         };
       });
   }, [locations, upcomingEvents]);
@@ -450,7 +451,7 @@ const EventsAndMaps = () => {
                 <h3 className="font-heading text-lg font-semibold mb-3 flex items-center gap-2">
                   <MapPin size={18} className="text-primary" />
                   {venue.name}
-                  {venue.name.includes('Kullavik') && <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{t('events.home')}</span>}
+                  {isHomeLocation(data?.settings, venue.name) && <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">{t('events.home')}</span>}
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                   {venue.address && (

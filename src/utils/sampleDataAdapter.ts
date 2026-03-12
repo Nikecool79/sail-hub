@@ -166,8 +166,12 @@ export function convertSampleData(): AppData {
   const settings: Record<string, string> = {
     'Club Name SV': 'Kullaviks Segelsällskap',
     'Club Name EN': 'Kullavik Sailing Club',
+    'Club Short Name': 'Kullaviks SS',
+    'Club Address': 'Hamnvägen 12, 429 44 Kullavik',
     'Default Latitude': '57.4833',
     'Default Longitude': '11.9333',
+    'Default Location Name': 'Kullavik Hamn',
+    'Home Location Keyword': 'Kullavik',
     'Club Website': '',
     'Sailarena URL': '',
     'Green Team Age Range': '6-9',
@@ -177,6 +181,10 @@ export function convertSampleData(): AppData {
     'Instagram Skola': 'https://www.instagram.com/kullaviksseglarskola/',
     'Instagram KKKK': 'https://www.instagram.com/kkkk__se/',
     'Facebook Page': 'https://www.facebook.com/kullaviksegelsallskap/',
+    'Enable Kiosk': 'yes',
+    'Enable Marketplace': 'yes',
+    'Enable Live Cameras': 'yes',
+    'Enable Club Services': 'yes',
   };
 
   return {
