@@ -27,15 +27,24 @@ const Dashboard = () => {
 
   const weather = useWeather(defaultLat, defaultLng, locationName);
 
-  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
+  const cutoffDate = useMemo(() => {
+    const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Stockholm' }));
+    const hour = now.getHours();
+    if (hour >= 17) {
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      return tomorrow.toISOString().split('T')[0];
+    }
+    return now.toISOString().split('T')[0];
+  }, []);
 
   const nextEvent = useMemo(() => {
     if (!data) return null;
     return data.events
-      .filter(e => e.dateStart >= today)
+      .filter(e => e.dateStart >= cutoffDate)
       .filter(e => !team || e.teams.length === 0 || e.teams.includes('All') || e.teams.some(t => t.toLowerCase() === team.toLowerCase()))
       .sort((a, b) => a.dateStart.localeCompare(b.dateStart))[0] || null;
-  }, [data, today, team]);
+  }, [data, cutoffDate, team]);
 
   const recentNews = useMemo(() => {
     if (!data) return [];
