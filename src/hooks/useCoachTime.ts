@@ -3,6 +3,8 @@ import { fetchExternalTab } from '@/services/googleSheets';
 
 export interface CoachTimeEntry {
   date: string;     // YYYY-MM-DD
+  dayName: string;
+  regatta: string;
   coach: string;
   team: string;
   activity: string;
@@ -10,25 +12,31 @@ export interface CoachTimeEntry {
   notes: string;
 }
 
-// Expected sheet structure (tab: "Time Log"):
-// Row 1 = headers: Date | Coach | Team | Activity | Hours | Notes
-// Row 2+ = data
+// Sheet structure (tab: "<year>", e.g. "2026"):
+// Row 1: Logo/title (skip)
+// Row 2: Empty (skip)
+// Row 3: Headers — Regatta | Date | Day | Coach | Team | Activity | Hours | Notes
+// Row 4+: Data (one row per coaching session; multiple rows per date = multiple coaches)
 
 function parseCoachTime(rows: string[][]): CoachTimeEntry[] {
-  if (rows.length < 2) return [];
+  if (rows.length < 4) return [];
 
   const entries: CoachTimeEntry[] = [];
-  for (let i = 1; i < rows.length; i++) {
+  for (let i = 3; i < rows.length; i++) {
     const row = rows[i] || [];
-    const date = row[0]?.trim() || '';
-    if (!date) continue;
+    const date = row[1]?.trim() || '';
+    if (!date.match(/^\d{4}-\d{2}-\d{2}$/)) continue;
+    const hours = parseFloat(row[6]) || 0;
+    if (!hours) continue; // skip empty rows
     entries.push({
+      regatta: row[0]?.trim() || '',
       date,
-      coach: row[1]?.trim() || '',
-      team: row[2]?.trim() || '',
-      activity: row[3]?.trim() || '',
-      hours: parseFloat(row[4]) || 0,
-      notes: row[5]?.trim() || '',
+      dayName: row[2]?.trim() || '',
+      coach: row[3]?.trim() || '',
+      team: row[4]?.trim() || '',
+      activity: row[5]?.trim() || '',
+      hours,
+      notes: row[7]?.trim() || '',
     });
   }
 
@@ -36,10 +44,12 @@ function parseCoachTime(rows: string[][]): CoachTimeEntry[] {
 }
 
 export function useCoachTime(sheetId: string) {
+  const year = new Date().getFullYear().toString();
+
   return useQuery({
-    queryKey: ['coachTime', sheetId],
+    queryKey: ['coachTime', sheetId, year],
     queryFn: async () => {
-      const rows = await fetchExternalTab(sheetId, 'Time Log');
+      const rows = await fetchExternalTab(sheetId, year);
       return parseCoachTime(rows);
     },
     staleTime: 5 * 60 * 1000,
