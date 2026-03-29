@@ -5,13 +5,16 @@ import { useLocalizedField } from '@/hooks/useLocalizedField';
 import { useWeather } from '@/hooks/useWeather';
 import { getWeatherInfo, degreesToCompass } from '@/utils/weatherCodes';
 import { getSponsorsByTier, trackSponsorClick } from '@/utils/sponsorUtils';
-import { Clock, Wind, Newspaper, ExternalLink, Megaphone } from 'lucide-react';
+import { Clock, Wind, Newspaper, ExternalLink, Megaphone, Anchor } from 'lucide-react';
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OptimistBoat from '@/components/OptimistBoat';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import SocialMediaWidget from '@/components/SocialMediaWidget';
 import { getDefaultCoords, getDefaultLocationName, getSetting } from '@/config/clubConfig';
+import { useRibBooking, BOOKING_STYLE } from '@/hooks/useRibBooking';
+
+const RIB_BOOKING_SHEET_ID = import.meta.env.VITE_RIB_BOOKING_SHEET_ID || '';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -26,6 +29,7 @@ const Dashboard = () => {
   const locationName = getDefaultLocationName(data?.settings);
 
   const weather = useWeather(defaultLat, defaultLng, locationName);
+  const { data: ribBooking } = useRibBooking(RIB_BOOKING_SHEET_ID);
 
   const cutoffDate = useMemo(() => {
     const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Stockholm' }));
@@ -54,6 +58,12 @@ const Dashboard = () => {
       .sort((a, b) => b.date.localeCompare(a.date))
       .slice(0, 2);
   }, [data, team]);
+
+  const todayRibs = useMemo(() => {
+    if (!ribBooking) return null;
+    const today = new Date().toISOString().split('T')[0];
+    return ribBooking.days.find(d => d.date === today) || ribBooking.days[0] || null;
+  }, [ribBooking]);
 
   const goldSponsor = useMemo(() => {
     if (!data) return null;
@@ -204,6 +214,34 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
+
+        {/* RIB Booking */}
+        {RIB_BOOKING_SHEET_ID && todayRibs && (
+          <div
+            className="rounded-xl bg-card border p-5 team-border-top card-hover cursor-pointer"
+            onClick={() => navigate('/fleet')}
+          >
+            <div className="flex items-center gap-2 text-muted-foreground mb-3">
+              <Anchor size={16} />
+              <span className="text-sm font-medium uppercase tracking-wider">{t('dashboard.ribBooking')}</span>
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">{todayRibs.date} — {todayRibs.dayName}</p>
+            <div className="flex flex-wrap gap-1.5">
+              {ribBooking!.ribNames.map(name => {
+                const val = todayRibs.bookings[name] || '';
+                const style = BOOKING_STYLE[val];
+                return (
+                  <div key={name} className="text-center">
+                    <div className={`text-xs px-2 py-1 rounded border font-medium ${style?.cell || 'bg-muted text-muted-foreground border-border'}`}>
+                      <span className="font-mono font-bold">{name}</span>
+                      {val && <span className="ml-1 opacity-70">{style?.label || val}</span>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Gold Sponsor */}
         {goldSponsor && (
