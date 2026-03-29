@@ -21,6 +21,7 @@
     "green": "Gröna Laget",
     "blue": "Blå Laget",
     "red": "Röda Laget",
+    "ilca": "ILCA",
     "selectTeam": "Välj ditt lag",
     "changeTeam": "Byt lag",
     "ageRange": "Ålder {{min}}–{{max}}"
@@ -174,7 +175,8 @@
     "zones": {
       "green": "Grön Zon",
       "blue": "Blå Zon",
-      "red": "Röd Zon"
+      "red": "Röd Zon",
+      "ilca": "ILCA"
     }
   },
   "safety": {

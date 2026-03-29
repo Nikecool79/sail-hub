@@ -27,7 +27,7 @@ function Linkify({ children }: { children: string }) {
 
 const teamBadge = (teams: string[]) => {
   if (!teams || teams.length === 0) return null;
-  const colors: Record<string, string> = { green: 'bg-green-500', blue: 'bg-blue-500', red: 'bg-red-500' };
+  const colors: Record<string, string> = { green: 'bg-green-500', blue: 'bg-blue-500', red: 'bg-red-500', ilca: 'bg-gray-500' };
   return (
     <>
       {teams.map(team => (
@@ -130,7 +130,7 @@ const NewsPage = () => {
       <h1 className="font-heading text-2xl font-bold">{t('news.title')}</h1>
 
       <div className="flex gap-2 flex-wrap">
-        {[null, 'green', 'blue', 'red'].map(f => (
+        {[null, 'green', 'blue', 'red', 'ilca'].map(f => (
           <button
             key={f || 'all'}
             onClick={() => setFilter(f)}

@@ -7,8 +7,14 @@ import OptimistBoat from '@/components/OptimistBoat';
 import { CheckCircle2 } from 'lucide-react';
 import { TEAMS } from '@/config/clubConfig';
 
+const ILCA_RIGS = [
+  { name: 'ILCA 4', sail: '4.7 m²', weight: '40–60 kg' },
+  { name: 'ILCA 6', sail: '5.76 m²', weight: '55–78 kg' },
+  { name: 'ILCA 7', sail: '7.06 m²', weight: '75–90+ kg' },
+];
+
 const zones = TEAMS.map((t, i) => ({
-  key: (t.id.charAt(0).toUpperCase() + t.id.slice(1)) as 'Green' | 'Blue' | 'Red',
+  key: (t.id.charAt(0).toUpperCase() + t.id.slice(1)) as string,
   themeKey: t.id,
   color: t.color,
   bgClass: t.bgClass,
@@ -45,7 +51,7 @@ const SkillProgression = () => {
         <p className="text-muted-foreground">{t('skills.subtitle')}</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {zones.map(zone => (
           <div
             key={zone.key}
@@ -67,6 +73,28 @@ const SkillProgression = () => {
                   </div>
                 </div>
               ))}
+              {zone.themeKey === 'ilca' && (
+                <div className="mt-4 rounded-lg border border-gray-200 overflow-hidden">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="text-left px-2 py-1.5 font-semibold text-gray-600">Rig</th>
+                        <th className="text-left px-2 py-1.5 font-semibold text-gray-600">Segel</th>
+                        <th className="text-left px-2 py-1.5 font-semibold text-gray-600">Vikt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {ILCA_RIGS.map(rig => (
+                        <tr key={rig.name} className="border-t border-gray-100">
+                          <td className="px-2 py-1.5 font-medium" style={{ color: zone.color }}>{rig.name}</td>
+                          <td className="px-2 py-1.5 text-muted-foreground">{rig.sail}</td>
+                          <td className="px-2 py-1.5 text-muted-foreground">{rig.weight}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -74,11 +102,13 @@ const SkillProgression = () => {
 
       {/* Journey connector (desktop) */}
       <div className="hidden lg:flex items-center justify-center gap-2 -mt-4">
-        <div className="h-0.5 w-16 bg-green-400" />
+        <div className="h-0.5 w-12 bg-green-400" />
         <span className="text-muted-foreground text-xs">{'\u2192'}</span>
-        <div className="h-0.5 w-16 bg-blue-400" />
+        <div className="h-0.5 w-12 bg-blue-400" />
         <span className="text-muted-foreground text-xs">{'\u2192'}</span>
-        <div className="h-0.5 w-16 bg-red-400" />
+        <div className="h-0.5 w-12 bg-red-400" />
+        <span className="text-muted-foreground text-xs">{'\u2192'}</span>
+        <div className="h-0.5 w-12 bg-gray-400" />
       </div>
     </div>
   );

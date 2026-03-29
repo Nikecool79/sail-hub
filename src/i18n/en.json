@@ -21,6 +21,7 @@
     "green": "Green Team",
     "blue": "Blue Team",
     "red": "Red Team",
+    "ilca": "ILCA",
     "selectTeam": "Choose your team",
     "changeTeam": "Change team",
     "ageRange": "Ages {{min}}–{{max}}"
@@ -174,7 +175,8 @@
     "zones": {
       "green": "Green Zone",
       "blue": "Blue Zone",
-      "red": "Red Zone"
+      "red": "Red Zone",
+      "ilca": "ILCA"
     }
   },
   "safety": {
