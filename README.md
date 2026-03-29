@@ -11,6 +11,37 @@
 
 ---
 
+## Screenshots
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/team-selection.png" alt="Team selection" width="480"/></td>
+    <td><img src="docs/screenshots/dashboard-blue.png" alt="Dashboard — Blue team" width="480"/></td>
+  </tr>
+  <tr>
+    <td align="center"><em>Team selection</em></td>
+    <td align="center"><em>Dashboard — Blue team</em></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/dashboard-red.png" alt="Dashboard — Red team" width="480"/></td>
+    <td><img src="docs/screenshots/calendar.png" alt="Calendar" width="480"/></td>
+  </tr>
+  <tr>
+    <td align="center"><em>Dashboard — Red team theming</em></td>
+    <td align="center"><em>Calendar</em></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/events-maps.png" alt="Events & Maps" width="480"/></td>
+    <td><img src="docs/screenshots/weather.png" alt="Weather" width="480"/></td>
+  </tr>
+  <tr>
+    <td align="center"><em>Events & Maps with Leaflet</em></td>
+    <td align="center"><em>Weather with wind compass</em></td>
+  </tr>
+</table>
+
+---
+
 Sail Hub is a ready-to-deploy club dashboard that reads all its data from a Google Sheet. No backend required. Each club gets its own Sheet — swap the Sheet ID and you have a fully branded dashboard for a different club.
 
 Built for **Kullaviks Segelsällskap (KKKK)** and open-sourced for the sailing community.
