@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type Team = 'green' | 'blue' | 'red' | null;
+export type Team = 'green' | 'blue' | 'red' | 'ilca' | null;
 export type Mode = 'day' | 'night';
 
 interface ThemeState {

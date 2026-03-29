@@ -40,6 +40,10 @@
       "red": {
         "name": "Röda Laget",
         "description": "Tävla på högre nivå — regatta och mästerskap."
+      },
+      "ilca": {
+        "name": "ILCA",
+        "description": "ILCA 4, 6 & 7 — från Optimist till kappseglingsbåt. Rig efter din vikt och erfarenhet."
       }
     }
   },

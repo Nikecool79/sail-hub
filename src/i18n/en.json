@@ -40,6 +40,10 @@
       "red": {
         "name": "Red Team",
         "description": "Compete at a higher level — regattas and championships."
+      },
+      "ilca": {
+        "name": "ILCA",
+        "description": "ILCA 4, 6 & 7 — transition from Optimist to a racing dinghy. Rig matched to your weight and experience."
       }
     }
   },

@@ -10,6 +10,7 @@ export const TEAMS = [
   { id: 'green' as const, color: '#2E7D32', bgClass: 'from-green-50 to-green-100', tailwind: 'bg-green-100 text-green-800' },
   { id: 'blue' as const, color: '#1565C0', bgClass: 'from-blue-50 to-blue-100', tailwind: 'bg-blue-100 text-blue-800' },
   { id: 'red' as const, color: '#C62828', bgClass: 'from-red-50 to-red-100', tailwind: 'bg-red-100 text-red-800' },
+  { id: 'ilca' as const, color: '#546E7A', bgClass: 'from-gray-50 to-gray-100', tailwind: 'bg-gray-100 text-gray-700' },
 ] as const;
 
 export const TEAM_COLORS: Record<string, string> = Object.fromEntries(
@@ -50,6 +51,7 @@ const DEFAULTS: Settings = {
   'WhatsApp Green Group': '',
   'WhatsApp Blue Group': '',
   'WhatsApp Red Group': '',
+  'WhatsApp ILCA Group': '',
   // ── Social (rows 12-14) ──
   'Facebook Page': '',
   'Instagram Skola': '',
@@ -61,6 +63,7 @@ const DEFAULTS: Settings = {
   'Green Team Age Range': '6-9',
   'Blue Team Age Range': '9-12',
   'Red Team Age Range': '12-15',
+  'ILCA Team Age Range': '16+',
   // ── Ads & sponsors (rows 20-25) ──
   'Ad Rotation Interval Seconds': '10',
   'Max Ads Per Page': '3',

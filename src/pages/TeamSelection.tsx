@@ -45,7 +45,7 @@ const TeamSelection = () => {
       </div>
 
       {/* Team cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto px-4 z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto px-4 z-10">
         {teams.map((team) => (
           <button
             key={team.id}
