@@ -297,7 +297,7 @@
   },
   "fleet": {
     "title": "Fleet Management",
-    "optimistBoats": "Optimist Boats",
+    "optimistBoats": "Boats",
     "ribs": "RIBs (Safety Boats)",
     "boatId": "Boat ID",
     "name": "Name",

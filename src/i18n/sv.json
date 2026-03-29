@@ -297,7 +297,7 @@
   },
   "fleet": {
     "title": "Flotthantering",
-    "optimistBoats": "Optimistjollar",
+    "optimistBoats": "Båtar",
     "ribs": "RIBs (Säkerhetsbåtar)",
     "boatId": "Båt-ID",
     "name": "Namn",
