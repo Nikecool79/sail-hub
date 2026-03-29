@@ -7,7 +7,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)](https://typescriptlang.org)
 [![Vite](https://img.shields.io/badge/Vite-5-646cff?logo=vite)](https://vitejs.dev)
 
-**[Use this template](https://github.com/Nikecool79/optisail-hub/generate)** · **[Copy Google Sheet template](https://docs.google.com/spreadsheets/d/1VSlo9ut8K6HOf-4lITYY9Bm6C3vIa6JQ/copy)** · **[Live demo](https://sail-hub-production.up.railway.app)**
+**[Use this template](https://github.com/Nikecool79/sail-hub/generate)** · **[Copy Google Sheet template](https://docs.google.com/spreadsheets/d/1VSlo9ut8K6HOf-4lITYY9Bm6C3vIa6JQ/copy)** · **[Live demo](https://sail-hub-production.up.railway.app)**
 
 ---
 
@@ -36,7 +36,7 @@ Built for **Kullaviks Segelsällskap (KKKK)** and open-sourced for the sailing c
 ## Quick Start
 
 ```sh
-git clone https://github.com/Nikecool79/optisail-hub.git
+git clone https://github.com/Nikecool79/sail-hub.git
 cd optisail-hub
 npm install
 cp .env.example .env          # fill in your Sheet ID and API key
@@ -504,7 +504,7 @@ Club config defaults: `src/config/clubConfig.ts`
 
 **Step-by-step for a new club:**
 
-1. Click **[Use this template](https://github.com/Nikecool79/optisail-hub/generate)** on GitHub to create your own copy of the repo
+1. Click **[Use this template](https://github.com/Nikecool79/sail-hub/generate)** on GitHub to create your own copy of the repo
 2. Click **[Copy Google Sheet template](https://docs.google.com/spreadsheets/d/1VSlo9ut8K6HOf-4lITYY9Bm6C3vIa6JQ/copy)** — opens a ready-to-fill Sheet in your Google account
 3. Share the Sheet: Share → Anyone with the link → **Viewer**
 4. Get a Google API key: [console.cloud.google.com](https://console.cloud.google.com) → Enable Sheets API → Create API key

@@ -4,10 +4,10 @@
   "description": "Open-source dashboard for youth sailing clubs — Google Sheets powered, bilingual (SV/EN), multi-team, multi-club.",
   "author": "Nicolas Finsterbusch",
   "license": "MIT",
-  "homepage": "https://github.com/Nikecool79/optisail-hub",
+  "homepage": "https://github.com/Nikecool79/sail-hub",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Nikecool79/optisail-hub.git"
+    "url": "https://github.com/Nikecool79/sail-hub.git"
   },
   "keywords": ["sailing", "youth-sailing", "dashboard", "react", "typescript", "google-sheets", "open-source"],
   "type": "module",
