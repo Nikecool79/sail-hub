@@ -7,6 +7,10 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)](https://typescriptlang.org)
 [![Vite](https://img.shields.io/badge/Vite-5-646cff?logo=vite)](https://vitejs.dev)
 
+**[Use this template](https://github.com/Nikecool79/optisail-hub/generate)** · **[Copy Google Sheet template](https://docs.google.com/spreadsheets/d/1VSlo9ut8K6HOf-4lITYY9Bm6C3vIa6JQ/copy)** · **[Live demo](https://sail-hub-production.up.railway.app)**
+
+---
+
 Sail Hub is a ready-to-deploy club dashboard that reads all its data from a Google Sheet. No backend required. Each club gets its own Sheet — swap the Sheet ID and you have a fully branded dashboard for a different club.
 
 Built for **Kullaviks Segelsällskap (KKKK)** and open-sourced for the sailing community.
@@ -494,9 +498,20 @@ Club config defaults: `src/config/clubConfig.ts`
 
 ---
 
-## Deploy
+## Deploy Your Own Club
 
-The app is a standard Vite SPA. Any static host works.
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template)
+
+**Step-by-step for a new club:**
+
+1. Click **[Use this template](https://github.com/Nikecool79/optisail-hub/generate)** on GitHub to create your own copy of the repo
+2. Click **[Copy Google Sheet template](https://docs.google.com/spreadsheets/d/1VSlo9ut8K6HOf-4lITYY9Bm6C3vIa6JQ/copy)** — opens a ready-to-fill Sheet in your Google account
+3. Share the Sheet: Share → Anyone with the link → **Viewer**
+4. Get a Google API key: [console.cloud.google.com](https://console.cloud.google.com) → Enable Sheets API → Create API key
+5. Deploy to Railway: New project → Deploy from GitHub → add the 2 env vars → done
+6. Fill in the **Settings** tab in your Sheet with your club's name, coordinates, social links, etc.
+
+The whole setup takes about 30 minutes. The dashboard updates live as you edit the Sheet.
 
 **Railway (recommended):**
 1. Fork this repo
