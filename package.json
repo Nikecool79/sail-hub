@@ -1,7 +1,15 @@
 {
-  "name": "vite_react_shadcn_ts",
-  "private": true,
-  "version": "0.0.0",
+  "name": "sail-hub",
+  "version": "1.0.0",
+  "description": "Open-source dashboard for youth sailing clubs — Google Sheets powered, bilingual (SV/EN), multi-team, multi-club.",
+  "author": "Nicolas Finsterbusch",
+  "license": "MIT",
+  "homepage": "https://github.com/Nikecool79/optisail-hub",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nikecool79/optisail-hub.git"
+  },
+  "keywords": ["sailing", "youth-sailing", "dashboard", "react", "typescript", "google-sheets", "open-source"],
   "type": "module",
   "scripts": {
     "dev": "vite",
