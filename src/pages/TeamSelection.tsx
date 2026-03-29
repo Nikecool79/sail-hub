@@ -41,7 +41,7 @@ const TeamSelection = () => {
         <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-2">
           {getClubName(settings, lang)}
         </h1>
-        <p className="text-lg text-muted-foreground font-body">OptiSail — {t('teamSelection.subtitle')}</p>
+        <p className="text-lg text-muted-foreground font-body">Sail — {t('teamSelection.subtitle')}</p>
       </div>
 
       {/* Team cards */}

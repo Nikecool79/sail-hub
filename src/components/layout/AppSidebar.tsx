@@ -69,7 +69,7 @@ const AppSidebar = () => {
     <nav className="flex flex-col h-full">
       <div className="flex items-center gap-2 px-4 py-4 border-b border-sidebar-border">
         <OptimistBoat size={24} color="hsl(var(--sidebar-primary))" />
-        <span className="font-heading font-semibold text-sidebar-foreground">OptiSail</span>
+        <span className="font-heading font-semibold text-sidebar-foreground">Sail</span>
       </div>
 
       <div className="flex-1 overflow-y-auto py-2 space-y-0.5 px-2">
