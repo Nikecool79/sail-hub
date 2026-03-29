@@ -4,9 +4,10 @@ import { useLocalizedField } from '@/hooks/useLocalizedField';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Sailboat, Anchor, Wrench, AlertTriangle, CheckCircle2, XCircle, Lock } from 'lucide-react';
+import { Sailboat, Anchor, Wrench, AlertTriangle, CheckCircle2, XCircle, Lock, CalendarDays } from 'lucide-react';
 import { useThemeStore } from '@/store/useThemeStore';
 import { useMemo } from 'react';
+import { useRibBooking, BOOKING_STYLE } from '@/hooks/useRibBooking';
 
 function getDateStatus(dateStr: string): 'green' | 'yellow' | 'red' | 'none' {
   if (!dateStr) return 'none';
@@ -55,11 +56,14 @@ function formatDate(dateStr: string): string {
   return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
+const RIB_BOOKING_SHEET_ID = import.meta.env.VITE_RIB_BOOKING_SHEET_ID || '';
+
 const FleetPage = () => {
   const { t } = useTranslation();
   const { localize } = useLocalizedField();
   const data = useDataStore(s => s.data);
   const { team } = useThemeStore();
+  const { data: ribBooking, isLoading: ribBookingLoading } = useRibBooking(RIB_BOOKING_SHEET_ID);
 
   const boats = useMemo(() => {
     if (!data) return [];
@@ -104,6 +108,11 @@ const FleetPage = () => {
           <TabsTrigger value="ribs" className="gap-2">
             <Anchor size={16} /> {t('fleet.ribs')}
           </TabsTrigger>
+          {RIB_BOOKING_SHEET_ID && (
+            <TabsTrigger value="booking" className="gap-2">
+              <CalendarDays size={16} /> {t('fleet.ribBooking')}
+            </TabsTrigger>
+          )}
         </TabsList>
 
         {/* === BOATS TAB === */}
@@ -265,6 +274,70 @@ const FleetPage = () => {
             </div>
           )}
         </TabsContent>
+        {/* === RIB BOOKING TAB === */}
+        {RIB_BOOKING_SHEET_ID && (
+          <TabsContent value="booking" className="mt-4">
+            {ribBookingLoading ? (
+              <LoadingSpinner />
+            ) : !ribBooking || ribBooking.days.length === 0 ? (
+              <div className="rounded-xl bg-card border p-8 text-center text-muted-foreground">
+                <CalendarDays size={40} className="mx-auto mb-3 opacity-40" />
+                <p>{t('fleet.noBookings')}</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {/* Legend */}
+                <div className="flex flex-wrap gap-2 text-xs">
+                  {Object.entries(BOOKING_STYLE).map(([key, style]) => (
+                    <span key={key} className={`px-2 py-0.5 rounded border font-medium ${style.cell}`}>
+                      {style.label}
+                    </span>
+                  ))}
+                </div>
+                {/* Grid */}
+                <div className="rounded-xl bg-card border overflow-hidden overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead className="bg-secondary">
+                      <tr>
+                        <th className="text-left p-2 font-medium whitespace-nowrap">{t('fleet.date')}</th>
+                        <th className="text-left p-2 font-medium">{t('fleet.day')}</th>
+                        {ribBooking.ribNames.map(name => (
+                          <th key={name} className="text-center p-2 font-medium min-w-[72px]">RIB {name}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {ribBooking.days.slice(0, 60).map(day => (
+                        <tr key={day.date} className="border-t">
+                          <td className="p-2 font-mono whitespace-nowrap">
+                            {day.date}
+                            {day.regatta && <span className="ml-1 text-primary font-medium">★</span>}
+                          </td>
+                          <td className="p-2 capitalize text-muted-foreground">{day.dayName}</td>
+                          {ribBooking.ribNames.map(name => {
+                            const val = day.bookings[name] || '';
+                            const style = BOOKING_STYLE[val];
+                            return (
+                              <td key={name} className="p-1 text-center">
+                                {val ? (
+                                  <span className={`inline-block px-1.5 py-0.5 rounded border font-medium ${style?.cell || 'bg-muted text-muted-foreground border-border'}`}>
+                                    {style?.label || val}
+                                  </span>
+                                ) : (
+                                  <span className="text-muted-foreground/30">—</span>
+                                )}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   );

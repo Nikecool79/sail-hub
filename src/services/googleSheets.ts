@@ -67,3 +67,23 @@ export async function fetchAllSheetData(): Promise<Record<SheetTab, string[][]>>
 export function clearCache(): void {
   cache.clear();
 }
+
+/**
+ * Fetch a single tab from ANY Google Sheet (uses the same API key).
+ * Cache key is sheetId + tab name — independent of the main club sheet cache.
+ */
+export async function fetchExternalTab(sheetId: string, tab: string): Promise<string[][]> {
+  const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
+  const cacheKey = `${sheetId}::${tab}`;
+  const cached = cache.get(cacheKey);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) return cached.data;
+
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(tab)}?key=${apiKey}`;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Failed to fetch "${tab}" from ${sheetId}: ${response.status}`);
+
+  const json = await response.json();
+  const rows: string[][] = json.values || [];
+  cache.set(cacheKey, { data: rows, timestamp: Date.now() });
+  return rows;
+}

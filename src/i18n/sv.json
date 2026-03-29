@@ -127,11 +127,20 @@
   },
   "coaches": {
     "title": "Tränare & Lag",
+    "tab": "Tränare",
     "eventAssignments": "Evenemangsuppdrag",
+    "coach": "Tränare",
     "role": "Roll",
     "rigs": "Riggar",
     "boats": "Båtar",
-    "notes": "Anteckningar"
+    "notes": "Anteckningar",
+    "noAssignments": "Inga uppdrag för detta evenemang",
+    "timeLog": "Tidlogg",
+    "noTimeEntries": "Inga tidposter ännu",
+    "date": "Datum",
+    "team": "Lag",
+    "activity": "Aktivitet",
+    "hours": "Timmar"
   },
   "contacts": {
     "title": "Klubbkontakter",
@@ -328,7 +337,11 @@
     "generalCheck": "Allmän Kontroll",
     "notes": "Anteckningar",
     "noBoats": "Inga båtar registrerade ännu",
-    "noRibs": "Inga RIBs registrerade ännu"
+    "noRibs": "Inga RIBs registrerade ännu",
+    "ribBooking": "RIB-bokning",
+    "noBookings": "Inga kommande bokningar hittades",
+    "date": "Datum",
+    "day": "Dag"
   },
   "weatherCodes": {
     "0": "Klart",

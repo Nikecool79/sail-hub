@@ -127,11 +127,20 @@
   },
   "coaches": {
     "title": "Coaches & Team",
+    "tab": "Coaches",
     "eventAssignments": "Event Assignments",
+    "coach": "Coach",
     "role": "Role",
     "rigs": "Rigs",
     "boats": "Boats",
-    "notes": "Notes"
+    "notes": "Notes",
+    "noAssignments": "No assignments for this event",
+    "timeLog": "Time Log",
+    "noTimeEntries": "No time entries yet",
+    "date": "Date",
+    "team": "Team",
+    "activity": "Activity",
+    "hours": "Hours"
   },
   "contacts": {
     "title": "Club Contacts",
@@ -328,7 +337,11 @@
     "generalCheck": "General Check",
     "notes": "Notes",
     "noBoats": "No boats registered yet",
-    "noRibs": "No RIBs registered yet"
+    "noRibs": "No RIBs registered yet",
+    "ribBooking": "RIB Booking",
+    "noBookings": "No upcoming bookings found",
+    "date": "Date",
+    "day": "Day"
   },
   "weatherCodes": {
     "0": "Clear sky",
