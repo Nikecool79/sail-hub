@@ -2,7 +2,7 @@ import { useDataStore } from '@/store/dataStore';
 import { useThemeStore } from '@/store/useThemeStore';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedField } from '@/hooks/useLocalizedField';
-import { MapPin, Navigation, Clock, Car, ExternalLink, Calendar, Users, Globe, Trophy } from 'lucide-react';
+import { MapPin, Navigation, Clock, Car, ExternalLink, Calendar, Users, Globe, Trophy, Info } from 'lucide-react';
 import React, { useState, useMemo, useEffect, useRef, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -478,6 +478,15 @@ const EventsAndMaps = () => {
                       <div>
                         <p className="font-medium">{t('events.facilities')}</p>
                         <p className="text-muted-foreground">{localize(venue, 'facilities')}</p>
+                      </div>
+                    </div>
+                  )}
+                  {localize(venue, 'notes') && (
+                    <div className="flex items-start gap-2">
+                      <Info size={14} className="mt-0.5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium">{t('events.notes')}</p>
+                        <p className="text-muted-foreground">{localize(venue, 'notes')}</p>
                       </div>
                     </div>
                   )}

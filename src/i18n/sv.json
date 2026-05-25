@@ -84,6 +84,7 @@
     "address": "Adress",
     "parking": "Parkering",
     "facilities": "Anläggningar",
+    "notes": "Anteckningar",
     "arrivalTime": "Samling",
     "startTime": "Start",
     "endTime": "Sluttid",

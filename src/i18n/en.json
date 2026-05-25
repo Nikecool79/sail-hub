@@ -84,6 +84,7 @@
     "address": "Address",
     "parking": "Parking",
     "facilities": "Facilities",
+    "notes": "Notes",
     "arrivalTime": "Arrival Time",
     "startTime": "Start Time",
     "endTime": "End Time",
