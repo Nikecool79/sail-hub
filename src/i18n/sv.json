@@ -12,6 +12,7 @@
     "news": "Nyheter",
     "marketplace": "Köp & Sälj",
     "skills": "Färdighetsutveckling",
+    "rigCalculator": "Riggkalkylator",
     "safety": "Säkerhetschecklista",
     "subscribe": "Prenumerera",
     "sponsors": "Sponsorer",
@@ -189,6 +190,10 @@
       "red": "Röd Zon",
       "ilca": "ILCA"
     }
+  },
+  "rigCalculator": {
+    "title": "Riggkalkylator",
+    "subtitle": "Mastfall och riggning för Optimist, anpassat efter seglarens vikt och förhållanden."
   },
   "safety": {
     "title": "Säkerhetschecklista",

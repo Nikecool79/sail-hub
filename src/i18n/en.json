@@ -12,6 +12,7 @@
     "news": "News",
     "marketplace": "Marketplace",
     "skills": "Skill Progression",
+    "rigCalculator": "Rig Calculator",
     "safety": "Safety Checklist",
     "subscribe": "Subscribe",
     "sponsors": "Sponsors",
@@ -189,6 +190,10 @@
       "red": "Red Zone",
       "ilca": "ILCA"
     }
+  },
+  "rigCalculator": {
+    "title": "Rig Calculator",
+    "subtitle": "Optimist mast rake and setup guide, tuned to sailor weight and conditions."
   },
   "safety": {
     "title": "Safety Checklist",

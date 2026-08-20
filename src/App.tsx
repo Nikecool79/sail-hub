@@ -24,6 +24,7 @@ const ClubContacts = React.lazy(() => import("@/pages/ClubContacts"));
 const NewsPage = React.lazy(() => import("@/pages/NewsPage"));
 const Marketplace = React.lazy(() => import("@/pages/Marketplace"));
 const SkillProgression = React.lazy(() => import("@/pages/SkillProgression"));
+const RigCalculator = React.lazy(() => import("@/pages/RigCalculator"));
 const SafetyChecklist = React.lazy(() => import("@/pages/SafetyChecklist"));
 const Subscribe = React.lazy(() => import("@/pages/Subscribe"));
 const SponsorsPage = React.lazy(() => import("@/pages/SponsorsPage"));
@@ -63,6 +64,7 @@ const AppInner = () => {
             <Route path="/news" element={<NewsPage />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/skills" element={<SkillProgression />} />
+            <Route path="/rig-calculator" element={<RigCalculator />} />
             <Route path="/safety" element={<SafetyChecklist />} />
             <Route path="/subscribe" element={<Subscribe />} />
             <Route path="/sponsors" element={<SponsorsPage />} />

@@ -3,7 +3,7 @@ import { NavLink } from '@/components/NavLink';
 import { useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, CalendarDays, MapPin, CloudSun, Video, Users, Phone,
-  Newspaper, ShoppingBag, TrendingUp, ShieldCheck, Bell, Heart, Menu, X, Anchor, Coffee, Wrench
+  Newspaper, ShoppingBag, TrendingUp, ShieldCheck, Bell, Heart, Menu, X, Anchor, Coffee, Wrench, Sliders
 } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import OptimistBoat from '@/components/OptimistBoat';
@@ -15,7 +15,7 @@ import { useLocalizedField } from '@/hooks/useLocalizedField';
 
 const iconMap: Record<string, React.ElementType> = {
   LayoutDashboard, CalendarDays, MapPin, CloudSun, Video, Users, Phone,
-  Newspaper, ShoppingBag, TrendingUp, ShieldCheck, Bell, Heart, Anchor, Coffee, Wrench,
+  Newspaper, ShoppingBag, TrendingUp, ShieldCheck, Bell, Heart, Anchor, Coffee, Wrench, Sliders,
 };
 
 const navI18nKeys: Record<string, string> = {
@@ -31,6 +31,7 @@ const navI18nKeys: Record<string, string> = {
   '/news': 'nav.news',
   '/marketplace': 'nav.marketplace',
   '/skills': 'nav.skills',
+  '/rig-calculator': 'nav.rigCalculator',
   '/safety': 'nav.safety',
   '/subscribe': 'nav.subscribe',
   '/sponsors': 'nav.sponsors',
@@ -73,7 +74,7 @@ const AppSidebar = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto py-2 space-y-0.5 px-2">
-        {navItems.map(item => {
+        {navItems.filter(item => !item.teams || !team || item.teams.includes(team)).map(item => {
           const Icon = iconMap[item.icon] || LayoutDashboard;
           const active = location.pathname === item.url;
           const label = navI18nKeys[item.url] ? t(navI18nKeys[item.url]) : item.title;

@@ -17,6 +17,7 @@ export const navItems = [
   { title: 'News', url: '/news', icon: 'Newspaper' },
   { title: 'Marketplace', url: '/marketplace', icon: 'ShoppingBag' },
   { title: 'Skill Progression', url: '/skills', icon: 'TrendingUp' },
+  { title: 'Rig Calculator', url: '/rig-calculator', icon: 'Sliders', teams: ['green', 'blue', 'red'] },
   { title: 'Safety Checklist', url: '/safety', icon: 'ShieldCheck' },
   { title: 'Subscribe', url: '/subscribe', icon: 'Bell' },
   { title: 'Club Services', url: '/services', icon: 'Wrench' },
