@@ -193,7 +193,104 @@
   },
   "rigCalculator": {
     "title": "Riggkalkylator",
-    "subtitle": "Mastfall och riggning för Optimist, anpassat efter seglarens vikt och förhållanden."
+    "subtitle": "Mastfall och riggning för Optimist, anpassat efter seglarens vikt och förhållanden.",
+    "conditions": {
+      "title": "Förhållanden",
+      "weight": "Seglarens vikt",
+      "wind": "Medelvind",
+      "gust": "Byar",
+      "gustHint": "Använd byvärdet från prognosen — byarna väger tyngre än medelvinden för en lätt seglare.",
+      "water": "Vatten",
+      "waterHint": "Vågor kräver kraft för att ta sig igenom — kalkylatorn reser masten något rakare."
+    },
+    "sea": {
+      "flat": "Lugnt",
+      "chop": "Krabbsjö",
+      "waves": "Vågor"
+    },
+    "forecast": {
+      "button": "Dagens prognos",
+      "buttonTitle": "Använd dagens prognos för {{location}}",
+      "prefilledNote": "Vind och byar är förifyllda från dagens prognos för {{location}} — justera fritt.",
+      "prefilledNoteFallback": "din klubb"
+    },
+    "result": {
+      "title": "Mastfall — masttopp till akterspegel",
+      "effective": "~{{value}} m/s effektiv vind",
+      "rangeText": "Arbetsintervall {{min}}–{{max}} cm. Börja här och justera 1 cm efter hur båten känns.",
+      "gustGapTitle": "Stor byskillnad.",
+      "gustGapText": "Byarna är {{gap}} m/s över medelvinden — inställningen ovan är anpassad för byarna. Vänta dig att kännas underriggad i vindluckorna; det är rätt avvägning vid den här vikten."
+    },
+    "bands": {
+      "light": "Lätt",
+      "lm": "Lätt–medel",
+      "med": "Medel",
+      "fresh": "Frisk",
+      "strong": "Hård"
+    },
+    "setup": {
+      "title": "Full riggning för dessa förhållanden",
+      "always": "ALLA FÖRHÅLLANDEN",
+      "names": {
+        "throatPeak": "Hals- och nockband",
+        "sprit": "Spri",
+        "luff": "Förlikssnören",
+        "outhaul": "Uthal",
+        "vang": "Kick",
+        "board": "Svärd",
+        "body": "Seglare"
+      },
+      "throatPeakText": "Alltid så hårt som möjligt, varje dag. De två viktigaste banden på båten."
+    },
+    "setups": {
+      "light": {
+        "sprit": "En antydan till diagonalveck kan finnas kvar, särskilt på undanvind — håll akterliket mjukt.",
+        "luff": "Något löst: cirka 5–10 mm glapp mellan segel och mast för en rundare, kraftfullare ingång.",
+        "outhaul": "Lättat — en handsbredd djup mellan bom och segelfot.",
+        "vang": "Precis åtsträckt eller lite slak så att akterliket hålls öppet.",
+        "board": "Helt nere i bidevind.",
+        "body": "Vikten långt fram, vid mastbänken. Sitt still — varje rörelse skakar ur vind ur seglet."
+      },
+      "lm": {
+        "sprit": "Sträck tills veck mellan hals och skot precis försvinner.",
+        "luff": "Måttligt — seglet nära masten men inte fastspänt.",
+        "outhaul": "Måttligt djup i foten.",
+        "vang": "Åtsträckt när den är intrimmad för bidevind.",
+        "board": "Helt nere i bidevind.",
+        "body": "Vikten börjar flytta akterut och utåt när trycket ökar."
+      },
+      "med": {
+        "sprit": "Veck precis borttaget. Om det byar, lätta 1 cm så toppen kan andas.",
+        "luff": "Åtsträckt — seglet sitter nära masten för en plattare ingång.",
+        "outhaul": "Fast och blir plattare.",
+        "vang": "Fast. Ställ in intrimmad för bidevind innan starten.",
+        "board": "Helt nere i bidevind; halvvägs på slör.",
+        "body": "Hänger. I byar: lätta skotet först, häng, styr upp något — i den ordningen."
+      },
+      "fresh": {
+        "sprit": "Lätta 1–2 cm från \"veck precis borta\" i bidevind så akterliket vrider sig öppet och släpper ur byarna. Sträck tillbaka lite på undanvind.",
+        "luff": "Hårt — seglet nästan mot masten.",
+        "outhaul": "Hårt, foten nästan platt längs bommen.",
+        "vang": "Fast — avgörande så att bommen inte lyfter när hon lättar i en by.",
+        "board": "Höjt 5–10 cm i bidevind för att minska risken att fastna; långt uppe på undanvind.",
+        "body": "Full häng, aktiv storskot. Lätta 20–30 cm i samma stund en by tar, trimma tillbaka när båten planar ut."
+      },
+      "strong": {
+        "sprit": "Märkbart lättat i bidevind — ett öppet, vridet akterlik är den bästa depoweringen som finns kvar.",
+        "luff": "Maximalt åtsträckt.",
+        "outhaul": "Maximalt hårt.",
+        "vang": "Fast — avgörande på undanvind för att förhindra girning.",
+        "board": "Upp 10 cm i bidevind; nästan helt uppe på undanvind.",
+        "body": "Överlevnadsläge är normalt och helt okej vid den här vikten. Platt båt, lättat skot, välj dina tillfällen. Att ta sig runt banan är vinsten."
+      }
+    },
+    "howTo": {
+      "title": "Så använder du talet",
+      "measuringLabel": "Mätning:",
+      "measuringText": "haka ett måttband över masttoppen och mät till akterspegelns övre bakkant, i centerlinjen. Värdena förutsätter ett standardskuret segel — din segelmakares guide kan avvika 1–2 cm, så se det som en utgångspunkt.",
+      "onWaterLabel": "Testet på vattnet vinner alltid:",
+      "onWaterText": "hänger platt och kränger ändå → mer mastfall 1 cm nästa gång. Båten känns död → res masten 1 cm rakare. Ändra en sak i taget så hon lär sig vad varje kontroll gör."
+    }
   },
   "safety": {
     "title": "Säkerhetschecklista",

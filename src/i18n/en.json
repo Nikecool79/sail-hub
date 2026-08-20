@@ -193,7 +193,104 @@
   },
   "rigCalculator": {
     "title": "Rig Calculator",
-    "subtitle": "Optimist mast rake and setup guide, tuned to sailor weight and conditions."
+    "subtitle": "Optimist mast rake and setup guide, tuned to sailor weight and conditions.",
+    "conditions": {
+      "title": "Conditions",
+      "weight": "Sailor weight",
+      "wind": "Average wind",
+      "gust": "Gusts",
+      "gustHint": "Use the gust figure from the forecast — gusts count more than the average for a light sailor.",
+      "water": "Water",
+      "waterHint": "Waves need power to punch through — the calculator stands the mast up slightly."
+    },
+    "sea": {
+      "flat": "Flat",
+      "chop": "Chop",
+      "waves": "Waves"
+    },
+    "forecast": {
+      "button": "Today's forecast",
+      "buttonTitle": "Use today's forecast for {{location}}",
+      "prefilledNote": "Wind and gusts prefilled from today's forecast for {{location}} — adjust freely.",
+      "prefilledNoteFallback": "your club"
+    },
+    "result": {
+      "title": "Mast rake — tip to transom",
+      "effective": "~{{value}} m/s effective",
+      "rangeText": "Working range {{min}}–{{max}} cm. Start here, adjust 1 cm from how the boat feels.",
+      "gustGapTitle": "Big gust gap.",
+      "gustGapText": "Gusts are {{gap}} m/s over the average — the setting above is biased toward the gusts. Expect to feel underpowered in the lulls; that is the right trade at this weight."
+    },
+    "bands": {
+      "light": "Light",
+      "lm": "Light–medium",
+      "med": "Medium",
+      "fresh": "Fresh",
+      "strong": "Strong"
+    },
+    "setup": {
+      "title": "Full setup for these conditions",
+      "always": "ALL CONDITIONS",
+      "names": {
+        "throatPeak": "Throat & peak ties",
+        "sprit": "Sprit",
+        "luff": "Luff ties",
+        "outhaul": "Outhaul",
+        "vang": "Vang",
+        "board": "Daggerboard",
+        "body": "Sailor"
+      },
+      "throatPeakText": "Always as tight as possible, every day. The two most important ties on the boat."
+    },
+    "setups": {
+      "light": {
+        "sprit": "A hint of the diagonal crease may remain, especially downwind — keep the leech soft.",
+        "luff": "Slightly loose: about 5–10 mm gap between sail and mast for a rounder, more powerful entry.",
+        "outhaul": "Eased — a hand's width of depth between boom and foot of the sail.",
+        "vang": "Just snug or slightly slack so the leech stays open.",
+        "board": "Fully down upwind.",
+        "body": "Weight well forward, by the mast thwart. Sit still — every movement shakes wind out of the sail."
+      },
+      "lm": {
+        "sprit": "Tension until the throat-to-clew crease just disappears.",
+        "luff": "Moderate — sail close to the mast but not pinned.",
+        "outhaul": "Moderate depth in the foot.",
+        "vang": "Snug once sheeted in for upwind.",
+        "board": "Fully down upwind.",
+        "body": "Weight starting to move aft and out as pressure builds."
+      },
+      "med": {
+        "sprit": "Crease just removed. If gusty, ease 1 cm so the peak can breathe.",
+        "luff": "Snug — sail sitting close to the mast for a flatter entry.",
+        "outhaul": "Firm and getting flat.",
+        "vang": "Firm. Set it sheeted in for upwind before the start.",
+        "board": "Fully down upwind; halfway on reaches.",
+        "body": "Hiking. In gusts: ease the sheet first, hike, steer up slightly — in that order."
+      },
+      "fresh": {
+        "sprit": "Ease 1–2 cm from “crease just gone” upwind so the leech twists open and dumps the gusts. Re-tension a touch downwind.",
+        "luff": "Tight — sail almost touching the mast.",
+        "outhaul": "Tight, foot nearly flat along the boom.",
+        "vang": "Firm — essential so the boom doesn't sky when she eases in a gust.",
+        "board": "Raised 5–10 cm upwind to reduce trip force; well up downwind.",
+        "body": "Full hiking, active mainsheet. Ease 20–30 cm the moment a gust hits, trim back as the boat flattens."
+      },
+      "strong": {
+        "sprit": "Eased noticeably upwind — an open, twisted leech is the biggest depower left.",
+        "luff": "Maximum snug.",
+        "outhaul": "Maximum tight.",
+        "vang": "Firm — critical downwind to prevent a death roll.",
+        "board": "Up 10 cm upwind; most of the way up downwind.",
+        "body": "Survival mode is normal and fine at this weight. Flat boat, eased sheet, pick moments. Getting round the course is the win."
+      }
+    },
+    "howTo": {
+      "title": "How to use the number",
+      "measuringLabel": "Measuring:",
+      "measuringText": "hook a tape over the mast tip and measure to the top aft edge of the transom, on centerline. Figures assume a standard sail cut — your sailmaker's guide may sit 1–2 cm away, so treat this as a starting point.",
+      "onWaterLabel": "The on-water test always wins:",
+      "onWaterText": "hiking flat out and still heeling → rake 1 cm more next time. Boat feels dead → stand it up 1 cm. Change one thing at a time so she learns what each control does."
+    }
   },
   "safety": {
     "title": "Safety Checklist",

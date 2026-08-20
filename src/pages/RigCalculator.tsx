@@ -10,68 +10,26 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Gauge, Sliders, Waves, RefreshCw } from 'lucide-react';
 
 type SeaState = 'flat' | 'chop' | 'waves';
+type Band = 'light' | 'lm' | 'med' | 'fresh' | 'strong';
 
 const SEA_VALUES: Record<SeaState, number> = { flat: 0, chop: -0.5, waves: -1 };
 
-const BANDS = [
-  { max: 3, name: 'Light', cls: 'light' },
-  { max: 5, name: 'Light–medium', cls: 'lm' },
-  { max: 7, name: 'Medium', cls: 'med' },
-  { max: 9, name: 'Fresh', cls: 'fresh' },
-  { max: 99, name: 'Strong', cls: 'strong' },
-] as const;
-
-const SETUPS: Record<string, Record<string, string>> = {
-  light: {
-    sprit: 'A hint of the diagonal crease may remain, especially downwind — keep the leech soft.',
-    luff: 'Slightly loose: about 5–10 mm gap between sail and mast for a rounder, more powerful entry.',
-    outhaul: 'Eased — a hand’s width of depth between boom and foot of the sail.',
-    vang: 'Just snug or slightly slack so the leech stays open.',
-    board: 'Fully down upwind.',
-    body: 'Weight well forward, by the mast thwart. Sit still — every movement shakes wind out of the sail.',
-  },
-  lm: {
-    sprit: 'Tension until the throat-to-clew crease just disappears.',
-    luff: 'Moderate — sail close to the mast but not pinned.',
-    outhaul: 'Moderate depth in the foot.',
-    vang: 'Snug once sheeted in for upwind.',
-    board: 'Fully down upwind.',
-    body: 'Weight starting to move aft and out as pressure builds.',
-  },
-  med: {
-    sprit: 'Crease just removed. If gusty, ease 1 cm so the peak can breathe.',
-    luff: 'Snug — sail sitting close to the mast for a flatter entry.',
-    outhaul: 'Firm and getting flat.',
-    vang: 'Firm. Set it sheeted in for upwind before the start.',
-    board: 'Fully down upwind; halfway on reaches.',
-    body: 'Hiking. In gusts: ease the sheet first, hike, steer up slightly — in that order.',
-  },
-  fresh: {
-    sprit: 'Ease 1–2 cm from “crease just gone” upwind so the leech twists open and dumps the gusts. Re-tension a touch downwind.',
-    luff: 'Tight — sail almost touching the mast.',
-    outhaul: 'Tight, foot nearly flat along the boom.',
-    vang: 'Firm — essential so the boom doesn’t sky when she eases in a gust.',
-    board: 'Raised 5–10 cm upwind to reduce trip force; well up downwind.',
-    body: 'Full hiking, active mainsheet. Ease 20–30 cm the moment a gust hits, trim back as the boat flattens.',
-  },
-  strong: {
-    sprit: 'Eased noticeably upwind — an open, twisted leech is the biggest depower left.',
-    luff: 'Maximum snug.',
-    outhaul: 'Maximum tight.',
-    vang: 'Firm — critical downwind to prevent a death roll.',
-    board: 'Up 10 cm upwind; most of the way up downwind.',
-    body: 'Survival mode is normal and fine at this weight. Flat boat, eased sheet, pick moments. Getting round the course is the win.',
-  },
-};
+const BANDS: Array<{ max: number; cls: Band }> = [
+  { max: 3, cls: 'light' },
+  { max: 5, cls: 'lm' },
+  { max: 7, cls: 'med' },
+  { max: 9, cls: 'fresh' },
+  { max: 99, cls: 'strong' },
+];
 
 const SETTING_ORDER: Array<[string, string, boolean?]> = [
-  ['Throat & peak ties', 'Always as tight as possible, every day. The two most important ties on the boat.', true],
-  ['Sprit', 'sprit'],
-  ['Luff ties', 'luff'],
-  ['Outhaul', 'outhaul'],
-  ['Vang', 'vang'],
-  ['Daggerboard', 'board'],
-  ['Sailor', 'body'],
+  ['throatPeak', 'throatPeakText', true],
+  ['sprit', 'sprit'],
+  ['luff', 'luff'],
+  ['outhaul', 'outhaul'],
+  ['vang', 'vang'],
+  ['board', 'board'],
+  ['body', 'body'],
 ];
 
 const RigCalculator = () => {
@@ -105,7 +63,7 @@ const RigCalculator = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [forecast]);
 
-  const { rake, band, eff, angle, rangeTxt, gap, gustClamped } = useMemo(() => {
+  const { rake, band, eff, angle, rangeMin, rangeMax, gap, gustClamped } = useMemo(() => {
     const gustClamped = Math.max(gust, wind);
     const gustEff = wind + 0.6 * (gustClamped - wind);
     const weightAdj = (42 - weight) / 5;
@@ -117,15 +75,14 @@ const RigCalculator = () => {
 
     const band = BANDS.find((b) => eff < b.max) || BANDS[BANDS.length - 1];
     const angle = ((285 - rake) / 13) * 9;
-    const rangeTxt = `Working range ${Math.max(272, rakeRounded - 1)}–${Math.min(285, rakeRounded + 1)} cm. Start here, adjust 1 cm from how the boat feels.`;
+    const rangeMin = Math.max(272, rakeRounded - 1);
+    const rangeMax = Math.min(285, rakeRounded + 1);
     const gap = gustClamped - wind;
 
-    return { rake: rakeRounded, band, eff, angle, rangeTxt, gap, gustClamped };
+    return { rake: rakeRounded, band, eff, angle, rangeMin, rangeMax, gap, gustClamped };
   }, [weight, wind, gust, sea]);
 
   if (team === 'ilca') return <Navigate to="/dashboard" replace />;
-
-  const setup = SETUPS[band.cls];
 
   return (
     <div className="space-y-6 max-w-4xl">
@@ -144,28 +101,30 @@ const RigCalculator = () => {
         <div className="rounded-xl bg-card border p-5">
           <div className="flex items-center justify-between gap-2 mb-4">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              <Waves size={15} /> Conditions
+              <Waves size={15} /> {t('rigCalculator.conditions.title')}
             </div>
             {forecast && (
               <button
                 type="button"
                 onClick={applyForecast}
                 className="flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
-                title={`Use today's forecast for ${locationName}`}
+                title={t('rigCalculator.forecast.buttonTitle', { location: locationName }) as string}
               >
-                <RefreshCw size={12} /> Today's forecast
+                <RefreshCw size={12} /> {t('rigCalculator.forecast.button')}
               </button>
             )}
           </div>
           {prefilled && (
             <p className="text-xs text-muted-foreground -mt-2 mb-4">
-              Wind and gusts prefilled from today's forecast for {locationName || 'your club'} — adjust freely.
+              {t('rigCalculator.forecast.prefilledNote', {
+                location: locationName || t('rigCalculator.forecast.prefilledNoteFallback'),
+              })}
             </p>
           )}
 
           <div className="mb-5">
             <div className="flex justify-between items-baseline mb-2">
-              <label className="text-sm font-semibold">Sailor weight</label>
+              <label className="text-sm font-semibold">{t('rigCalculator.conditions.weight')}</label>
               <span className="text-sm font-bold text-primary bg-primary/10 rounded px-2 py-0.5 tabular-nums">{weight} kg</span>
             </div>
             <Slider min={25} max={55} step={1} value={[weight]} onValueChange={([v]) => setWeight(v)} />
@@ -173,7 +132,7 @@ const RigCalculator = () => {
 
           <div className="mb-5">
             <div className="flex justify-between items-baseline mb-2">
-              <label className="text-sm font-semibold">Average wind</label>
+              <label className="text-sm font-semibold">{t('rigCalculator.conditions.wind')}</label>
               <span className="text-sm font-bold text-primary bg-primary/10 rounded px-2 py-0.5 tabular-nums">{wind.toFixed(1)} m/s</span>
             </div>
             <Slider
@@ -190,40 +149,36 @@ const RigCalculator = () => {
 
           <div className="mb-5">
             <div className="flex justify-between items-baseline mb-2">
-              <label className="text-sm font-semibold">Gusts</label>
+              <label className="text-sm font-semibold">{t('rigCalculator.conditions.gust')}</label>
               <span className="text-sm font-bold text-primary bg-primary/10 rounded px-2 py-0.5 tabular-nums">{gustClamped.toFixed(1)} m/s</span>
             </div>
             <Slider min={0} max={16} step={0.5} value={[gustClamped]} onValueChange={([v]) => setGust(v)} />
-            <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
-              Use the gust figure from the forecast — gusts count more than the average for a light sailor.
-            </p>
+            <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">{t('rigCalculator.conditions.gustHint')}</p>
           </div>
 
           <div>
             <div className="mb-2">
-              <span className="text-sm font-semibold">Water</span>
+              <span className="text-sm font-semibold">{t('rigCalculator.conditions.water')}</span>
             </div>
             <ToggleGroup type="single" value={sea} onValueChange={(v) => v && setSea(v as SeaState)} className="justify-start gap-2">
               <ToggleGroupItem value="flat" className="flex-1 border rounded-md data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
-                Flat
+                {t('rigCalculator.sea.flat')}
               </ToggleGroupItem>
               <ToggleGroupItem value="chop" className="flex-1 border rounded-md data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
-                Chop
+                {t('rigCalculator.sea.chop')}
               </ToggleGroupItem>
               <ToggleGroupItem value="waves" className="flex-1 border rounded-md data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
-                Waves
+                {t('rigCalculator.sea.waves')}
               </ToggleGroupItem>
             </ToggleGroup>
-            <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
-              Waves need power to punch through — the calculator stands the mast up slightly.
-            </p>
+            <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">{t('rigCalculator.conditions.waterHint')}</p>
           </div>
         </div>
 
         {/* Result */}
         <div className="rounded-xl bg-card border p-5">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">
-            <Gauge size={15} /> Mast rake — tip to transom
+            <Gauge size={15} /> {t('rigCalculator.result.title')}
           </div>
           <div className="grid grid-cols-[1fr_auto] gap-4 items-center max-[520px]:grid-cols-1">
             <div>
@@ -232,10 +187,16 @@ const RigCalculator = () => {
                 <small className="text-base text-muted-foreground font-semibold ml-1">cm</small>
               </div>
               <div className="flex gap-1.5 flex-wrap mt-3">
-                <span className="text-xs font-bold rounded-md px-2 py-1 bg-green-100 text-green-700 border border-green-200">{band.name}</span>
-                <span className="text-xs font-bold rounded-md px-2 py-1 bg-primary/10 text-primary border border-primary/20">~{eff.toFixed(1)} m/s effective</span>
+                <span className="text-xs font-bold rounded-md px-2 py-1 bg-green-100 text-green-700 border border-green-200">
+                  {t('rigCalculator.bands.' + band.cls)}
+                </span>
+                <span className="text-xs font-bold rounded-md px-2 py-1 bg-primary/10 text-primary border border-primary/20">
+                  {t('rigCalculator.result.effective', { value: eff.toFixed(1) })}
+                </span>
               </div>
-              <p className="text-xs text-muted-foreground mt-3 leading-relaxed">{rangeTxt}</p>
+              <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
+                {t('rigCalculator.result.rangeText', { min: rangeMin, max: rangeMax })}
+              </p>
             </div>
             <svg width="140" height="124" viewBox="0 0 170 150" aria-hidden="true" className="mx-auto">
               <path d="M0 128 Q 20 122 40 128 T 80 128 T 120 128 T 160 128 L170 128 V150 H0 Z" fill="#3B82F6" opacity=".14" />
@@ -249,7 +210,8 @@ const RigCalculator = () => {
             </svg>
             {gap >= 3 && (
               <div className="col-span-full mt-1.5 bg-amber-50 border border-amber-200 border-l-[3px] border-l-amber-500 px-3.5 py-2.5 rounded-lg text-xs leading-relaxed text-amber-800">
-                <strong>Big gust gap.</strong> Gusts are {gap.toFixed(1)} m/s over the average — the setting above is biased toward the gusts. Expect to feel underpowered in the lulls; that is the right trade at this weight.
+                <strong>{t('rigCalculator.result.gustGapTitle')}</strong>{' '}
+                {t('rigCalculator.result.gustGapText', { gap: gap.toFixed(1) })}
               </div>
             )}
           </div>
@@ -258,20 +220,22 @@ const RigCalculator = () => {
         {/* Full setup */}
         <div className="rounded-xl bg-card border p-5 lg:col-span-2">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-            Full setup for these conditions
+            {t('rigCalculator.setup.title')}
           </div>
           <div>
-            {SETTING_ORDER.map(([name, keyOrText, always]) => (
-              <div key={name} className="grid grid-cols-[130px_1fr] max-[520px]:grid-cols-1 gap-3.5 py-3 border-b last:border-b-0 text-sm">
+            {SETTING_ORDER.map(([nameKey, keyOrText, always]) => (
+              <div key={nameKey} className="grid grid-cols-[130px_1fr] max-[520px]:grid-cols-1 gap-3.5 py-3 border-b last:border-b-0 text-sm">
                 <div>
-                  <div className="font-bold text-xs">{name}</div>
+                  <div className="font-bold text-xs">{t('rigCalculator.setup.names.' + nameKey)}</div>
                   {always && (
                     <span className="inline-block font-bold text-[10px] tracking-wide text-green-700 bg-green-100 border border-green-200 rounded px-1.5 py-0.5 mt-1">
-                      ALL CONDITIONS
+                      {t('rigCalculator.setup.always')}
                     </span>
                   )}
                 </div>
-                <div className="text-muted-foreground leading-relaxed">{always ? keyOrText : setup[keyOrText]}</div>
+                <div className="text-muted-foreground leading-relaxed">
+                  {always ? t('rigCalculator.setup.' + keyOrText) : t(`rigCalculator.setups.${band.cls}.${keyOrText}`)}
+                </div>
               </div>
             ))}
           </div>
@@ -280,13 +244,11 @@ const RigCalculator = () => {
         {/* How to use */}
         <div className="rounded-xl bg-card border p-5 lg:col-span-2">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-            How to use the number
+            {t('rigCalculator.howTo.title')}
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">Measuring:</strong> hook a tape over the mast tip and measure to the top aft edge of the transom, on centerline.
-            Figures assume a standard sail cut — your sailmaker’s guide may sit 1–2 cm away, so treat this as a starting point.{' '}
-            <strong className="text-foreground">The on-water test always wins:</strong> hiking flat out and still heeling → rake 1 cm more next time.
-            Boat feels dead → stand it up 1 cm. Change one thing at a time so she learns what each control does.
+            <strong className="text-foreground">{t('rigCalculator.howTo.measuringLabel')}</strong> {t('rigCalculator.howTo.measuringText')}{' '}
+            <strong className="text-foreground">{t('rigCalculator.howTo.onWaterLabel')}</strong> {t('rigCalculator.howTo.onWaterText')}
           </p>
         </div>
       </div>
