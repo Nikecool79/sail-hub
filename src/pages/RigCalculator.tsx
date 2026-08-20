@@ -89,7 +89,7 @@ const RigCalculator = () => {
       <div>
         <h1 className="font-heading text-2xl font-bold flex items-center gap-2">
           <Sliders size={22} className="text-primary" />
-          {t('rigCalculator.title', 'Rig Calculator')}
+          {t('rigCalculator.title', 'Rig & Sail Calculator')}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
           {t('rigCalculator.subtitle', 'Optimist mast rake and setup guide, tuned to sailor weight and conditions.')}

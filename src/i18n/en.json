@@ -192,7 +192,7 @@
     }
   },
   "rigCalculator": {
-    "title": "Rig Calculator",
+    "title": "Rig & Sail Calculator",
     "subtitle": "Optimist mast rake and setup guide, tuned to sailor weight and conditions.",
     "conditions": {
       "title": "Conditions",
